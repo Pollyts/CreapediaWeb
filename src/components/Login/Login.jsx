@@ -27,7 +27,6 @@ export default function Login({ setToken }) {
     );
     console.log(token);
     setToken(token)
-
   }
 
   return(

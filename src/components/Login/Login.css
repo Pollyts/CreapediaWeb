@@ -22,7 +22,8 @@
   }
   .form-row input[type="text"], .form-row input[type="password"], .form-row textarea {
     width: 100%;    
-    padding: 0px;  
+    margin-top: 10px;
+    padding: 0 20px;  
     line-height: 35px;
     outline: none;
     border: #79A6B1 3px solid;

@@ -1,0 +1,83 @@
+import React, {Component} from 'react';
+
+export default class UserForm extends React.Component {
+  constructor(props) {
+    super(props);
+    // var name = props.name;
+    // var nameIsValid = this.validateName(name);
+    // var age = props.age;
+    // var ageIsValid = this.validateAge(age);
+    // this.state = {name: name, age: age, nameValid: nameIsValid, ageValid: ageIsValid};
+    this.state = {login: "", password:""};
+
+    this.onLoginChange = this.onLoginChange.bind(this);
+    this.onPasswordChange = this.onPasswordChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+    // validateAge(age){
+    //     return age>=0;
+    // }
+    // validateName(name){
+    //     return name.length>2;
+    // }
+    onLoginChange(e) {
+        var val = e.target.value;
+        // var valid = this.validateAge(val);
+        this.setState({login: val});
+    }
+    onPasswordChange(e) {
+        var val = e.target.value;
+        console.log(val);
+        // var valid = this.validateName(val);
+        this.setState({password: val});
+    }
+
+    sendRequest(method,url,body=null)
+{
+    const headers={
+        'Content-Type':'application/json'
+    }
+    return fetch(url,{
+        method:method,
+        body: JSON.stringify(body),
+        headers: headers
+    }).then(response => {
+        return response.json()
+    })
+}
+
+  handleSubmit(e) {
+    e.preventDefault();
+    console.log(this.state.name + this.state.password);
+    // this.sendRequest('POST', process.env.REACT_APP_API, this.state.name, this.state.password)
+  }
+
+    // handleSubmit(e) {
+    //     e.preventDefault();
+    //     if(this.state.nameValid ===true && this.state.ageValid===true){
+    //         alert("Имя: " + this.state.name + " Возраст: " + this.state.age);
+    //     }
+    // }
+
+    render() {
+        // цвет границы для поля для ввода имени
+        // var nameColor = this.state.nameValid===true?"green":"red";
+        // цвет границы для поля для ввода возраста
+        // var ageColor = this.state.ageValid===true?"green":"red";
+        return (
+            <form onSubmit={this.handleSubmit}>
+                <p>
+                    <label>Логин или почта:</label><br />
+                    <input type="text" value={this.state.login} 
+                        onChange={this.onLoginChange} />
+                </p>
+                <p>
+                    <label>Пароль:</label><br />
+                    <input type="text" value={this.state.password} 
+                        onChange={this.onPasswordChange}/>
+                </p>
+                <input type="submit" value="Отправить" />
+            </form>
+        );
+    }
+}

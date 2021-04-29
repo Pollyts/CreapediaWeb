@@ -1,10 +1,19 @@
+@font-face {
+  font-family: Trajan; /* Гарнитура шрифта */
+  src: url('/src/fonts/ofont.ru_Trajan.ttf'); /* Путь к файлу со шрифтом */
+ }
+* {
+  box-sizing: border-box;
+}
+
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  margin: 10px;
+  overflow: hidden;
+  font-family: 'Trajan';
+  background-color:  #EDD5C4;
+  scroll-behavior: inherit;
+  background-image: url('/src/img/logo4x.png');
+  background-repeat: no-repeat;
 }
 
 code {

@@ -1,5 +1,48 @@
-.login-wrapper {
+  *{
+    font-family: 'Trajan';
+    font-size: 20px;
+    margin: 0;
+  }
+  .header {
+    font-size: 72px; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #427696;
+  }
+  .login-wrapper {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: center;   
+    margin: 50px auto 0;
 }
+  .form-row {
+    text-align: center;
+    padding: 10px;
+  }
+  .form-row input[type="text"], .form-row input[type="password"], .form-row textarea {
+    width: 100%;    
+    padding: 0px;  
+    line-height: 35px;
+    outline: none;
+    border: #79A6B1 3px solid;
+    border-radius: 50px;
+  }
+  
+  .form-row button[type="submit"] {
+    padding: 10px 20px;
+    margin-top: 10px;
+    background: #427696;
+    border-radius: 50px;
+    border-width: 0;
+    cursor: pointer;
+    outline: none;
+    color: #fffdee;
+    text-transform: uppercase;
+    transition: 1s cubic-bezier(.165, .84, .44, 1);
+  }
+  .form-row button[type=submit]:hover {
+    background: #79A6B1;
+  }
+
+

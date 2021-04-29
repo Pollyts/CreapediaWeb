@@ -32,19 +32,19 @@ export default function Login({ setToken }) {
 
   return(
     <div>
-      <h1>Please Log In</h1>
-      <form onSubmit={handleSubmit}>
-        <label>
-          <p>Username</p>
-          <input type="text" onChange={e => {setUserName(e.target.value); console.log(e.target.value)}} />
+      <div className='header'>Creapedia</div>
+      <form className='login-wrapper' onSubmit={handleSubmit}>
+        <label className="form-row">
+          <p>Логин или почта</p>
+          <input type="text" onChange={e => setUserName(e.target.value)} />
         </label>
-        <label>
-          <p>Password</p>
+        <label className="form-row">
+          <p>Пароль</p>
           <input type="password" onChange={e => setPassword(e.target.value)} />
         </label>
-        <div>
-          <button type="submit">Submit</button>
-        </div>
+        <label className="form-row">
+          <button type="submit">ВХОД</button>
+        </label>
       </form>
     </div>
   )

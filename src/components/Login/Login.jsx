@@ -6,8 +6,8 @@ async function loginUser (login, password)
 {
   console.log(login);
   console.log(password);
-  console.log(process.env.REACT_APP_API);
-    return fetch(process.env.REACT_APP_API+`?mail=${login}&pass=${password}`,{
+  console.log(process.env.REACT_APP_API_USERS);
+    return fetch(process.env.REACT_APP_API_USERS+`?mail=${login}&pass=${password}`,{
         method:'GET',
         headers: {
           'Content-Type':'application/json'

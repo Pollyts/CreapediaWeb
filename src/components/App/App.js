@@ -16,17 +16,19 @@ function App() {
 
   return (
     <div>
-      <h1>Application</h1>
+      <MainPage userinfo={token}/>
+      {/* <h1>Application</h1>
       <BrowserRouter>
         <Switch>
           <Route path="/mainpage">
-            <MainPage />
+            
           </Route>
           <Route path="/preferences">
             <Preferences />
           </Route>
         </Switch>
-      </BrowserRouter>
+      </BrowserRouter> */}
+      
     </div>
   );
 }

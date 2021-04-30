@@ -24,8 +24,7 @@ export default class MainPage extends Component{
     render(){
         const {deps}=this.state;
         return(
-            <div>
-            
+            <div className='login-wrapper'>            
                         {deps.map(dep=>
                              <button key={dep.Id} > 
                              {dep.Name}

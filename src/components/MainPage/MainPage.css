@@ -1,3 +1,17 @@
-button{
-    display: inline-block;
+.login-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center; 
 }
+button{
+    margin: 10px 0px;
+    padding: 5px 10px;
+    background-color: #427696;
+    border-radius: 50px;
+    color: #EDD5C4;
+    border-color: transparent;
+    cursor: pointer;
+}
+button:hover {
+    background: #79A6B1;
+  }

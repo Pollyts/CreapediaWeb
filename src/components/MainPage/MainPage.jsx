@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {BrowserRouter as Router,Switch,Route,Link, Redirect, useParams} from "react-router-dom";
 import './MainPage.css';
-import TemplatePage from '../TemplatePage/TemplatePage'
 
 export default class MainPage extends Component{
     constructor(props){

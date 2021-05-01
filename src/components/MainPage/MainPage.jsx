@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { BrowserRouter, Route, Switch, Link } from 'react-router-dom';
 import './MainPage.css';
-import TemplatePage from '../TemplatePage'
+import TemplatePage from '../TemplatePage/TemplatePage'
 
 export default class MainPage extends Component{
     constructor(props){
@@ -26,14 +26,9 @@ export default class MainPage extends Component{
     render(){
         const {deps}=this.state;
         return(
-            <div className="login-wrapper">  
             <BrowserRouter>
-            <Switch>
-                <Route exact path="/templates" component={TemplatePage} />
-                {/* <Route path="/about" component={About} />
-                <Route component={NotFound} /> */}
-            </Switch>
-            </BrowserRouter>         
+            <div className="login-wrapper">  
+            
                         {deps.map(dep=>
                         <div key={dep.Id}>
                             <Link to="/templates">
@@ -42,7 +37,23 @@ export default class MainPage extends Component{
                               </button>
                               </Link>
                         </div>)}
+            
+            <Switch>
+                <Route exact path="/templates" component={TemplatePage} />
+            </Switch>
             </div>
+            </BrowserRouter>         
+            
         )
+    }
+}
+
+class Nav extends React.Component{
+    render(){
+        return <nav>
+                <Link to="/">Главная</Link>  
+                <Link to="/about">О сайте</Link>  
+                <Link to="/products">Товары</Link>
+              </nav>;
     }
 }

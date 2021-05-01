@@ -13,6 +13,7 @@ function App() {
     return <Login setToken={setToken} />
   }
   // const path=`/main/${token.Id}`;
+  
   return (
     <Router>
             <Switch>

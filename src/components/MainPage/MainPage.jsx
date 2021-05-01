@@ -1,12 +1,13 @@
 import React, {Component} from 'react';
-import {BrowserRouter as Router,Switch,Route,Link, Redirect, useParams} from "react-router-dom";
+import {Link} from "react-router-dom";
 import './MainPage.css';
+import getToken from '../getToken'
 
 export default class MainPage extends Component{
     constructor(props){
         super(props);
         console.log(props);
-        this.state={deps:[]}
+        this.state={deps:[]}        
     }
     
     GetMainFolders(userid){
@@ -19,7 +20,14 @@ export default class MainPage extends Component{
     }
 
     componentDidMount(){
+        if(getToken().Id==this.props.match.params.id)
+        {
         this.GetMainFolders(this.props.match.params.id);
+        }
+        else
+        {
+            this.props.history.push('/')
+        }
     }
 
     render(){

@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
+import { BrowserRouter, Route, Switch, Link } from 'react-router-dom';
 import './MainPage.css';
+import TemplatePage from '../TemplatePage'
 
 export default class MainPage extends Component{
     constructor(props){
@@ -24,11 +26,22 @@ export default class MainPage extends Component{
     render(){
         const {deps}=this.state;
         return(
-            <div className='login-wrapper'>            
+            <div className="login-wrapper">  
+            <BrowserRouter>
+            <Switch>
+                <Route exact path="/templates" component={TemplatePage} />
+                {/* <Route path="/about" component={About} />
+                <Route component={NotFound} /> */}
+            </Switch>
+            </BrowserRouter>         
                         {deps.map(dep=>
-                             <button key={dep.Id} > 
+                        <div key={dep.Id}>
+                            <Link to="/templates">
+                             <button > 
                              {dep.Name}
-                              </button>)}
+                              </button>
+                              </Link>
+                        </div>)}
             </div>
         )
     }

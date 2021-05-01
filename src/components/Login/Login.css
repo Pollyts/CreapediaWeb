@@ -1,7 +1,14 @@
-  *{
-    font-family: 'Trajan';
-    font-size: 20px;
-    margin: 0;
+   .body div{
+    padding: 10px;        
+    height: inherit;
+    box-sizing: border-box;
+  }
+  .pic{
+    background-image: url('/src/img/logo4x.png');
+    background-position: left;
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: inherit;
   }
   .header {
     font-size: 72px; 
@@ -10,7 +17,7 @@
     justify-content: center;
     color: #427696;
   }
-  .login-wrapper {
+  .login-wrapper form{
     display: flex;
     flex-direction: column;
     align-items: center;   
@@ -21,9 +28,9 @@
     padding: 10px;
   }
   .form-row input[type="text"], .form-row input[type="password"], .form-row textarea {
-    width: 100%;    
+    width: auto;    
     margin-top: 10px;
-    padding: 0 20px;  
+    padding: 0px 20px;  
     line-height: 35px;
     outline: none;
     border: #79A6B1 3px solid;

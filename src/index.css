@@ -2,18 +2,24 @@
   font-family: Trajan; /* Гарнитура шрифта */
   src: url('/src/fonts/ofont.ru_Trajan.ttf'); /* Путь к файлу со шрифтом */
  }
-* {
-  box-sizing: border-box;
-}
+
+ html{
+  height: 100%;
+  width: 100%;
+ }
 
 body {
-  margin: 10px;
-  overflow: hidden;
   font-family: 'Trajan';
+  width: inherit;
+  height: inherit;
   background-color:  #EDD5C4;
+  /* background-color:  #EDD5C4;
   scroll-behavior: inherit;
-  background-image: url('/src/img/logo4x.png');
-  background-repeat: no-repeat;
+  background-image: url('/src/img/logo2x.png');
+  background-repeat: no-repeat; */
+}
+#root{
+  height: 100%
 }
 
 code {

@@ -32,12 +32,19 @@ export default class MainPage extends Component{
 
     render(){
         const {deps}=this.state;
+        const breadCrumbs = [
+            {
+              title: 'Главная',
+              path: '/',
+            },
+          ];
+        console.log('in main page');
         return(
             <div className="login-wrapper">  
             
                         {deps.map(dep=>
                         <div key={dep.Id}>
-                            <Link to={{pathname: `/template/${dep.Id}/${dep.Name}`}}>
+                            <Link to={{pathname:`/template/${dep.Id}/${dep.Name}`, state: {breadCrumbs}}}>
                              <button > 
                              {dep.Name}
                               </button>

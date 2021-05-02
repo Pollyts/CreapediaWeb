@@ -6,6 +6,7 @@ import Login from '../Login/Login';
 import useToken from './useToken';
 
 function App() {
+  console.log('in page');
 
   const { token, setToken } = useToken();  
 
@@ -15,6 +16,7 @@ function App() {
   // const path=`/main/${token.Id}`;
   
   return (
+    
     <Router>
             <Switch>
             <Route path="/main/:id" component={MainPage}></Route>

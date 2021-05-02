@@ -7,16 +7,25 @@ export default class TemplatePage extends Component{
     constructor(props){
         super(props); 
         this.state={folders:[], elements:[],  breadCrumbs:[]};
-        console.log(this.props);
     }    
     
     GetFolders(parentid){
         const breadCrumbs = this.props.location.state.breadCrumbs; 
-        if(!breadCrumbs.some(elem => elem.path==`/template/${this.props.match.params.id}/${this.props.match.params.name}`))
+        // if(!breadCrumbs.some(elem => elem.path==`/template/${this.props.match.params.id}/${this.props.match.params.name}`))
+        const index = breadCrumbs.map(function(e) { return e.path; }).indexOf(`/template/${this.props.match.params.id}/${this.props.match.params.name}`);
+        // const index=breadCrumbs.indexOf(elem => elem.path==`/template/${this.props.match.params.id}/${this.props.match.params.name}`);
+        if(index==-1)
+        {
         breadCrumbs.push({
             title: this.props.match.params.name,
             path: `/template/${this.props.match.params.id}/${this.props.match.params.name}`
           });
+        }
+        else
+        {
+            breadCrumbs.length=index+1;
+        }
+        console.log(breadCrumbs);
         fetch(process.env.REACT_APP_API_TFOLDERS+`/${parentid}`) 
         .then(response=>{ return response.json()})
         .then(data=>{
@@ -45,7 +54,6 @@ export default class TemplatePage extends Component{
 
     render(){
         const {folders, elements,breadCrumbs}=this.state;
-        console.log(breadCrumbs);
         return(
             <div>
                 {breadCrumbs.map(bc=>

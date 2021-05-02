@@ -1,0 +1,28 @@
+.Toolbar{
+    display: flex;
+    justify-content:space-around;
+    align-items: stretch;
+    background-color: #427696;
+    height: 7vh;
+    width: 50vw;
+    padding: 2px;
+}
+
+img {
+    height: 100%;
+    padding: 0;
+    margin: 0;
+}
+.LayoutCenter{
+    display: flex;
+  justify-content: center;
+}
+
+button{
+    background-color: transparent;
+    border-color: transparent;
+    margin: 0;
+    padding: 0;
+    height: inherit;
+    cursor: pointer;
+}

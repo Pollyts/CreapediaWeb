@@ -69,7 +69,7 @@ export default class TemplatePage extends Component{
                         <div key={folder.Id}>
                             {/* <Link to={{pathname: `/template/${folder.Id}/${folder.Name}`}}> */}
                             <Link to={{pathname:`/template/${folder.Id}/${folder.Name}`, state: {breadCrumbs}}}>
-                             <button > 
+                             <button className='buttonfolder'> 
                              {folder.Name}
                               </button>
                               </Link>

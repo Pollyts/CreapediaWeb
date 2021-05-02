@@ -3,7 +3,7 @@
   src: url('/src/fonts/ofont.ru_Trajan.ttf'); /* Путь к файлу со шрифтом */
  }
 
- html{
+ html{   
   height: 100%;
   width: 100%;
  }
@@ -12,6 +12,7 @@ body {
   font-family: 'Trajan';
   width: inherit;
   height: inherit;
+  box-sizing: border-box;
   background-color:  #EDD5C4;
   /* background-color:  #EDD5C4;
   scroll-behavior: inherit;

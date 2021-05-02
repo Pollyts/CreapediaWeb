@@ -5,6 +5,7 @@ import TemplatePage from '../TemplatePage/TemplatePage';
 import Login from '../Login/Login';
 import useToken from './useToken';
 
+
 function App() {
   console.log('in page');
 
@@ -16,7 +17,6 @@ function App() {
   // const path=`/main/${token.Id}`;
   
   return (
-    
     <Router>
             <Switch>
             <Route path="/main/:id" component={MainPage}></Route>
@@ -26,7 +26,6 @@ function App() {
             <Redirect from="/" to={{pathname: `/main/${token.Id}`}}/>          
             </Switch>
             </Router>
-      // <MainPage userinfo={token}/>      
   );
 }
 

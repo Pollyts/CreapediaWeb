@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Link} from "react-router-dom";
 import './MainPage.css';
 import getToken from '../getToken'
+import Toolbar from '../Toolbar/Toolbar';
 
 export default class MainPage extends Component{
     constructor(props){
@@ -40,17 +41,21 @@ export default class MainPage extends Component{
           ];
         console.log('in main page');
         return(
+            <div>
+                <div className='header'>Creapedia</div>
+            <Toolbar typeof_parentel="mainpage"></Toolbar>
             <div className="login-wrapper">  
             
                         {deps.map(dep=>
                         <div key={dep.Id}>
                             <Link to={{pathname:`/template/${dep.Id}/${dep.Name}`, state: {breadCrumbs}}}>
-                             <button > 
+                             <button className='buttonfolder'> 
                              {dep.Name}
                               </button>
                               </Link>
                         </div>)}     
                         </div>  
+                        </div>
         )
     }
 }

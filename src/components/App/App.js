@@ -20,7 +20,7 @@ function App() {
             <Route path="/main/:id" component={MainPage}></Route>
             
             {/* <Route path="/template/:id" component={TemplatePage}></Route> */}
-            <Route path="/template/:id" component={TemplatePage}></Route>  
+            <Route path="/template/:id/:name" component={TemplatePage}></Route>  
             <Redirect from="/" to={{pathname: `/main/${token.Id}`}}/>          
             </Switch>
             </Router>

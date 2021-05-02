@@ -37,7 +37,7 @@ export default class MainPage extends Component{
             
                         {deps.map(dep=>
                         <div key={dep.Id}>
-                            <Link to={{pathname: `/template/${dep.Id}`}}>
+                            <Link to={{pathname: `/template/${dep.Id}/${dep.Name}`}}>
                              <button > 
                              {dep.Name}
                               </button>

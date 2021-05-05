@@ -56,13 +56,16 @@ export default class TemplatePage extends Component{
         const {folders, elements,breadCrumbs}=this.state;
         return(
             <div>
+                <div className="BreadCrumbs">
                 {breadCrumbs.map(bc=>
-                        <div key={bc.title}>
+                        <div key={bc.title}>                            
                             {/* <Link to={{pathname: `/template/${folder.Id}/${folder.Name}`}}> */}
-                            <Link to={{pathname:bc.path, state: {breadCrumbs}}}>
-                             {bc.title}
+                            <Link class="BreadCrumb" to={{pathname:bc.path, state: {breadCrumbs}}}>
+                             {bc.title} 
                               </Link>
+                              &gt;&gt;
                         </div>)}
+                        </div>
             <h1>{this.props.match.params.name}</h1>
             <div className="login-wrapper">              
                         {folders.map(folder=>

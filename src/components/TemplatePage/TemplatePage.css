@@ -1,11 +1,16 @@
 .element{
     background-color: green;;
 }
-h1{
+.header2{
+    margin: 10px 0px 0px 0px;
+    font-size: 60px;
     text-align: center;
     color: #427696;
 }
 .BreadCrumbs{
+    position: absolute;
+    top: 60px;
+    left: 30px;
     display: flex;
     width: 30vw;
     margin: 10px;

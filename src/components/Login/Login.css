@@ -3,13 +3,13 @@
     height: inherit;
     box-sizing: border-box;
   }
-  .pic{
+  /* .pic{
     background-image: url('/src/img/logo4x.png');
     background-position: left;
     background-repeat: no-repeat;
     background-size: contain;
     height: inherit;
-  }
+  } */
   .header {
     font-size: 72px; 
     display: flex;

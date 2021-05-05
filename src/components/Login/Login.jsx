@@ -31,7 +31,6 @@ export default function Login({ setToken }) {
 
   return(
     <div className="body">
-      <div className="pic">
       <div className='header'>Creapedia</div>
       <form className='login-wrapper' onSubmit={handleSubmit}>
         <label className="form-row">
@@ -47,7 +46,6 @@ export default function Login({ setToken }) {
         </label>
       </form>
       </div>
-    </div>
   )
 }
 

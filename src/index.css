@@ -14,10 +14,11 @@ body {
   height: inherit;
   box-sizing: border-box;
   background-color:  #EDD5C4;
-  /* background-color:  #EDD5C4;
-  scroll-behavior: inherit;
-  background-image: url('/src/img/logo2x.png');
-  background-repeat: no-repeat; */
+  background-image: url('/src/components/App/logo4x.png');
+  background-size: 70vh;
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-position: bottom 10px left 10px;
 }
 #root{
   height: 100%

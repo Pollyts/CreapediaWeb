@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {BrowserRouter as Router,Switch,Route,Link, Redirect, useParams} from "react-router-dom";
 import './TemplatePage.css';
 import getToken from '../getToken'
+import Toolbar from '../Toolbar/Toolbar';
 
 export default class TemplatePage extends Component{
     constructor(props){
@@ -56,6 +57,7 @@ export default class TemplatePage extends Component{
         const {folders, elements,breadCrumbs}=this.state;
         return(
             <div>
+                <div className='header2'>{this.props.match.params.name}</div>
                 <div className="BreadCrumbs">
                 {breadCrumbs.map(bc=>
                         <div key={bc.title} className="gt">                            
@@ -65,8 +67,8 @@ export default class TemplatePage extends Component{
                               </Link>
                               &gt;&gt;
                         </div>)}
-                        </div>
-            <h1>{this.props.match.params.name}</h1>
+                        </div>    
+                        <Toolbar typeof_parentel="mainpage"></Toolbar>        
             <div className="login-wrapper">              
                         {folders.map(folder=>
                         <div key={folder.Id}>

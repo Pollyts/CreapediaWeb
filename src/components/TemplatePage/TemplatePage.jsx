@@ -58,9 +58,9 @@ export default class TemplatePage extends Component{
             <div>
                 <div className="BreadCrumbs">
                 {breadCrumbs.map(bc=>
-                        <div key={bc.title}>                            
+                        <div key={bc.title} className="gt">                            
                             {/* <Link to={{pathname: `/template/${folder.Id}/${folder.Name}`}}> */}
-                            <Link class="BreadCrumb" to={{pathname:bc.path, state: {breadCrumbs}}}>
+                            <Link className="BreadCrumb" to={{pathname:bc.path, state: {breadCrumbs}}}>
                              {bc.title} 
                               </Link>
                               &gt;&gt;

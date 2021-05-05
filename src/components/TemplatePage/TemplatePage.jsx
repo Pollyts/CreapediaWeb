@@ -81,8 +81,8 @@ export default class TemplatePage extends Component{
                         </div>)} 
 
                         {elements.map(folder=>
-                        <div key={folder.Id} className="element">
-                            <Link to={{pathname: `/template/${folder.Id}`}}>
+                        <div key={folder.Id} >
+                            <Link to={{pathname: `/template/${folder.Id}`}} className="element">
                              {folder.Name}
                               </Link>
                         </div>)} 

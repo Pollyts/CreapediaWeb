@@ -1,26 +1,31 @@
 .Toolbar{
     display: flex;
-    justify-content:space-around;
-    align-items: stretch;
+    /* justify-content:space-around;
+    align-items: stretch; */
     background-color: #FFECDD;
     margin: 10px 0px 0px 0px;
-    height: 7vh;
-    width: 40vw;
+    height: 40px;
+    width: auto;
+    max-width: 60vw;
     padding: 2px;
     border-radius: 120px 0px 0px 120px;
+    overflow-x: auto;
+    overflow-y: hidden;
 }
 
 img {
     height: 100%;
-    padding: 0;
-    margin: 0;
+    width: inherit;
+    padding: 0px 10px;
+    margin: 0;   
+    
 }
-.LayoutCenter{
+.LayoutCenter{        
     display: flex;
     justify-content: flex-end;
 }
 
-button{
+button{   
     background-color: transparent;
     border-color: transparent;
     margin: 0;

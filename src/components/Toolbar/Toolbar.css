@@ -2,10 +2,12 @@
     display: flex;
     justify-content:space-around;
     align-items: stretch;
-    background-color: #427696;
+    background-color: #FFECDD;
+    margin: 10px 0px 0px 0px;
     height: 7vh;
-    width: 50vw;
+    width: 40vw;
     padding: 2px;
+    border-radius: 120px 0px 0px 120px;
 }
 
 img {
@@ -15,7 +17,7 @@ img {
 }
 .LayoutCenter{
     display: flex;
-  justify-content: center;
+    justify-content: flex-end;
 }
 
 button{

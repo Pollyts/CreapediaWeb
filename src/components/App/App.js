@@ -4,38 +4,31 @@ import MainPage from '../MainPage/MainPage';
 import TemplatePage from '../TemplatePage/TemplatePage';
 import Login from '../Login/Login';
 import useToken from './useToken';
-import logo from './logo4x.png';
 import './App.css';
 
 
 function App() {
-  console.log('in page');
+  const { token, setToken } = useToken();  //Получение данных из localstorage
 
-  const { token, setToken } = useToken();  
-
-  if(!token) {
+  if(!token) //при отсутствии данных в localstorage
+  {
     return (
       <div>
-{/* <img src={logo} className="bcgImage" /> */}
-<Login setToken={setToken} />
+          <Login setToken={setToken} />
       </div>
     )
-  }
-  // const path=`/main/${token.Id}`;
-  
+  }  
+  //при наличии данных в localstorage
   return (
     <div>
-      {/* <img src={logo} className="bcgImage" /> */}
     <Router>
             <Switch>
             <Route path="/main/:id" component={MainPage}></Route>
-            
-            {/* <Route path="/template/:id" component={TemplatePage}></Route> */}
             <Route path="/template/:id/:name" component={TemplatePage}></Route>  
             <Redirect from="/" to={{pathname: `/main/${token.Id}`}}/>          
             </Switch>
             </Router>
-            </div>
+    </div>
   );
 }
 

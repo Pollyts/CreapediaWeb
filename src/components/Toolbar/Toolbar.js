@@ -10,13 +10,13 @@ import searchimg from './Search.png';
 import settingsimg from './Settings.png';
 import './Toolbar.css';
 
-export default function Toolbar({typeof_parentel, parentid, userid}) {
+export default function Toolbar(props) {
 
     const [showAddElement, set_showAddElement] = useState(false)
     // const [showAddFolder, set_showAddFolder] = useState(false)
 
 
-    if(typeof_parentel==="template")
+    if(props.typeof_parentel==="template")
     {
         return(
             <div className="LayoutCenter">
@@ -34,13 +34,13 @@ export default function Toolbar({typeof_parentel, parentid, userid}) {
             </div>
           )
     }
-    if(typeof_parentel==="mainpage")
+    if(props.typeof_parentel==="mainpage")
     {
         return(
             <div className="LayoutCenter">
             <div className="Toolbar">
             <button onClick={() => set_showAddElement(true)}><img src={addimg} alt="toolbaritem"/></button>
-            <AddElement onClose={()=>set_showAddElement(false)} show={showAddElement}/>
+            <AddElement folder={props.parent} onClose={()=>set_showAddElement(false)} show={showAddElement}/>
             <button><img src={addfolder} alt="toolbaritem"/></button>
             <button><img src={deleteimg} alt="toolbaritem"/></button>
             <button><img src={editimg} alt="toolbaritem"/></button>
@@ -52,7 +52,7 @@ export default function Toolbar({typeof_parentel, parentid, userid}) {
             </div>
           )
     }
-    if(typeof_parentel==="element")
+    if(props.typeof_parentel==="element")
     {
         return(
             <div className="LayoutCenter">

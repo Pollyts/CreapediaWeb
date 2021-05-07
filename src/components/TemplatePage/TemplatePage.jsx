@@ -53,6 +53,7 @@ export default class TemplatePage extends Component{
   }
 
     render(){
+        console.log(this.props);
         const {folders, elements,breadCrumbs}=this.state;
         return(
             <div>
@@ -67,7 +68,7 @@ export default class TemplatePage extends Component{
                               &gt;&gt;
                         </div>)}
                         </div>    
-                        <Toolbar typeof_parentel="mainpage"></Toolbar>        
+                        <Toolbar typeof_parentel="mainpage" parent={this.props.match.params}></Toolbar>        
             <div className="login-wrapper">              
                         {folders.map(folder=>
                         <div key={folder.Id}>

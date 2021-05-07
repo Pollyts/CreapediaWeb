@@ -43,7 +43,7 @@ export default class MainPage extends Component{
         return(
             <div>
                 <div className='header'>Creapedia</div>
-            <Toolbar typeof_parentel="mainpage"></Toolbar>
+            <Toolbar typeof_parentel="mainpage" parent={'Null'}></Toolbar>
             <div className="login-wrapper">  
             
                         {deps.map(dep=>

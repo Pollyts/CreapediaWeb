@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
-import {BrowserRouter as Router,Switch,Route,Link, Redirect, useParams} from "react-router-dom";
+import {Link} from "react-router-dom";
 import './TemplatePage.css';
-import getToken from '../getToken'
 import Toolbar from '../Toolbar/Toolbar';
 
 export default class TemplatePage extends Component{
@@ -15,7 +14,7 @@ export default class TemplatePage extends Component{
         // if(!breadCrumbs.some(elem => elem.path==`/template/${this.props.match.params.id}/${this.props.match.params.name}`))
         const index = breadCrumbs.map(function(e) { return e.path; }).indexOf(`/template/${this.props.match.params.id}/${this.props.match.params.name}`);
         // const index=breadCrumbs.indexOf(elem => elem.path==`/template/${this.props.match.params.id}/${this.props.match.params.name}`);
-        if(index==-1)
+        if(index===-1)
         {
         breadCrumbs.push({
             title: this.props.match.params.name,

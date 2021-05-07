@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import addimg from './AddItem.png';
+import AddElement from '../ModalForms/AddElement';
 import addfolder from './AddFolder.png';
 import deleteimg from './Delete.png';
 import editimg from './Edit.png';
@@ -11,53 +12,60 @@ import './Toolbar.css';
 
 export default function Toolbar({typeof_parentel, parentid, userid}) {
 
-    if(typeof_parentel=="template")
+    const [showAddElement, set_showAddElement] = useState(false)
+    // const [showAddFolder, set_showAddFolder] = useState(false)
+
+
+    if(typeof_parentel==="template")
     {
         return(
             <div className="LayoutCenter">
             <div className="Toolbar">
-            <button><img src={addimg} /></button>
-            <button><img src={addfolder} /></button>
-            <button><img src={deleteimg} /></button>
-            <button><img src={editimg} /></button>
-            <button><img src={exportimg} /></button>
-            <button><img src={importimg} /></button>
-            <button><img src={searchimg} /></button>
-            <button><img src={settingsimg} /></button>
+            <button onClick={() => set_showAddElement(true)}><img src={addimg} alt="toolbaritem"/></button>
+            <AddElement show={showAddElement}/>
+            <button><img src={addfolder} alt="toolbaritem"/></button>
+            <button><img src={deleteimg} alt="toolbaritem"/></button>
+            <button><img src={editimg} alt="toolbaritem"/></button>
+            <button><img src={exportimg} alt="toolbaritem"/></button>
+            <button><img src={importimg} alt="toolbaritem"/></button>
+            <button><img src={searchimg} alt="toolbaritem"/></button>
+            <button><img src={settingsimg} alt="toolbaritem"/></button>
             </div>
             </div>
           )
     }
-    if(typeof_parentel=="mainpage")
+    if(typeof_parentel==="mainpage")
     {
         return(
             <div className="LayoutCenter">
             <div className="Toolbar">
-            <button><img src={addimg} /></button>
-            <button><img src={addfolder} /></button>
-            <button><img src={deleteimg} /></button>
-            <button><img src={editimg} /></button>
-            <button><img src={exportimg} /></button>
-            <button><img src={importimg} /></button>
-            <button><img src={searchimg} /></button>
-            <button><img src={settingsimg} /></button>
+            <button onClick={() => set_showAddElement(true)}><img src={addimg} alt="toolbaritem"/></button>
+            <AddElement onClose={()=>set_showAddElement(false)} show={showAddElement}/>
+            <button><img src={addfolder} alt="toolbaritem"/></button>
+            <button><img src={deleteimg} alt="toolbaritem"/></button>
+            <button><img src={editimg} alt="toolbaritem"/></button>
+            <button><img src={exportimg} alt="toolbaritem"/></button>
+            <button><img src={importimg} alt="toolbaritem"/></button>
+            <button><img src={searchimg} alt="toolbaritem"/></button>
+            <button><img src={settingsimg} alt="toolbaritem"/></button>
             </div>
             </div>
           )
     }
-    if(typeof_parentel=="element")
+    if(typeof_parentel==="element")
     {
         return(
             <div className="LayoutCenter">
             <div className="Toolbar">
-            <button><img src={addimg} /></button>
-            <button><img src={addfolder} /></button>
-            <button><img src={deleteimg} /></button>
-            <button><img src={editimg} /></button>
-            <button><img src={exportimg} /></button>
-            <button><img src={importimg} /></button>
-            <button><img src={searchimg} /></button>
-            <button><img src={settingsimg} /></button>
+            <button onClick={() => set_showAddElement(true)}><img src={addimg} alt="toolbaritem"/></button>
+            <AddElement onClose={()=>set_showAddElement(false)} show={showAddElement}/>
+            <button><img src={addfolder} alt="toolbaritem"/></button>
+            <button><img src={deleteimg} alt="toolbaritem"/></button>
+            <button><img src={editimg} alt="toolbaritem"/></button>
+            <button><img src={exportimg} alt="toolbaritem"/></button>
+            <button><img src={importimg} alt="toolbaritem"/></button>
+            <button><img src={searchimg} alt="toolbaritem"/></button>
+            <button><img src={settingsimg} alt="toolbaritem"/></button>
             </div>
             </div>
           )

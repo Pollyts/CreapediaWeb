@@ -21,7 +21,7 @@ export default class MainPage extends Component{
     }
 
     componentDidMount(){
-        if(getToken().Id==this.props.match.params.id)
+        if(Number(getToken().Id)===Number(this.props.match.params.id))
         {
         this.GetMainFolders(this.props.match.params.id);
         }

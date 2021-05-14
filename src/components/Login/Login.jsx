@@ -21,10 +21,14 @@ export default function Login({ setToken }) {
 
   const handleSubmit = async e => {
     e.preventDefault();
-    const token = await loginUser(
+    const user = await loginUser(
       username,
       password
     );
+    const token={
+      "Name": user.Name,
+      "Password": user.Password 
+    }
     console.log(token);
     setToken(token)
   }

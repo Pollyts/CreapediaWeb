@@ -8,15 +8,36 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    font-size: 20px;
+    color: #427696;
 }
-
+.button{
+    color: #427696;
+}
 .modal-content{
     width: 500px;
     background-color: #fff;
+    border: #79A6B1 7px solid;
+    border-radius: 25px;
+    height: auto;
 }
+
+.forminput {
+    border: #79A6B1 1px solid;
+    border-radius: 50px;
+  }
 
 .modal-header, .modal-footer{
     padding: 10px;
+
+}
+.modal-header{
+    text-align: center;
+}
+.modal-footer{
+    display: flex;
+    justify-content: space-around;
+
 }
 
 .modal-title{
@@ -24,7 +45,12 @@ margin: 0;
 }
 
 .modal-body{
-    padding: 10px;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
     border-top: 1px solid #eee;
     border-bottom: 1px solid #eee;
+}
+.formlabel{
+    padding-top: 20px;
 }

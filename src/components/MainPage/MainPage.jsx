@@ -21,14 +21,7 @@ export default class MainPage extends Component{
     }
 
     componentDidMount(){
-        if(Number(getToken().Id)===Number(this.props.match.params.id))
-        {
-        this.GetMainFolders(this.props.match.params.id);
-        }
-        else
-        {
-            this.props.history.push('/')
-        }
+        this.GetMainFolders(this.props.location.state.user.Id);
     }
 
     render(){

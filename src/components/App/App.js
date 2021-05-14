@@ -23,9 +23,9 @@ function App() {
     <div>
     <Router>
             <Switch>
-            <Route path="/main/:id" component={MainPage}></Route>
+            <Route path="/main" component={MainPage}></Route>
             <Route path="/template/:id/:name" component={TemplatePage}></Route>  
-            <Redirect from="/" to={{pathname: `/main/${token.Id}`}}/>          
+            <Redirect from="/" to={{pathname: `/main`, state: { user: token }}}/>          
             </Switch>
             </Router>
     </div>
@@ -33,4 +33,3 @@ function App() {
 }
 
 export default App;
-

@@ -8,18 +8,7 @@ export default class BreadCrumbs extends Component{
         this.onChange = this.onChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);        
     }   
-    onChange(e) {
-        var val = e.target.value;
-        this.setState({name: val});
-    }
-   
-    handleSubmit = async e => {
-        e.preventDefault();
-        await SaveFolder(6,this.state.name,this.props.folder.id );
-        alert("Имя: " + this.state.name);
-        this.props.onClose();
-      }
-
+    
     render(){
         if(!this.props.show)
         {

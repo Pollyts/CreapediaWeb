@@ -11,14 +11,17 @@ export default class TemplatePage extends Component{
     
     GetFolders(parentid){
         const breadCrumbs = this.props.location.state.breadCrumbs; 
-        // if(!breadCrumbs.some(elem => elem.path==`/template/${this.props.match.params.id}/${this.props.match.params.name}`))
-        const index = breadCrumbs.map(function(e) { return e.path; }).indexOf(`/template/${this.props.match.params.id}/${this.props.match.params.name}`);
+        const index = breadCrumbs.map(function(e) { return e.body.Id; }).indexOf(this.props.location.state.body.Id);
         // const index=breadCrumbs.indexOf(elem => elem.path==`/template/${this.props.match.params.id}/${this.props.match.params.name}`);
         if(index===-1)
         {
         breadCrumbs.push({
-            title: this.props.match.params.name,
-            path: `/template/${this.props.match.params.id}/${this.props.match.params.name}`
+            title: this.props.location.state.body.Name,
+            path: `/template`,
+            body:{
+                "Name":this.props.location.state.body.Name,
+                "Id":this.props.location.state.body.Id
+            }
           });
         }
         else
@@ -41,39 +44,39 @@ export default class TemplatePage extends Component{
     }
 
     componentDidMount(){
-        this.GetFolders(this.props.match.params.id);
-        this.GetElements(this.props.match.params.id);
+        this.GetFolders(this.props.location.state.body.Id);
+        this.GetElements(this.props.location.state.body.Id);
     }
     componentDidUpdate(prevProps){
-      if (prevProps.match.params.id !== this.props.match.params.id)
+      if (prevProps.location.state.body.Id !== this.props.location.state.body.Id)
       {
-      this.GetFolders(this.props.match.params.id);
-      this.GetElements(this.props.match.params.id);
+      this.GetFolders(this.props.location.state.body.Id);
+      this.GetElements(this.props.location.state.body.Id);
       }
   }
 
     render(){
         console.log(this.props);
-        const {folders, elements,breadCrumbs}=this.state;
+        const {folders, elements,breadCrumbs}=this.state;//сначала
         return(
             <div>
-                <div className='header2'>{this.props.match.params.name}</div>
+                <div className='header2'>{breadCrumbs[breadCrumbs.length-1]?.title}</div>
                 <div className="BreadCrumbs">
                 {breadCrumbs.map(bc=>
                         <div key={bc.title} className="gt">                            
                             {/* <Link to={{pathname: `/template/${folder.Id}/${folder.Name}`}}> */}
-                            <Link className="BreadCrumb" to={{pathname:bc.path, state: {breadCrumbs}}}>
+                            <Link className="BreadCrumb" to={{pathname:bc.path, state:{body:bc.body, breadCrumbs:breadCrumbs}}} >
                              {bc.title} 
                               </Link>
                               &gt;&gt;
                         </div>)}
                         </div>    
-                        <Toolbar typeof_parentel="mainpage" parent={this.props.match.params}></Toolbar>        
+                        <Toolbar typeof_parentel="mainpage" parent={this.props.location.state.body}></Toolbar>        
             <div className="login-wrapper">              
                         {folders.map(folder=>
                         <div key={folder.Id}>
                             {/* <Link to={{pathname: `/template/${folder.Id}/${folder.Name}`}}> */}
-                            <Link to={{pathname:`/template/${folder.Id}/${folder.Name}`, state: {breadCrumbs}}}>
+                            <Link to={{pathname:`/template`, state: {breadCrumbs:breadCrumbs, body:folder}}}>
                              <button className='buttonfolder'> 
                              {folder.Name}
                               </button>

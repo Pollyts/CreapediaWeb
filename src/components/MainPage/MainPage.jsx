@@ -32,7 +32,7 @@ export default class MainPage extends Component{
 }
 
     async componentDidMount(){
-        const user = await this.loginUser(this.props.location.state.token.Name,this.props.location.state.token.Password);
+        const user = await this.loginUser(this.props.location.state.body.Name,this.props.location.state.body.Password);
         if(user)
         {
             this.GetMainFolders(user);
@@ -49,21 +49,24 @@ export default class MainPage extends Component{
         const breadCrumbs = [
             {
               title: 'Главная',
-              path: '/',
+              path: '/',  
+              body: {
+                  "Name":this.state.user.Name,
+                  "Password":this.state.user.Password
+              }            
             },
           ];
-        console.log('in main page');
         return(
             <div>
                 <div className='header'>Creapedia</div>
             <Toolbar typeof_parentel="mainpage" parent={'Null'}></Toolbar>
             <div className="login-wrapper">  
             
-                        {folders.map(dep=>
-                        <div key={dep.Id}>
-                            <Link to={{pathname:`/template/${dep.Id}/${dep.Name}`, state: {breadCrumbs}}}>
+                        {folders.map(folder=>
+                        <div key={folder.Id}>
+                            <Link to={{pathname:`/template`, state: {breadCrumbs:breadCrumbs,body:folder}}}>
                              <button className='buttonfolder'> 
-                             {dep.Name}
+                             {folder.Name}
                               </button>
                               </Link>
                         </div>)}     

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import addimg from './AddItem.png';
 import AddElement from '../ModalForms/AddElement';
 import AddFolder from '../ModalForms/AddFolder';
+import DeleteComponent from '../ModalForms/DeleteComponent';
 import addfolder from './AddFolder.png';
 import deleteimg from './Delete.png';
 import editimg from './Edit.png';
@@ -15,6 +16,7 @@ export default function Toolbar(props) {
 
     const [showAddElement, set_showAddElement] = useState(false)
     const [showAddFolder, set_showAddFolder] = useState(false)
+    const [showDeleteComponent, set_showDeleteComponent] = useState(false)
 
 
     if(props.typeof_parentel==="template")
@@ -26,7 +28,8 @@ export default function Toolbar(props) {
             <AddElement folder={props.parent} onClose={()=>set_showAddElement(false)} show={showAddElement}/>
             <button title="Добавить папку" onClick={() => set_showAddFolder(true)}><img src={addfolder} alt="toolbaritem" /></button>
             <AddFolder folder={props.parent} onClose={()=>set_showAddFolder(false)} show={showAddFolder}/>
-            <button><img src={deleteimg} alt="toolbaritem" title="Удалить папку"/></button>
+            <button title="Удалить папку" onClick={() => set_showDeleteComponent(true)}><img src={deleteimg} alt="toolbaritem"/></button>
+            <DeleteComponent component={props.parent} typeofcomponent={props.typeof_parentel} onClose={()=>set_showDeleteComponent(false)} show={showDeleteComponent}/>
             <button><img src={editimg} alt="toolbaritem" title="Изменить папку"/></button>
             <button><img src={exportimg} alt="toolbaritem" title="Экспорт папки"/></button>
             <button><img src={importimg} alt="toolbaritem" title="Импорт компонента"/></button>
@@ -41,11 +44,11 @@ export default function Toolbar(props) {
         return(
             <div className="LayoutCenter">
             <div className="Toolbar">
-            <button  title="Добавить элемент" onClick={() => set_showAddElement(true)}><img src={addimg} alt="toolbaritem"/></button>
+            <button disabled title="Добавить элемент" onClick={() => set_showAddElement(true)}><img className="disabled" src={addimg} alt="toolbaritem"/></button>
             <AddElement folder={props.parent} onClose={()=>set_showAddElement(false)} show={showAddElement}/>
             <button title="Добавить папку" onClick={() => set_showAddFolder(true)}><img src={addfolder} alt="toolbaritem" /></button>
             <AddFolder folder={props.parent} onClose={()=>set_showAddFolder(false)} show={showAddFolder}/>
-            <button><img src={deleteimg} alt="toolbaritem" title="Удалить папку"/></button>
+            <button disabled><img src={deleteimg} alt="toolbaritem" title="Удалить папку"/></button>
             <button><img src={editimg} alt="toolbaritem" title="Изменить папку"/></button>
             <button><img src={exportimg} alt="toolbaritem" title="Экспорт папки"/></button>
             <button><img src={importimg} alt="toolbaritem" title="Импорт компонента"/></button>

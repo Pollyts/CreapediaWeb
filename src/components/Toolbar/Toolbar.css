@@ -33,3 +33,9 @@ button{
     height: inherit;
     cursor: pointer;
 }
+.disabled{
+    background-color: rgba(transparent, transparent, transparent, 0.1);
+}
+button:disabled {
+    color: rgba(transparent, transparent, transparent, 0.1);
+}

@@ -1,18 +1,17 @@
 import React, {Component} from 'react';
 import './ModalPages.css';
 
-async function SaveElement (userid, name, parentfolderid)
+async function SaveElement (name, parentfolderid)
 {   
     const folder =   {
-        "UserId":6,
        "Name": name,
-       "ParentfolderId": Number(parentfolderid)
+       "TemplatefolderId": Number(parentfolderid)
    }
     console.log(folder);
     var data = new FormData();
     data.append( "json", JSON.stringify( folder ) );
-    console.log(process.env.REACT_APP_API_TFOLDERS);
-    fetch(process.env.REACT_APP_API_TFOLDERS,{
+    console.log(process.env.REACT_APP_API_TELEMENTS);
+    fetch(process.env.REACT_APP_API_TELEMENTS,{
         method: 'POST', // или 'PUT'
         body: JSON.stringify(folder), // данные могут быть 'строкой' или {объектом}!
         headers: {
@@ -36,7 +35,7 @@ export default class AddElement extends Component{
    
     handleSubmit = async e => {
         e.preventDefault();
-        await SaveElement(6,this.state.name,this.props.folder.id );
+        await SaveElement(this.state.name,this.props.folder.Id );
         alert("Имя: " + this.state.name);
         this.props.onClose();
       }

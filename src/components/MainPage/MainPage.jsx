@@ -21,9 +21,6 @@ export default class MainPage extends Component{
     }
     async loginUser (login, password)
     {
-  console.log(login);
-  console.log(password);
-  console.log(process.env.REACT_APP_API_USERS);
     return fetch(process.env.REACT_APP_API_USERS+`?mail=${login}&pass=${password}`,{
         method:'GET',
         headers: {
@@ -32,7 +29,7 @@ export default class MainPage extends Component{
 }
 
     async componentDidMount(){
-        const user = await this.loginUser(this.props.location.state.body.Name,this.props.location.state.body.Password);
+        const user = await this.loginUser(this.props.location.state.body.Mail,this.props.location.state.body.Password);
         if(user)
         {
             this.GetMainFolders(user);
@@ -51,7 +48,7 @@ export default class MainPage extends Component{
               title: 'Главная',
               path: '/',  
               body: {
-                  "Name":this.state.user.Name,
+                  "Mail":this.state.user.Mail,
                   "Password":this.state.user.Password
               }            
             },

@@ -3,6 +3,7 @@ import addimg from './AddItem.png';
 import AddElement from '../ModalForms/AddElement';
 import AddFolder from '../ModalForms/AddFolder';
 import DeleteComponent from '../ModalForms/DeleteComponent';
+import ExportComponent from '../ModalForms/ExportComponent';
 import addfolder from './AddFolder.png';
 import deleteimg from './Delete.png';
 import editimg from './Edit.png';
@@ -14,9 +15,10 @@ import './Toolbar.css';
 
 export default function Toolbar(props) {
 
-    const [showAddElement, set_showAddElement] = useState(false)
-    const [showAddFolder, set_showAddFolder] = useState(false)
-    const [showDeleteComponent, set_showDeleteComponent] = useState(false)
+    const [showAddElement, set_showAddElement] = useState(false);
+    const [showAddFolder, set_showAddFolder] = useState(false);
+    const [showDeleteComponent, set_showDeleteComponent] = useState(false);
+    const [showExportComponent, set_showExportComponent] = useState(false);
 
 
     if(props.typeof_parentel==="template")
@@ -31,7 +33,8 @@ export default function Toolbar(props) {
             <button title="Удалить папку" onClick={() => set_showDeleteComponent(true)}><img src={deleteimg} alt="toolbaritem"/></button>
             <DeleteComponent component={props.parent} typeofcomponent={props.typeof_parentel} onClose={()=>set_showDeleteComponent(false)} show={showDeleteComponent}/>
             <button><img src={editimg} alt="toolbaritem" title="Изменить папку"/></button>
-            <button><img src={exportimg} alt="toolbaritem" title="Экспорт папки"/></button>
+            <button title="Экспорт папки" onClick={() => set_showExportComponent(true)}><img src={exportimg} alt="toolbaritem"/></button>
+            <ExportComponent component={props.parent} typeofcomponent={props.typeof_parentel} onClose={()=>set_showExportComponent(false)} show={showExportComponent}/>
             <button><img src={importimg} alt="toolbaritem" title="Импорт компонента"/></button>
             <button><img src={searchimg} alt="toolbaritem" title="Поиск"/></button>
             <button><img src={settingsimg} alt="toolbaritem" title="Настройки"/></button>

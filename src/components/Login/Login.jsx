@@ -4,9 +4,6 @@ import './Login.css';
 
 async function loginUser (login, password)
 {
-  console.log(login);
-  console.log(password);
-  console.log(process.env.REACT_APP_API_USERS);
     return fetch(process.env.REACT_APP_API_USERS+`?mail=${login}&pass=${password}`,{
         method:'GET',
         headers: {
@@ -26,7 +23,7 @@ export default function Login({ setToken }) {
       password
     );
     const token={
-      "Name": user.Name,
+      "Mail": user.Mail,
       "Password": user.Password 
     }
     console.log(token);

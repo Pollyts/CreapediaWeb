@@ -33,6 +33,7 @@ export default class TemplatePage extends Component{
         .then(data=>{
             this.setState({folders:data, breadCrumbs:breadCrumbs});
         }).catch(err => console.log(err));  
+        console.log(this.state);
     }
     GetElements(parentid){
         fetch(process.env.REACT_APP_API_ELEMENTS+`/${parentid}`) 
@@ -50,9 +51,9 @@ export default class TemplatePage extends Component{
         console.log("Я в обновлении темплэйта");
       if (prevProps.location.state.body.Id !== this.props.location.state.body.Id)      
       {
-        // await this.GetFolders(this.props.location.state.body.Id);
-        // await this.GetElements(this.props.location.state.body.Id);
-        window.location.reload();
+        await this.GetFolders(this.props.location.state.body.Id);
+        await this.GetElements(this.props.location.state.body.Id);
+        // window.location.reload();
       }
   }
 

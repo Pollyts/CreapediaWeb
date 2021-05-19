@@ -5,13 +5,13 @@ async function SaveElement (name, parentfolderid)
 {   
     const folder =   {
        "Name": name,
-       "TemplatefolderId": Number(parentfolderid)
+       "Parentfolderid": Number(parentfolderid)
    }
     console.log(folder);
     var data = new FormData();
     data.append( "json", JSON.stringify( folder ) );
-    console.log(process.env.REACT_APP_API_TELEMENTS);
-    fetch(process.env.REACT_APP_API_TELEMENTS,{
+    console.log(process.env.REACT_APP_API_ELEMENTS);
+    fetch(process.env.REACT_APP_API_ELEMENTS,{
         method: 'POST', // или 'PUT'
         body: JSON.stringify(folder), // данные могут быть 'строкой' или {объектом}!
         headers: {
@@ -36,8 +36,9 @@ export default class AddElement extends Component{
     handleSubmit = async e => {
         e.preventDefault();
         await SaveElement(this.state.name,this.props.folder.Id );
-        alert("Имя: " + this.state.name);
-        this.props.onClose();
+        alert("Имя: " + this.state.name);        
+        this.props.onClose();        
+        window.location.reload();
       }
 
     render(){

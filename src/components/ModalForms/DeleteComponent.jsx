@@ -3,7 +3,7 @@ import './ModalPages.css';
 
 async function DeleteFolder (folderid)
 {
-    fetch(process.env.REACT_APP_API_TFOLDERS + `/${folderid}`,{
+    fetch(process.env.REACT_APP_API_FOLDERS + `/${folderid}`,{
         method: 'DELETE', // или 'PUT'
         headers: {
             'Accept': 'application/json',
@@ -13,7 +13,7 @@ async function DeleteFolder (folderid)
 }
 async function DeleteElement (elementid)
 {   
-    fetch(process.env.REACT_APP_API_TELEMENTS + `/${elementid}`,{
+    fetch(process.env.REACT_APP_API_ELEMENTS + `/${elementid}`,{
         method: 'DELETE', // или 'PUT'
         headers: {
             'Accept': 'application/json',

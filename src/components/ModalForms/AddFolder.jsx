@@ -4,18 +4,20 @@ import './ModalPages.css';
 async function SaveFolder (userid, name, parentfolderid)
 {   
     const folder =   {
-      "UserId":6,
+      "UserId":1,
       "Name": name,
       "ParentfolderId": Number(parentfolderid)
    }
     console.log(folder);
     var data = new FormData();
     data.append( "json", JSON.stringify( folder ) );
-    console.log(process.env.REACT_APP_API_TFOLDERS);
-    fetch(process.env.REACT_APP_API_TFOLDERS,{
+    console.log(process.env.REACT_APP_API_FOLDERS);
+    await fetch(process.env.REACT_APP_API_FOLDERS,{
         method: 'POST', // или 'PUT'
         body: JSON.stringify(folder), // данные могут быть 'строкой' или {объектом}!
         headers: {
+            'Access-Control-Request-Method':'POST',
+            'Origin': 'http://localhost:3000',
             'Accept': 'application/json',
             'Content-Type': 'application/json'
           }}).then(function(response) {
@@ -38,8 +40,8 @@ export default class AddElement extends Component{
         e.preventDefault();
         console.log(this.props);
         await SaveFolder(6,this.state.name,this.props.folder.Id );
-        alert("Имя: " + this.state.name);
         this.props.onClose();
+        window.location.reload();
       }
 
     render(){

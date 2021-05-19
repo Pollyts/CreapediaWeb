@@ -3,7 +3,7 @@ import './ModalPages.css';
 
 async function ExportFolder (folderid, usermail)
 {
-    fetch(process.env.REACT_APP_API_TFOLDERS + `/export?mail=${usermail}&folderid=${folderid}`,{
+    fetch(process.env.REACT_APP_API_FOLDERS + `/export?mail=${usermail}&folderid=${folderid}`,{
         method: 'GET', // или 'PUT'
         headers: {
             'Accept': 'application/json',
@@ -15,7 +15,7 @@ async function ExportFolder (folderid, usermail)
 // process.env.REACT_APP_API_USERS+`?mail=${login}&pass=${password}
 async function ExportElement (elementid, usermail)
 {   
-    fetch(process.env.REACT_APP_API_TELEMENTS + `/export?to=${usermail}&element=${elementid}`,{
+    fetch(process.env.REACT_APP_API_ELEMENTS + `/export?to=${usermail}&element=${elementid}`,{
         method: 'GET', // или 'PUT'
         headers: {
             'Accept': 'application/json',

@@ -12,7 +12,7 @@ export default class MainPage extends Component{
     }
     
     GetMainFolders(user){
-        fetch(process.env.REACT_APP_API_TFOLDERS+`?userid=${user.Id}`) 
+        fetch(process.env.REACT_APP_API_FOLDERS+`?userid=${user.Id}`) 
         .then(response=>{ return response.json()})
         .then(data=>{
             this.setState({folders:data, user:user});

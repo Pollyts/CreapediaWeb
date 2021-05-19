@@ -28,15 +28,14 @@ export default class TemplatePage extends Component{
         {
             breadCrumbs.length=index+1;
         }
-        console.log(breadCrumbs);
-        fetch(process.env.REACT_APP_API_TFOLDERS+`/${parentid}`) 
+        fetch(process.env.REACT_APP_API_FOLDERS+`/${parentid}`) 
         .then(response=>{ return response.json()})
         .then(data=>{
             this.setState({folders:data, breadCrumbs:breadCrumbs});
-        }).catch(err => console.log(err));               
+        }).catch(err => console.log(err));  
     }
     GetElements(parentid){
-        fetch(process.env.REACT_APP_API_TELEMENTS+`/${parentid}`) 
+        fetch(process.env.REACT_APP_API_ELEMENTS+`/${parentid}`) 
         .then(response=>{ return response.json()})
         .then(data=>{
             this.setState({elements:data});
@@ -48,15 +47,15 @@ export default class TemplatePage extends Component{
         this.GetElements(this.props.location.state.body.Id);
     }
     componentDidUpdate(prevProps){
-      if (prevProps.location.state.body.Id !== this.props.location.state.body.Id)
+        console.log("Я тут");
+      if (prevProps.location.state.body.Id !== this.props.location.state.body.Id)      
       {
-      this.GetFolders(this.props.location.state.body.Id);
-      this.GetElements(this.props.location.state.body.Id);
+        this.GetFolders(this.props.location.state.body.Id);
+        this.GetElements(this.props.location.state.body.Id);
       }
   }
 
     render(){
-        console.log(this.props);
         const {folders, elements,breadCrumbs}=this.state;//сначала
         return(
             <div>

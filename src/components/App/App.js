@@ -1,5 +1,6 @@
 import React from 'react';
-import {BrowserRouter as Router,Switch,Route, Redirect} from "react-router-dom";
+import {BrowserRouter as Router,Switch,Route, Redirect, withRouter} from "react-router-dom";
+// import { useHistory } from "react-router";
 import MainPage from '../MainPage/MainPage';
 import TemplatePage from '../TemplatePage/TemplatePage';
 import Login from '../Login/Login';
@@ -7,7 +8,13 @@ import useToken from './useToken';
 import './App.css';
 
 
-function App() {
+function App(props) {
+  function handleClick(e) {
+    e.preventDefault();
+    props.history.push("/");
+    localStorage.clear();    
+    window.location.reload();      
+  }
   const { token, setToken } = useToken();  //Получение данных из localstorage
 
   if(!token) //при отсутствии данных в localstorage
@@ -21,6 +28,7 @@ function App() {
   //при наличии данных в localstorage
   return (
     <div>
+    <button onClick={handleClick}>Выйти</button>
     <Router>
             <Switch>
             <Route path="/main" component={MainPage}></Route>
@@ -32,4 +40,4 @@ function App() {
   );
 }
 
-export default App;
+export default withRouter(App);

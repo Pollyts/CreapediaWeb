@@ -36,7 +36,8 @@ export default class MainPage extends Component{
         }        
         else
         {
-            localStorage.clear();            
+            localStorage.clear();
+            window.location.reload();            
         }
     }
 
@@ -55,7 +56,7 @@ export default class MainPage extends Component{
           ];
         return(
             <div>
-                <div className='header'>Creapedia</div>
+            <div className='header'>Creapedia</div>
             <Toolbar typeof_parentel="mainpage" parent={'Null'}></Toolbar>
             <div className="login-wrapper">  
             

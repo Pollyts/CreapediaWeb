@@ -35,8 +35,7 @@ export default class AddElement extends Component{
    
     handleSubmit = async e => {
         e.preventDefault();
-        await SaveElement(this.state.name,this.props.folder.Id );
-        alert("Имя: " + this.state.name);        
+        await SaveElement(this.state.name,this.props.folder.Id );       
         this.props.onClose();        
         window.location.reload();
       }

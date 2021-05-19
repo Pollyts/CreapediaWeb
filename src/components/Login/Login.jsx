@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { useHistory } from "react-router";
 import './Login.css';
 
 async function loginUser (login, password)
@@ -15,7 +16,7 @@ async function loginUser (login, password)
 export default function Login({ setToken }) {
   const [username, setUserName] = useState();
   const [password, setPassword] = useState();
-
+  const history = useHistory();
   const handleSubmit = async e => {
     e.preventDefault();
     const user = await loginUser(
@@ -26,6 +27,9 @@ export default function Login({ setToken }) {
       "Mail": user.Mail,
       "Password": user.Password 
     }
+    history.push({
+      pathname:  "/"
+   });
     console.log(token);
     setToken(token)
   }

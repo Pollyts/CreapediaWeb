@@ -8,7 +8,7 @@ export default class MainPage extends Component{
     constructor(props){
         super(props);
         console.log(props);
-        this.state={folders:[], user:{}}        
+        this.state={folders:null, user:null}        
     }
     
     GetMainFolders(user){
@@ -42,6 +42,9 @@ export default class MainPage extends Component{
     }
 
     render(){
+        if (!this.state.folders) {
+            return <div />
+          }
         const folders=this.state.folders;
         const user=this.state.user;
         const breadCrumbs = [
@@ -53,7 +56,7 @@ export default class MainPage extends Component{
                   "Password":this.state.user.Password
               }            
             },
-          ];
+          ];          
         return(
             <div>
             <div className='header'>Creapedia</div>

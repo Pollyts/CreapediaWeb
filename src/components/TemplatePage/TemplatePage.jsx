@@ -6,10 +6,10 @@ import Toolbar from '../Toolbar/Toolbar';
 export default class TemplatePage extends Component{
     constructor(props){
         super(props); 
-        this.state={folders:[], elements:[],  breadCrumbs:[]};
+        this.state={folders:null, elements:null,  breadCrumbs:null};
     }    
     
-    GetFolders(parentid){
+    async GetFolders(parentid){
         const breadCrumbs = this.props.location.state.breadCrumbs; 
         const index = breadCrumbs.map(function(e) { return e.body.Id; }).indexOf(this.props.location.state.body.Id);
         // const index=breadCrumbs.indexOf(elem => elem.path==`/template/${this.props.match.params.id}/${this.props.match.params.name}`);
@@ -28,7 +28,7 @@ export default class TemplatePage extends Component{
         {
             breadCrumbs.length=index+1;
         }
-        fetch(process.env.REACT_APP_API_FOLDERS+`/${parentid}`) 
+        await fetch(process.env.REACT_APP_API_FOLDERS+`/${parentid}`) 
         .then(response=>{ return response.json()})
         .then(data=>{
             this.setState({folders:data, breadCrumbs:breadCrumbs});
@@ -42,20 +42,24 @@ export default class TemplatePage extends Component{
         }).catch(err => console.log(err));
     }
 
-    componentDidMount(){
-        this.GetFolders(this.props.location.state.body.Id);
-        this.GetElements(this.props.location.state.body.Id);
+    async componentDidMount(){
+        await this.GetFolders(this.props.location.state.body.Id);
+        await this.GetElements(this.props.location.state.body.Id);
     }
-    componentDidUpdate(prevProps){
-        console.log("Я тут");
+    async componentDidUpdate(prevProps){
+        console.log("Я в обновлении темплэйта");
       if (prevProps.location.state.body.Id !== this.props.location.state.body.Id)      
       {
-        this.GetFolders(this.props.location.state.body.Id);
-        this.GetElements(this.props.location.state.body.Id);
+        // await this.GetFolders(this.props.location.state.body.Id);
+        // await this.GetElements(this.props.location.state.body.Id);
+        window.location.reload();
       }
   }
 
     render(){
+        if ((!this.state.folders)||(!this.state.elements)) {
+            return <div />
+          }
         const {folders, elements,breadCrumbs}=this.state;//сначала
         return(
             <div>
@@ -70,7 +74,7 @@ export default class TemplatePage extends Component{
                               &gt;&gt;
                         </div>)}
                         </div>    
-                        <Toolbar typeof_parentel="template" parent={this.props.location.state.body}></Toolbar>        
+                        <Toolbar previouspages={breadCrumbs} typeof_parentel="template" parent={this.props.location.state.body}></Toolbar>        
             <div className="login-wrapper">              
                         {folders.map(folder=>
                         <div key={folder.Id}>

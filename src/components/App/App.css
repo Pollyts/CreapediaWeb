@@ -4,3 +4,9 @@
     left: 10px;
     max-height: 80vh;
 } */
+
+.btn_logout{
+    position: absolute;
+    right: 10px;
+    top: 40px;
+}

@@ -1,6 +1,5 @@
 import React from 'react';
 import {BrowserRouter as Router,Switch,Route, Redirect, withRouter} from "react-router-dom";
-// import { useHistory } from "react-router";
 import MainPage from '../MainPage/MainPage';
 import TemplatePage from '../TemplatePage/TemplatePage';
 import Login from '../Login/Login';
@@ -28,7 +27,7 @@ function App(props) {
   //при наличии данных в localstorage
   return (
     <div>
-    <button onClick={handleClick}>Выйти</button>
+    <button className="btn_logout" onClick={handleClick}>Выйти</button>
     <Router>
             <Switch>
             <Route path="/main" component={MainPage}></Route>

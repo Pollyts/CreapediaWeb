@@ -31,7 +31,7 @@ export default function Toolbar(props) {
             <button title="Добавить папку" onClick={() => set_showAddFolder(true)}><img src={addfolder} alt="toolbaritem" /></button>
             <AddFolder folder={props.parent} onClose={()=>set_showAddFolder(false)} show={showAddFolder}/>
             <button title="Удалить папку" onClick={() => set_showDeleteComponent(true)}><img src={deleteimg} alt="toolbaritem"/></button>
-            <DeleteComponent component={props.parent} typeofcomponent={props.typeof_parentel} onClose={()=>set_showDeleteComponent(false)} show={showDeleteComponent}/>
+            <DeleteComponent prevpages={props.previouspages} component={props.parent} typeofcomponent={props.typeof_parentel} onClose={()=>set_showDeleteComponent(false)} show={showDeleteComponent}/>
             <button><img src={editimg} alt="toolbaritem" title="Изменить папку"/></button>
             <button title="Экспорт папки" onClick={() => set_showExportComponent(true)}><img src={exportimg} alt="toolbaritem"/></button>
             <ExportComponent component={props.parent} typeofcomponent={props.typeof_parentel} onClose={()=>set_showExportComponent(false)} show={showExportComponent}/>

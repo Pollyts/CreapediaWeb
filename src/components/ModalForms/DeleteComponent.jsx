@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import './ModalPages.css';
+import {BrowserRouter as Router,Switch,Route, Redirect, withRouter} from "react-router-dom";
 
 async function DeleteFolder (folderid)
 {
@@ -25,13 +26,9 @@ async function DeleteElement (elementid)
 export default class DeleteComponent extends Component{
     constructor(props){
         super(props);
-        this.state={name:""}
-        this.onChange = this.onChange.bind(this);
+        console.log(this.props);
+        this.state={isdeleted:null}
         this.handleSubmit = this.handleSubmit.bind(this);        
-    }   
-    onChange(e) {
-        var val = e.target.value;
-        this.setState({name: val});
     }
    
     handleSubmit = async e => {
@@ -43,16 +40,28 @@ export default class DeleteComponent extends Component{
         else
         {
             await DeleteElement(this.props.component.Id);
-        }
-        
+        }        
         this.props.onClose();
+        this.setState({isdeleted:true});
       }
 
     render(){
+        console.log("рендер удаления");
+        if(this.state.isdeleted)
+        {
+            let bc=this.props.prevpages;
+            bc.length=bc.length-1;
+            this.setState({isdeleted: false});
+            console.log("Я в удалении");
+            return <Redirect to={{pathname: bc[bc.length-1].path, state: { body: bc[bc.length-1].body, breadCrumbs:bc}            
+  }}/>
+        }
         if(!this.props.show)
         {
             return null
-        }
+        }     
+        
+        console.log(this.props);
         return(
             <div className="ModalPage" onClick={this.props.onClose}> 
             <div className="modal-content" onClick={e=>e.stopPropagation()}>

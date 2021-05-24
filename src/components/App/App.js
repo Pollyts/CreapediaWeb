@@ -2,6 +2,7 @@ import React from 'react';
 import {BrowserRouter as Router,Switch,Route, Redirect, withRouter} from "react-router-dom";
 import MainPage from '../MainPage/MainPage';
 import TemplatePage from '../TemplatePage/TemplatePage';
+import FolderPage from '../FolderPage/FolderPage';
 import Login from '../Login/Login';
 import useToken from './useToken';
 import './App.css';
@@ -31,7 +32,8 @@ function App(props) {
     <Router>
             <Switch>
             <Route path="/main" component={MainPage}></Route>
-            <Route path="/template" component={TemplatePage}></Route>  
+            <Route path="/template" component={TemplatePage}></Route>
+            <Route path="/projects" component={FolderPage}></Route>  
             <Redirect from="/" to={{pathname: `/main`, state: {body:token}}}/>          
             </Switch>
             </Router>

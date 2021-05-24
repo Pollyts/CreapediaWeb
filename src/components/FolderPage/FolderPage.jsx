@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {Link} from "react-router-dom";
-import './TemplatePage.css';
 import Toolbar from '../Toolbar/Toolbar';
 
 export default class TemplatePage extends Component{
@@ -28,8 +27,7 @@ export default class TemplatePage extends Component{
         {
             breadCrumbs.length=index+1;
         }
-        console.log(process.env.REACT_APP_API_TEMPLATEFOLDERS+`/${parentid}`);
-        await fetch(process.env.REACT_APP_API_TEMPLATEFOLDERS+`/${parentid}`) 
+        await fetch(process.env.REACT_APP_API_FOLDERS+`/${parentid}`) 
         .then(response=>{ return response.json()})
         .then(data=>{
             this.setState({folders:data, breadCrumbs:breadCrumbs});
@@ -37,8 +35,7 @@ export default class TemplatePage extends Component{
         console.log(this.state);
     }
     GetElements(parentid){
-        console.log(process.env.REACT_APP_API_TEMPLATEELEMENTS+`/${parentid}`);
-        fetch(process.env.REACT_APP_API_TEMPLATEELEMENTS+`/${parentid}`) 
+        fetch(process.env.REACT_APP_API_ELEMENTS+`/${parentid}`) 
         .then(response=>{ return response.json()})
         .then(data=>{
             this.setState({elements:data});

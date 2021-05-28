@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Link} from "react-router-dom";
 import Toolbar from '../Toolbar/Toolbar';
 
-export default class TemplatePage extends Component{
+export default class FolderPage extends Component{
     constructor(props){
         super(props); 
         this.state={folders:null, elements:null,  breadCrumbs:null};
@@ -16,7 +16,7 @@ export default class TemplatePage extends Component{
         {
         breadCrumbs.push({
             title: this.props.location.state.body.Name,
-            path: `/template`,
+            path: `/projects`,
             body:{
                 "Name":this.props.location.state.body.Name,
                 "Id":this.props.location.state.body.Id
@@ -47,7 +47,7 @@ export default class TemplatePage extends Component{
         await this.GetElements(this.props.location.state.body.Id);
     }
     async componentDidUpdate(prevProps){
-        console.log("Я в обновлении темплэйта");
+    console.log("Я в обновлении темплэйта");
       if (prevProps.location.state.body.Id !== this.props.location.state.body.Id)      
       {
         await this.GetFolders(this.props.location.state.body.Id);
@@ -79,7 +79,7 @@ export default class TemplatePage extends Component{
                         {folders.map(folder=>
                         <div key={folder.Id}>
                             {/* <Link to={{pathname: `/template/${folder.Id}/${folder.Name}`}}> */}
-                            <Link to={{pathname:`/template`, state: {breadCrumbs:breadCrumbs, body:folder}}}>
+                            <Link to={{pathname:`/projects`, state: {breadCrumbs:breadCrumbs, body:folder}}}>
                              <button className='buttonfolder'> 
                              {folder.Name}
                               </button>
@@ -88,11 +88,10 @@ export default class TemplatePage extends Component{
 
                         {elements.map(folder=>
                         <div key={folder.Id} >
-                            <Link to={{pathname: `/template/${folder.Id}`}} className="element">
+                            <Link  className="element" to={{pathname:`/element`, state: {breadCrumbs:breadCrumbs, body:folder}}}>
                              {folder.Name}
                               </Link>
-                        </div>)} 
-                        
+                        </div>)}                        
                            
                         </div>  
                         </div>

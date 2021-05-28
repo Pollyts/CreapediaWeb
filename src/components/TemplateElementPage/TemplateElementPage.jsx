@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import {Link} from "react-router-dom";
 import Toolbar from '../Toolbar/Toolbar';
-import './ElementPage.css';
+import './TempateElementPage.css';
 
-export default class ElementPage extends Component{
+export default class TemplateElementPage extends Component{
     constructor(props){
         super(props); 
         this.state={templatecharacteristics: null, breadCrumbs:null, characteristics:null, savepath:null};
@@ -11,13 +11,13 @@ export default class ElementPage extends Component{
     
     async GetTemplateCharacteristics(parentid){
         const breadCrumbs = this.props.location.state.breadCrumbs; 
-        const index = breadCrumbs.map(function(e) { return e.body.Id; }).indexOf(this.props.location.state.body.Id);
+        const index = breadCrumbs.map(function(e) {if (e.path=='/telement') return e.body.Id;}).indexOf(this.props.location.state.body.Id);
         // const index=breadCrumbs.indexOf(elem => elem.path==`/template/${this.props.match.params.id}/${this.props.match.params.name}`);
         if(index===-1)
         {
         breadCrumbs.push({
             title: this.props.location.state.body.Name,
-            path: `/element`,
+            path: `/telement`,
             body:{
                 "Name":this.props.location.state.body.Name,
                 "Id":this.props.location.state.body.Id
@@ -28,8 +28,8 @@ export default class ElementPage extends Component{
         {
             breadCrumbs.length=index+1;
         }
-        console.log(process.env.REACT_APP_API_CHARACTERISTICS+`?idelement=${parentid}`)
-        await fetch(process.env.REACT_APP_API_CHARACTERISTICS+`?idelement=${parentid}`) 
+        console.log(process.env.REACT_APP_API_TEMPLATECHARACTERISTICS+`?idelement=${parentid}`)
+        await fetch(process.env.REACT_APP_API_TEMPLATECHARACTERISTICS+`?idelement=${parentid}`) 
         .then(response=>{ return response.json()})
         .then(data=>{
             this.setState({templatecharacteristics:data, breadCrumbs:breadCrumbs});
@@ -37,7 +37,7 @@ export default class ElementPage extends Component{
         console.log(this.state);
     }
     GetCharacteristics(parentid){
-        fetch(process.env.REACT_APP_API_CHARACTERISTICS+`/${parentid}`) 
+        fetch(process.env.REACT_APP_API_TEMPLATECHARACTERISTICS+`/${parentid}`) 
         .then(response=>{ return response.json()})
         .then(data=>{
             this.setState({characteristics:data});
@@ -48,15 +48,15 @@ export default class ElementPage extends Component{
         await this.GetTemplateCharacteristics(this.props.location.state.body.Id);
         await this.GetCharacteristics(this.props.location.state.body.Id);
     }
-    // async componentDidUpdate(prevProps){
-    // console.log("Я в обновлении темплэйта");
-    //   if (prevProps.location.state.body.Id !== this.props.location.state.body.Id)      
-    //   {
-    //     await this.GetFolders(this.props.location.state.body.Id);
-    //     await this.GetElements(this.props.location.state.body.Id);
-    //     // window.location.reload();
-    //   }
-  //}
+    async componentDidUpdate(prevProps){
+    console.log("Я в обновлении темплэйта");
+      if (prevProps.location.state.body.path !== this.props.location.state.body.path)      
+      {
+        await this.GetTemplateCharacteristics(this.props.location.state.body.Id);
+        await this.GetCharacteristics(this.props.location.state.body.Id);
+        // window.location.reload();
+      }
+  }
 
     render(){
         if ((!this.state.templatecharacteristics)||(!this.state.characteristics)) {

@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from "react-router";
+import {BrowserRouter as Router,Link,Switch,Route, Redirect, withRouter} from "react-router-dom";
+import MainPage from '../MainPage/MainPage';
 import './Login.css';
+import Registration from '../Registration/Registration'
 
 async function loginUser (login, password)
 {
@@ -39,7 +42,7 @@ export default function Login({ setToken }) {
       <div className='header'>Creapedia</div>
       <form className='login-wrapper' onSubmit={handleSubmit}>
         <label className="form-row">
-          <p>Логин или почта</p>
+          <p>Почта</p>
           <input type="text" onChange={e => setUserName(e.target.value)} />
         </label>
         <label className="form-row">
@@ -50,6 +53,9 @@ export default function Login({ setToken }) {
           <button type="submit">ВХОД</button>
         </label>
       </form>
+      <Link className="RegistrationLink" to={{pathname:`/registration`, state: {body:null}}}> 
+                             Регистрация
+                              </Link>                              
       </div>
   )
 }

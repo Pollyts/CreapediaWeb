@@ -8,34 +8,37 @@ export default class MainPage extends Component{
     constructor(props){
         super(props);
         console.log(props);
-        this.state={user:null}        
+        this.state={user:null, mainfolders:null}        
     }
     
-    // GetMainFolders(user){
-    //     fetch(process.env.REACT_APP_API_FOLDERS+`?userid=${user.Id}`) 
-    //     .then(response=>{ return response.json()})
-    //     .then(data=>{
-    //         this.setState({folders:data, user:user});
-    //         console.log(data);
-    //     }).catch(err => console.log(err));
-    // }
+    async GetMainFolders(userid){
+        await fetch(process.env.REACT_APP_API_FOLDERS+`/main/${userid}`) 
+        .then(response=>{ return response.json()})
+        .then(data=>{
+            this.setState({mainfolders:data});
+            console.log(data);
+        }).catch(err => console.log(err));
+    }
     async loginUser (login, password)
     {
-    return fetch(process.env.REACT_APP_API_USERS+`?mail=${login}&pass=${password}`,{
-        method:'GET',
-        headers: {
-          'Content-Type':'application/json'
-      }}).then(data=>{
-        this.setState({user:data});
-        return data;
-    }).catch(err => console.log(err));
+    return await fetch(process.env.REACT_APP_API_USERS+`?mail=${login}&pass=${password}`)
+    .then(response=>{ return response.json()})
+        .then(data=>{
+            this.setState({user:data});
+            return data;
+        }).catch(err => console.log(err));
 }
 
     async componentDidMount(){
+        if(this.props.location.state.body==null)
+        {
+            localStorage.clear();
+            window.location.reload();
+        }
         const user = await this.loginUser(this.props.location.state.body.Mail,this.props.location.state.body.Password);
         if(user)
         {
-            // this.GetMainFolders(user);
+            await this.GetMainFolders(user.Id);
         }        
         else
         {
@@ -45,7 +48,7 @@ export default class MainPage extends Component{
     }
 
     render(){
-        if (!this.state.user) {
+        if ((!this.state.user)||(!this.state.mainfolders)) {
             return <div />
           }
         const user=this.state.user;

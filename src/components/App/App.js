@@ -7,6 +7,7 @@ import ElementPage from '../ElementPage/ElementPage';
 import TemplateElementPage from '../TemplateElementPage/TemplateElementPage';
 import Login from '../Login/Login';
 import useToken from './useToken';
+import Registration from '../Registration/Registration'
 import './App.css';
 
 
@@ -23,7 +24,13 @@ function App(props) {
   {
     return (
       <div>
-          <Login setToken={setToken} />
+        <Router>
+            <Switch>            
+            <Route path="/registration" component={Registration}></Route>  
+            <Route path="/login"><Login setToken={setToken}/></Route>     
+            <Redirect from="/" to={{pathname: `/login`}}></Redirect>
+            </Switch>
+            </Router>          
       </div>
     )
   }  
@@ -38,7 +45,7 @@ function App(props) {
             <Route path="/projects" component={FolderPage}></Route> 
             <Route path="/element" component={ElementPage}></Route>
             <Route path="/telement" component={TemplateElementPage}></Route>
-            <Route path="/registration" component={TemplateElementPage}></Route>   
+            <Route path="/registration" component={Registration}></Route>   
             <Redirect from="/" to={{pathname: `/main`, state: {body:token}}}/>          
             </Switch>
             </Router>

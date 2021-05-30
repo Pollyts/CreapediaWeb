@@ -55,5 +55,13 @@
   .form-row button[type=submit]:hover {
     background: #79A6B1;
   }
+  .RegistrationLink{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #427696;
+    margin: 20px;
+    font-size: 24px;
+  }
 
 

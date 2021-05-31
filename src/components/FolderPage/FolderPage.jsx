@@ -74,7 +74,7 @@ export default class FolderPage extends Component{
                               &gt;&gt;
                         </div>)}
                         </div>    
-                        <Toolbar previouspages={breadCrumbs} typeof_parentel="template" parent={this.props.location.state.body}></Toolbar>        
+                        <Toolbar previouspages={breadCrumbs} typeof_parentel="folder" parent={this.props.location.state.body}></Toolbar>        
             <div className="login-wrapper">              
                         {folders.map(folder=>
                         <div key={folder.Id}>

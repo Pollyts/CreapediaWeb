@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Link} from "react-router-dom";
+import Toolbar from '../Toolbar/Toolbar';
 import './ElementPage.css';
 
 export default class ElementPage extends Component{
@@ -87,8 +88,8 @@ export default class ElementPage extends Component{
                               &gt;&gt;
                         </div>)}
                         </div>    
-                        <div className="Characteristics">
-                        {/* <Toolbar previouspages={breadCrumbs} typeof_parentel="template" parent={this.props.location.state.body}></Toolbar>         */}
+                        <Toolbar previouspages={breadCrumbs} typeof_parentel="element" parent={this.props.location.state.body}></Toolbar>
+                        <div className="Characteristics">                        
                         {groups.map(group=>
                         <div key={group.idparent} className="Element">
                             {group.name}

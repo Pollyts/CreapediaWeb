@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import './ModalPages.css';
-import {BrowserRouter as Router,Switch,Route, Redirect, withRouter} from "react-router-dom";
+import {Redirect} from "react-router-dom";
 
 async function DeleteFolder (folderid)
 {
@@ -33,7 +33,7 @@ export default class DeleteComponent extends Component{
    
     handleSubmit = async e => {
         e.preventDefault();
-        if(this.props.typeofcomponent==="template")
+        if(this.props.typeofcomponent==="folder")
         {
           await DeleteFolder(this.props.component.Id);  
         }        

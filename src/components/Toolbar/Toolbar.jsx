@@ -21,13 +21,13 @@ export default function Toolbar(props) {
     const [showExportComponent, set_showExportComponent] = useState(false);
 
 
-    if(props.typeof_parentel==="template")
+    if((props.typeof_parentel==="folder")||(props.typeof_parentel==="templatefolder"))
     {
         return(
             <div className="LayoutCenter">
             <div className="Toolbar">
             <button  title="Добавить элемент" onClick={() => set_showAddElement(true)}><img src={addimg} alt="toolbaritem"/></button>
-            <AddElement folder={props.parent} onClose={()=>set_showAddElement(false)} show={showAddElement}/>
+            <AddElement folder={props.parent} typeofcomponent={props.typeof_parentel} onClose={()=>set_showAddElement(false)} show={showAddElement}/>
             <button title="Добавить папку" onClick={() => set_showAddFolder(true)}><img src={addfolder} alt="toolbaritem" /></button>
             <AddFolder folder={props.parent} onClose={()=>set_showAddFolder(false)} show={showAddFolder}/>
             <button title="Удалить папку" onClick={() => set_showDeleteComponent(true)}><img src={deleteimg} alt="toolbaritem"/></button>
@@ -47,21 +47,19 @@ export default function Toolbar(props) {
         return(
             <div className="LayoutCenter">
             <div className="Toolbar">
-            <button disabled title="Добавить элемент" onClick={() => set_showAddElement(true)}><img className="disabled" src={addimg} alt="toolbaritem"/></button>
-            <AddElement folder={props.parent} onClose={()=>set_showAddElement(false)} show={showAddElement}/>
-            <button title="Добавить папку" onClick={() => set_showAddFolder(true)}><img src={addfolder} alt="toolbaritem" /></button>
-            <AddFolder folder={props.parent} onClose={()=>set_showAddFolder(false)} show={showAddFolder}/>
-            <button disabled><img src={deleteimg} alt="toolbaritem" title="Удалить папку"/></button>
-            <button><img src={editimg} alt="toolbaritem" title="Изменить папку"/></button>
-            <button><img src={exportimg} alt="toolbaritem" title="Экспорт папки"/></button>
-            <button><img src={importimg} alt="toolbaritem" title="Импорт компонента"/></button>
+            <button disabled><img src={addimg} alt="toolbaritem"/></button>
+            <button disabled><img src={addfolder} alt="toolbaritem" /></button>
+            <button disabled><img src={deleteimg} alt="toolbaritem"/></button>
+            <button disabled><img src={editimg} alt="toolbaritem"/></button>
+            <button disabled><img src={exportimg} alt="toolbaritem"/></button>
+            <button disabled><img src={importimg} alt="toolbaritem"/></button>
             <button><img src={searchimg} alt="toolbaritem" title="Поиск"/></button>
             <button><img src={settingsimg} alt="toolbaritem" title="Настройки"/></button>
             </div>
             </div>
           )
     }
-    if(props.typeof_parentel==="element")
+    if((props.typeof_parentel==="element")||(props.typeof_parentel==="templateelement"))
     {
         return(
             <div className="LayoutCenter">

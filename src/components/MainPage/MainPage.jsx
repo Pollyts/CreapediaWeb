@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {Link} from "react-router-dom";
 import './MainPage.css';
-import getToken from '../getToken'
 import Toolbar from '../Toolbar/Toolbar';
 
 export default class MainPage extends Component{
@@ -51,7 +50,6 @@ export default class MainPage extends Component{
         if ((!this.state.user)||(!this.state.mainfolders)) {
             return <div />
           }
-        const user=this.state.user;
         const mainfolders=this.state.mainfolders;
         const breadCrumbs = [
             {

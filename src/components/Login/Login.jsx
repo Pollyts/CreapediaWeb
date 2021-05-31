@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { useHistory } from "react-router";
 import {Link} from "react-router-dom";
 import './Login.css';
-import Registration from '../Registration/Registration'
 
 async function loginUser (login, password)
 {

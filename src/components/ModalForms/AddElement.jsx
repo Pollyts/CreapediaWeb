@@ -3,23 +3,34 @@ import './ModalPages.css';
 
 async function SaveElement (name, parentfolderid)
 {   
-    const folder =   {
+    const element =   {
        "Name": name,
        "Parentfolderid": Number(parentfolderid)
-   }
-    console.log(folder);
-    var data = new FormData();
-    data.append( "json", JSON.stringify( folder ) );
-    console.log(process.env.REACT_APP_API_ELEMENTS);
+   }   
     fetch(process.env.REACT_APP_API_ELEMENTS,{
         method: 'POST', // или 'PUT'
-        body: JSON.stringify(folder), // данные могут быть 'строкой' или {объектом}!
+        body: JSON.stringify(element), // данные могут быть 'строкой' или {объектом}!
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
           }}).then(function(response) {
             console.log(response.status)});
-}
+    }
+async function SaveTemplateElement (name, parentfolderid)
+{   
+    const templateelement =   {
+       "Name": name,
+       "Parentfolderid": Number(parentfolderid)
+   }
+        fetch(process.env.REACT_APP_API_TEMPLATEELEMENTS,{
+            method: 'POST', // или 'PUT'
+            body: JSON.stringify(templateelement), // данные могут быть 'строкой' или {объектом}!
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+              }}).then(function(response) {
+                console.log(response.status)});
+    }
 
 export default class AddElement extends Component{
     constructor(props){
@@ -35,7 +46,10 @@ export default class AddElement extends Component{
    
     handleSubmit = async e => {
         e.preventDefault();
-        await SaveElement(this.state.name,this.props.folder.Id );       
+        if(this.props.typeofcomponent==="folder")
+        await SaveElement(this.state.name,this.props.folder.Id );     
+        else
+        await SaveTemplateElement(this.state.name,this.props.folder.Id );     
         this.props.onClose();        
         window.location.reload();
       }

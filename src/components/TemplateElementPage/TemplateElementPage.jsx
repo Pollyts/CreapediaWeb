@@ -11,7 +11,7 @@ export default class TemplateElementPage extends Component{
     
     async GetTemplateCharacteristics(parentid){
         const breadCrumbs = this.props.location.state.breadCrumbs; 
-        const index = breadCrumbs.map(function(e) {if (e.path=='/telement') return e.body.Id;}).indexOf(this.props.location.state.body.Id);
+        const index = breadCrumbs.map(function(e) {if (e.path==='/telement') return e.body.Id; else return 0;}).indexOf(this.props.location.state.body.Id);
         // const index=breadCrumbs.indexOf(elem => elem.path==`/template/${this.props.match.params.id}/${this.props.match.params.name}`);
         if(index===-1)
         {
@@ -87,13 +87,14 @@ export default class TemplateElementPage extends Component{
                               </Link>
                               &gt;&gt;
                         </div>)}
-                        </div>    
+                        </div> 
+                        <Toolbar previouspages={breadCrumbs} typeof_parentel="templateelement" parent={this.props.location.state.body}></Toolbar>   
                         <div className="Characteristics">
                         {/* <Toolbar previouspages={breadCrumbs} typeof_parentel="template" parent={this.props.location.state.body}></Toolbar>         */}
                         {groups.map(group=>
                         <div key={group.idparent} className="Element">
                             {group.name}
-                            {templatecharacteristics.filter(number => number.IdParent == group.idparent)
+                            {templatecharacteristics.filter(number => number.IdParent === group.idparent)
         .map(number => <div key={number.IdCharacter} className="Characteristic">{number.NameCharacter}: {number.ValueCharacter}</div>)}
                         </div>)} 
 

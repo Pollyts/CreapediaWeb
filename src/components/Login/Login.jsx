@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from "react-router";
-import {BrowserRouter as Router,Link,Switch,Route, Redirect, withRouter} from "react-router-dom";
-import MainPage from '../MainPage/MainPage';
+import {Link} from "react-router-dom";
 import './Login.css';
 import Registration from '../Registration/Registration'
 

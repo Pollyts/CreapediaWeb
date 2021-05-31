@@ -52,6 +52,7 @@ export default class MainPage extends Component{
             return <div />
           }
         const user=this.state.user;
+        const mainfolders=this.state.mainfolders;
         const breadCrumbs = [
             {
               title: 'Главная',
@@ -67,16 +68,18 @@ export default class MainPage extends Component{
             <div className='header'>Creapedia</div>
             <Toolbar typeof_parentel="mainpage" parent={'Null'}></Toolbar>
             <div className="login-wrapper">      
-                            <Link to={{pathname:`/projects`, state: {breadCrumbs:breadCrumbs,body:{Id:0, Name:'Проекты'}}}}>
+            {mainfolders.map(mf=>
+                        <div key={mf.Id}>
+                        {mf.Name==="Проекты"? <Link to={{pathname:`/projects`, state: {breadCrumbs:breadCrumbs,body:{Id:mf.Id, Name:mf.Name}}}}>
                             <button className='buttonfolder'> 
                              Проекты
                               </button>
-                              </Link>  
-                              <Link to={{pathname:`/template`, state: {breadCrumbs:breadCrumbs,body:{Id:0, Name:'Библиотека компонентов'}}}}>
+                              </Link> :<Link to={{pathname:`/template`, state: {breadCrumbs:breadCrumbs,body:{Id:mf.Id, Name:mf.Name}}}}>
                               <button className='buttonfolder'> 
                              Библиотека компонентов
                               </button>
-                              </Link>
+                              </Link>}
+                    </div>)}        
                         </div>  
                         </div>
         )

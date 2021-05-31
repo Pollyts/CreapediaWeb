@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {Link} from "react-router-dom";
-import Toolbar from '../Toolbar/Toolbar';
 import './ElementPage.css';
 
 export default class ElementPage extends Component{
@@ -93,7 +92,7 @@ export default class ElementPage extends Component{
                         {groups.map(group=>
                         <div key={group.idparent} className="Element">
                             {group.name}
-                            {templatecharacteristics.filter(number => number.IdParent == group.idparent)
+                            {templatecharacteristics.filter(number => number.IdParent === group.idparent)
         .map(number => <div key={number.IdCharacter} className="Characteristic">{number.NameCharacter}: {number.ValueCharacter}</div>)}
                         </div>)} 
 

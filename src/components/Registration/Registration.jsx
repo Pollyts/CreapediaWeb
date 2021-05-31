@@ -23,7 +23,7 @@ async function SingUp (mail, password)
 export default class Registration extends Component{
     constructor(props){
         super(props); 
-        this.state={mail:null, password:null, ifregister:null};
+        this.state={mail:"", password:"", ifregister:null};
         this.onChangeMail = this.onChangeMail.bind(this);
         this.onChangePassword = this.onChangePassword.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);

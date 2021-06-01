@@ -7,8 +7,23 @@ export default class MainPage extends Component{
     constructor(props){
         super(props);
         console.log(props);
-        this.state={user:null, mainfolders:null}        
+        this.state={user:null, mainfolders:null, breadCrumbs:[
+            {
+              title: 'главная',
+              path: '/',  
+              body: {
+                  "Mail":this.state.user.Mail,
+                  "Password":this.state.user.Password
+              }            
+            },
+          ]}        
     }
+
+    getbreadcrumbs(bc) {
+        this.setState({
+            breadCrumbs: bc
+        })
+      }
     
     async GetMainFolders(userid){
         await fetch(process.env.REACT_APP_API_FOLDERS+`/main/${userid}`) 
@@ -60,7 +75,8 @@ export default class MainPage extends Component{
                   "Password":this.state.user.Password
               }            
             },
-          ];          
+          ];   
+          console.log('in app');       
         return(
             <div>
             <div className='header'>Creapedia</div>

@@ -69,7 +69,7 @@ export default class AddElement extends Component{
                 <label className="formlabel"> Название:</label>
                 <input className="forminput" type="text" value={this.state.name} onChange={this.onChange}/>
                 <label className="formlabel">Расположение:</label>
-                <button className="button">{this.props.folder.name}</button>
+                <button className="button">{this.props.folder.Name}</button>
                 </div>
                 <div className="modal-footer">
                 <button className="button" onClick={this.handleSubmit}>Save</button>

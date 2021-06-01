@@ -1,7 +1,5 @@
-@font-face {
-  font-family: Trajan; /* Гарнитура шрифта */
-  src: url('/src/fonts/ofont.ru_Trajan.ttf'); /* Путь к файлу со шрифтом */
- }
+@import url('https://fonts.googleapis.com/css?family=Alegreya');
+@import url('https://fonts.googleapis.com/css?family=Alegreya+Sans');
 
  html{   
   height: 100%;
@@ -9,16 +7,11 @@
  }
 
 body {
-  font-family: 'Trajan';
+  font-family: 'Alegreya Sans';
   width: inherit;
   height: inherit;
   box-sizing: border-box;
   background-color:  #EDD5C4;
-  background-image: url('/src/components/App/logo4x.png');
-  background-size: 70vh;
-  background-repeat: no-repeat;
-  background-attachment: scroll;
-  background-position: bottom 10px left 10px;
 }
 #root{
   height: 100%

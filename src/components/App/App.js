@@ -23,15 +23,13 @@ function App(props) {
   if(!token) //при отсутствии данных в localstorage
   {
     return (
-      <div>
         <Router>
             <Switch>            
             <Route path="/registration" component={Registration}></Route>  
             <Route path="/login"><Login setToken={setToken}/></Route>     
             <Redirect from="/" to={{pathname: `/login`}}></Redirect>
             </Switch>
-            </Router>          
-      </div>
+            </Router>  
     )
   }  
   //при наличии данных в localstorage

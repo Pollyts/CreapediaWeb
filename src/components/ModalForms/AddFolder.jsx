@@ -27,14 +27,19 @@ async function SaveFolder (userid, name, parentfolderid)
 export default class AddElement extends Component{
     constructor(props){
         super(props);
-        this.state={name:""}
+        this.state={name:"", folders:null, breadCrumbs:null}
         this.onChange = this.onChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);        
+        this.handleSubmit = this.handleSubmit.bind(this);   
+        this.changedirectory = this.changedirectory.bind(this);
     }   
     onChange(e) {
         var val = e.target.value;
         this.setState({name: val});
     }
+
+    changedirectory = param => async e => {
+
+    };
    
     handleSubmit = async e => {
         e.preventDefault();
@@ -59,7 +64,21 @@ export default class AddElement extends Component{
                 <label className="formlabel"> Название:</label>
                 <input className="forminput" type="text" value={this.state.name} onChange={this.onChange}/>
                 <label className="formlabel">Расположение:</label>
-                <button className="button">{this.props.folder.name}</button>
+                <div className="place">
+                <label>{this.props.folder.Name}</label> <button className="button"> -{'>'} </button>
+                </div>
+                <div>
+                <div>
+                {this.props.prevpages.map(bc=>
+                        <div key={bc.title} className="gt">
+                            <button className="BreadCrumb" onClick={this.changedirectory({body:bc.body})}>
+                             {bc.title} 
+                              </button>
+                              &gt;&gt;
+                        </div>)}
+                        </div>                              
+
+                </div>
                 </div>
                 <div className="modal-footer">
                 <button className="button" onClick={this.handleSubmit}>Save</button>

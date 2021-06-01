@@ -1,66 +1,77 @@
-   .body div{
-    padding: 10px;        
-    height: inherit;
-    box-sizing: border-box;
+   .body{    
+    height: inherit;   
+    display: flex;
+    justify-content: center;     
+    align-items: center;
   }
-  /* .pic{
-    background-image: url('/src/img/logo4x.png');
-    background-position: left;
-    background-repeat: no-repeat;
-    background-size: contain;
-    height: inherit;
-  } */
   p{
     margin: 0;
   }
   .header {
-    font-size: 72px; 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    font-family: 'Alegreya';
+    margin: 5px;
+    font-size: 48px; 
     color: #427696;
   }
-  .login-wrapper form{
-    display: flex;
-    flex-direction: column;
-    align-items: center;   
-    margin: 50px auto 0;
+  .border{    
+    border: #427696 4px solid; 
+    border-radius: 100px;
+    padding: 5px 15px;
+  }
+  .logo{
+    width: 60px;
+    height: auto;
+  }
+  .login-wrapper form{  
+    margin: 10px auto 0;
 }
   .form-row {
+    font-family: 'Alegreya';
     text-align: center;
     padding: 10px;
+    font-size: 24px;
   }
   .form-row input[type="text"], .form-row input[type="password"], .form-row textarea {
     width: 30vw;    
-    margin-top: 10px;
+    margin: 5px 60px;
     padding: 5px 20px;  
-    line-height: 35px;
-    outline: none;
-    border: #79A6B1 3px solid;
-    border-radius: 50px;
+    line-height: 25px;
+    outline: none;   
+    border: #427696 4px solid;
+    border-radius: 100px;
+    background-color: transparent;
+  }
+
+  input::placeholder {
+    color: #427696;
   }
   
   .form-row button[type="submit"] {
-    padding: 10px 20px;
-    margin-top: 10px;
+    margin: 30px;
     background: #427696;
+    font-family: 'Alegreya';
+    color: #EDD5C4;
+    padding: 10px 100px;
     border-radius: 50px;
     border-width: 0;
     cursor: pointer;
     outline: none;
-    color: #fffdee;
+
     text-transform: uppercase;
     transition: 1s cubic-bezier(.165, .84, .44, 1);
   }
   .form-row button[type=submit]:hover {
     background: #79A6B1;
   }
-  .RegistrationLink{
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  .RegistrationLink, .ForgotPass{  
+    text-decoration: none;
     color: #427696;
-    margin: 20px;
+  }
+
+  .loginlinks{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
     font-size: 24px;
   }
 

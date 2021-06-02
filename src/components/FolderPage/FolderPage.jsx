@@ -76,8 +76,7 @@ export default class FolderPage extends Component{
                 <div className="Header">
                 <div className="BreadCrumbs">
                 {breadCrumbs.map(bc=>
-                        <div key={bc.title} className="gt">                            
-                            {/* <Link to={{pathname: `/template/${folder.Id}/${folder.Name}`}}> */}
+                        <div key={bc.title} className="gt">      
                             <Link className="BreadCrumb" to={{pathname:bc.path, state:{body:bc.body, breadCrumbs:breadCrumbs}}} >
                              {bc.title} 
                               </Link>
@@ -89,8 +88,7 @@ export default class FolderPage extends Component{
               {<button className="btn_logout" onClick={this.handleClick}>выход</button>}
               <img className="logo" src={logo} alt="toolbaritem"/>
               </div>
-                        </div>    
-                        {/* <Toolbar previouspages={breadCrumbs} typeof_parentel="folder" parent={this.props.location.state.body}></Toolbar>         */}
+                        </div>                            
             <div className="listview">              
                         {folders.map(folder=>
                         <div key={folder.Id}>
@@ -107,9 +105,11 @@ export default class FolderPage extends Component{
                              {folder.Name}
                               </div>
                               </Link>
-                        </div>)}                        
+                        </div>)}          
+                                      
                            
                         </div>  
+                        <Toolbar previouspages={breadCrumbs} typeof_parentel="folder" parent={this.props.location.state.body}></Toolbar>
                         </div>
         )
     }

@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Link} from "react-router-dom";
 import Toolbar from '../Toolbar/Toolbar';
 import './ElementPage.css';
+import logo from '../App/logo4x.png';
 
 export default class ElementPage extends Component{
     constructor(props){
@@ -77,24 +78,29 @@ export default class ElementPage extends Component{
 },[]);//converting back to array from mapobject     
         return(
             <div>
-                <div className='header2'>{breadCrumbs[breadCrumbs.length-1]?.title}</div>
+                <div className="Header">
                 <div className="BreadCrumbs">
                 {breadCrumbs.map(bc=>
-                        <div key={bc.title} className="gt">                            
-                            {/* <Link to={{pathname: `/template/${folder.Id}/${folder.Name}`}}> */}
+                        <div key={bc.title} className="gt">      
                             <Link className="BreadCrumb" to={{pathname:bc.path, state:{body:bc.body, breadCrumbs:breadCrumbs}}} >
                              {bc.title} 
                               </Link>
-                              &gt;&gt;
+                              &ensp;&rarr;
                         </div>)}
+                        </div> 
+                        <div className="settingsinheader">
+              {<button className="btn_logout" onClick={this.handleClick}>настройки</button>}
+              {<button className="btn_logout" onClick={this.handleClick}>выход</button>}
+              <img className="logo" src={logo} alt="toolbaritem"/>
+              </div>
                         </div>    
-                        <Toolbar previouspages={breadCrumbs} typeof_parentel="element" parent={this.props.location.state.body}></Toolbar>
+                        {/* <Toolbar previouspages={breadCrumbs} typeof_parentel="element" parent={this.props.location.state.body}></Toolbar> */}
                         <div className="Characteristics">                        
                         {groups.map(group=>
-                        <div key={group.idparent} className="Element">
+                        <div key={group.idparent} className="ParentElement">
                             {group.name}
                             {templatecharacteristics.filter(number => number.IdParent === group.idparent)
-        .map(number => <div key={number.IdCharacter} className="Characteristic">{number.NameCharacter}: {number.ValueCharacter}</div>)}
+        .map(number => <div key={number.IdCharacter} className="ParentCharacteristic">{number.NameCharacter}: {number.ValueCharacter}</div>)}
                         </div>)} 
 
                         {characteristics.map(folder=>

@@ -7,7 +7,14 @@ export default class TemplateElementPage extends Component{
     constructor(props){
         super(props); 
         this.state={templatecharacteristics: null, breadCrumbs:null, characteristics:null, savepath:null};
+        this.handleClick = this.handleClick.bind(this);
     }    
+    handleClick(e) {
+        e.preventDefault();
+        this.props.history.push("/");
+        localStorage.clear();    
+        window.location.reload();      
+      }  
     
     async GetTemplateCharacteristics(parentid){
         const breadCrumbs = this.props.location.state.breadCrumbs; 

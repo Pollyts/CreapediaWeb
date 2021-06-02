@@ -2,12 +2,20 @@ import React, {Component} from 'react';
 import {Link} from "react-router-dom";
 import './TemplatePage.css';
 import Toolbar from '../Toolbar/Toolbar';
+import logo from '../App/logo4x.png';
 
 export default class TemplatePage extends Component{
     constructor(props){
         super(props); 
         this.state={folders:null, elements:null,  breadCrumbs:null};
-    }    
+        this.handleClick = this.handleClick.bind(this)
+    }
+    handleClick(e) {
+        e.preventDefault();
+        this.props.history.push("/");
+        localStorage.clear();    
+        window.location.reload();      
+      }      
     
     async GetFolders(parentid){
         const breadCrumbs = this.props.location.state.breadCrumbs; 
@@ -66,7 +74,7 @@ export default class TemplatePage extends Component{
         const {folders, elements,breadCrumbs}=this.state;//сначала
         return(
             <div>
-                <div className='header2'>{breadCrumbs[breadCrumbs.length-1]?.title}</div>
+                <div className="Header">
                 <div className="BreadCrumbs">
                 {breadCrumbs.map(bc=>
                         <div key={bc.title} className="gt">                            
@@ -74,28 +82,33 @@ export default class TemplatePage extends Component{
                             <Link className="BreadCrumb" to={{pathname:bc.path, state:{body:bc.body, breadCrumbs:breadCrumbs}}} >
                              {bc.title} 
                               </Link>
-                              &gt;&gt;
+                              &ensp;&rarr;
                         </div>)}
+                        </div> 
+                        <div className="settingsinheader">
+              {<button className="btn_logout" onClick={this.handleClick}>настройки</button>}
+              {<button className="btn_logout" onClick={this.handleClick}>выход</button>}
+              <img className="logo" src={logo} alt="toolbaritem"/>
+              </div>
                         </div>    
-                        <Toolbar previouspages={breadCrumbs} typeof_parentel="templatefolder" parent={this.props.location.state.body}></Toolbar>        
-            <div className="login-wrapper">              
+                        {/* <Toolbar previouspages={breadCrumbs} typeof_parentel="folder" parent={this.props.location.state.body}></Toolbar>         */}
+            <div className="listview">              
                         {folders.map(folder=>
                         <div key={folder.Id}>
-                            {/* <Link to={{pathname: `/template/${folder.Id}/${folder.Name}`}}> */}
-                            <Link to={{pathname:`/template`, state: {breadCrumbs:breadCrumbs, body:folder}}}>
-                             <button className='buttonfolder'> 
+                            <Link className="folderinlist" to={{pathname:`/template`, state: {breadCrumbs:breadCrumbs, body:folder}}}>
+                             <div className="NameElementOfList"> 
                              {folder.Name}
-                              </button>
+                              </div>
                               </Link>
                         </div>)} 
-
                         {elements.map(folder=>
-                        <div key={folder.Id} >
-                            <Link className="element" to={{pathname:`/telement`, state: {breadCrumbs:breadCrumbs, body:folder}}}>
-                                                          {folder.Name}
+                        <div key={folder.Id}>
+                            <Link className="elementinlist" to={{pathname:`/telement`, state: {breadCrumbs:breadCrumbs, body:folder}}}>
+                            <div className="NameElementOfList"> 
+                             {folder.Name}
+                              </div>
                               </Link>
-                        </div>)} 
-                        
+                        </div>)}                        
                            
                         </div>  
                         </div>

@@ -7,21 +7,3 @@
     text-align: center;
     color: #427696;
 }
-.BreadCrumbs{
-    position: absolute;
-    top: 60px;
-    left: 30px;
-    display: flex;
-    width: 30vw;
-    margin: 10px;
-    flex-wrap: wrap;
-    flex-direction: row;    
-}
-.BreadCrumb{    
-    display: inline; 
-    color: #427696;     
-}
-.gt{
-    display: inline; 
-    padding: 10px 0px 0px 0px; 
-}

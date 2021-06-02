@@ -1,0 +1,53 @@
+.listview{
+    display: flex;
+  flex-wrap: wrap;
+  width: inherit;
+  height: inherit;
+  align-content: space-around;
+  margin: 30px;
+
+}
+.elementinlist{
+    margin: 10px;
+    width: 150px;
+    height: 200px;
+    border: 4px solid #427696;
+    background-color: #427696;
+    border-radius: 25px;
+    display: flex;
+    align-items: flex-end;
+    overflow: hidden;
+    text-decoration: none;
+}
+
+.folderinlist{
+    margin: 10px;
+    width: 150px;
+    height: 200px;
+    border: 4px solid #427696;
+    background-color: #427696;
+    border-radius: 25px;
+    display: flex;
+    align-items: flex-end;
+    overflow: hidden;
+    text-decoration: none;
+}
+
+.NameElementOfList{
+    background-color: #fff;
+    padding: 0px;
+    border: 4px solid #427696;
+    margin: -4px;
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+    width: 150px;
+    height: 50px;
+    display: flex;
+    background-color: #EDD5C4;
+    color: #427696;
+    font-size: 24px;
+    font-family: 'Alegreya';
+    justify-content: center; /* align horizontal */
+    align-items: center; /* align vertical */    
+    overflow: hidden;
+}

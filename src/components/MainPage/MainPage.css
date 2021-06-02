@@ -31,3 +31,46 @@
     font-size: 48px;
     
   }
+  .BreadCrumbs{
+    margin: 20px; 
+}
+.BreadCrumb{    
+    display: inline; 
+    color: #427696;   
+    text-decoration: none;
+}
+.gt{
+    display: inline; 
+    padding: 10px 0px 0px 0px; 
+}
+.btn_logout{
+    margin: 0px 10px; 
+    padding: 0px 20px 5px 20px;
+    background-color: #427696;
+    border-radius: 100px;
+    color: #EDD5C4;
+    border-color: transparent;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.settingsinheader{
+    margin: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.Header{
+    font-family: 'Alegreya';
+    /* box-sizing: border-box; */
+    display: flex;
+    justify-content: space-between;
+    width: 100%; /* Full width */  
+    overflow: hidden;   
+    font-size: 24px;
+    border-bottom: #427696 4px solid;
+}
+
+.maincontainer{
+    height: inherit;
+}

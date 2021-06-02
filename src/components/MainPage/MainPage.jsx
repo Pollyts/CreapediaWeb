@@ -1,25 +1,22 @@
 import React, {Component} from 'react';
-import {BrowserRouter as Router,Switch,Route, Redirect, withRouter} from "react-router-dom";
 import {Link} from "react-router-dom";
 import './MainPage.css';
+import Toolbar from '../Toolbar/Toolbar';
+import logo from '../App/logo4x.png';
 
-class MainPage extends Component{
+export default class MainPage extends Component{
     constructor(props){
         super(props);
         console.log(props);
-        this.SelectComponent = this.SelectComponent.bind(this)
-        this.state={user:null, mainfolders:null}   
-
+        this.state={user:null, mainfolders:null} 
+        this.handleClick = this.handleClick.bind(this)
     }
-    SelectComponent = param => e => {
+    handleClick(e) {
         e.preventDefault();
-        console.log(param);
-        const bc=param.breadCrumbs;
-        bc.push(param.selected);        
-        this.props.UpdateHeader(bc);
-        this.props.history.push(param.selected.path);
-    }
-    
+        this.props.history.push("/");
+        localStorage.clear();    
+        window.location.reload();      
+      }
     
     async GetMainFolders(userid){
         await fetch(process.env.REACT_APP_API_FOLDERS+`/main/${userid}`) 
@@ -40,12 +37,12 @@ class MainPage extends Component{
 }
 
     async componentDidMount(){
-        if(this.props.body==null)
+        if(this.props.location.state.body==null)
         {
             localStorage.clear();
             window.location.reload();
         }
-        const user = await this.loginUser(this.props.body.Mail,this.props.body.Password);
+        const user = await this.loginUser(this.props.location.state.body.Mail,this.props.location.state.body.Password);
         if(user)
         {
             await this.GetMainFolders(user.Id);
@@ -55,10 +52,6 @@ class MainPage extends Component{
             localStorage.clear();
             window.location.reload();            
         }
-    }
-    async componentDidUpdate()
-    {
-        //
     }
 
     render(){
@@ -75,30 +68,41 @@ class MainPage extends Component{
                   "Password":this.state.user.Password
               }            
             },
-          ];   
-          console.log('in app');       
+          ];          
         return(
+            <div>
+                <div className="Header">
+                <div className="BreadCrumbs">
+                {breadCrumbs.map(bc=>
+                        <div key={bc.title} className="gt">                            
+                            {/* <Link to={{pathname: `/template/${folder.Id}/${folder.Name}`}}> */}
+                            <Link className="BreadCrumb" to={{pathname:bc.path, state:{body:bc.body, breadCrumbs:breadCrumbs}}} >
+                             {bc.title} 
+                              </Link>
+                              &ensp;&rarr;
+                        </div>)}
+                        </div> 
+                        <div className="settingsinheader">
+              {<button className="btn_logout" onClick={this.handleClick}>настройки</button>}
+              {<button className="btn_logout" onClick={this.handleClick}>выход</button>}
+              <img className="logo" src={logo} alt="toolbaritem"/>
+              </div>
+                        </div>
             <div className="mainfolders">      
             {mainfolders.map(mf=>
-                        <div key={mf.Id} className="mfolder">                            
-                        {mf.Name==="Проекты"? 
-                            <button className='buttonfolder' onClick={this.SelectComponent ({selected: {
-                                title: mf.Name,
-                                path: `/projects`,
-                                body:{
-                                    "Name":mf.Name,
-                                    "Id":mf.Id
-                                }
-                              }, breadCrumbs:breadCrumbs})}> 
+                        <div key={mf.Id} className="mfolder">
+                        {mf.Name==="Проекты"? <Link to={{pathname:`/projects`, state: {breadCrumbs:breadCrumbs,body:{Id:mf.Id, Name:mf.Name}}}}>
+                            <button className='buttonfolder'> 
                              Проекты
-                              </button>:<Link to={{pathname:`/template`, state: {breadCrumbs:breadCrumbs,body:{Id:mf.Id, Name:mf.Name}, UpdateHeader:this.UpdateHeader}}}>
+                              </button>
+                              </Link> :<Link to={{pathname:`/template`, state: {breadCrumbs:breadCrumbs,body:{Id:mf.Id, Name:mf.Name}}}}>
                               <button className='buttonfolder'> 
                              Библиотека компонентов
                               </button>
                               </Link>}
                     </div>)}        
                         </div>  
+                        </div>
         )
     }
 }
-export default withRouter(MainPage);

@@ -8,7 +8,6 @@ import TemplateElementPage from '../TemplateElementPage/TemplateElementPage';
 import Login from '../Login/Login';
 import useToken from './useToken';
 import Registration from '../Registration/Registration'
-import BreadCrumbs from '../BreadCrumbs/BreadCrumbs'
 import './App.css';
 
 
@@ -27,10 +26,23 @@ function App(props) {
             </Switch>
             </Router>  
     )
-  }    
+  }  
   //при наличии данных в localstorage
-  return <BreadCrumbs token={token}/>
-  ;
+  return (
+    <div>
+    <Router>
+            <Switch>
+            <Route path="/main" component={MainPage}></Route>
+            <Route path="/template" component={TemplatePage}></Route>
+            <Route path="/projects" component={FolderPage}></Route> 
+            <Route path="/element" component={ElementPage}></Route>
+            <Route path="/telement" component={TemplateElementPage}></Route>
+            <Route path="/registration" component={Registration}></Route>   
+            <Redirect from="/" to={{pathname: `/main`, state: {body:token}}}/>          
+            </Switch>
+            </Router>
+    </div>
+  );
 }
 
 export default withRouter(App);

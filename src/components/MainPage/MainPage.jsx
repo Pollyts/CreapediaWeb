@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {BrowserRouter as Router,Switch,Route, Redirect, withRouter} from "react-router-dom";
 import {Link} from "react-router-dom";
 import './MainPage.css';
-import Toolbar from '../Toolbar/Toolbar';
 
 class MainPage extends Component{
     constructor(props){
@@ -57,6 +56,10 @@ class MainPage extends Component{
             window.location.reload();            
         }
     }
+    async componentDidUpdate()
+    {
+        //
+    }
 
     render(){
         if ((!this.state.user)||(!this.state.mainfolders)) {
@@ -75,12 +78,9 @@ class MainPage extends Component{
           ];   
           console.log('in app');       
         return(
-            <div>
-            <div className='header'>Creapedia</div>
-            <Toolbar typeof_parentel="mainpage" parent={'Null'}></Toolbar>
-            <div className="login-wrapper">      
+            <div className="mainfolders">      
             {mainfolders.map(mf=>
-                        <div key={mf.Id}>                            
+                        <div key={mf.Id} className="mfolder">                            
                         {mf.Name==="Проекты"? 
                             <button className='buttonfolder' onClick={this.SelectComponent ({selected: {
                                 title: mf.Name,
@@ -98,7 +98,6 @@ class MainPage extends Component{
                               </Link>}
                     </div>)}        
                         </div>  
-                        </div>
         )
     }
 }

@@ -49,7 +49,7 @@ class FolderPage extends Component{
         }
         else{
             this.props.UpdateHeader(this.props.breadCrumbs);
-            this.props.history.push("/")
+            this.props.history.push("/main")
         }
         
     }

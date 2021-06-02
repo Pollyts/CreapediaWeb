@@ -44,17 +44,29 @@ class BreadCrumbs extends React.Component {
     ClickBreadCrumb= param => e => {
         e.preventDefault();
         const breadCrumbs = this.state.breadCrumbs;
-        const index = breadCrumbs.map(function(e) { return e.body.Id; }).indexOf(param.body.Id);
-        breadCrumbs.length=index+1;
-        this.setState({breadCrumbs:breadCrumbs, needupdate:true});
-        // this.props.history.push(param.path);     
+        if(param.body.Id!=undefined)
+        {
+          const index = breadCrumbs.map(function(e) { return e.body.Id; }).indexOf(param.body.Id);
+          breadCrumbs.length=index+1;
+          this.setState({breadCrumbs:breadCrumbs, needupdate:true});
+        }
+        else{
+          breadCrumbs.length=1;
+          this.setState({breadCrumbs:breadCrumbs, needupdate:false});
+        }
+        
+        this.props.history.push(param.path);     
       }
+    componentDidUpdate(prevprops){
+      if(this.props.location.pathname!=prevprops.location.pathname)
+      this.props.history.push(prevprops.location.pathname);
+    }
   
     render() {
       const breadCrumbs=this.state.breadCrumbs;
     
       return (
-      <div>
+      <div className="maincontainer">
         <div className="Header">
       <div className="BreadCrumbs">
       {breadCrumbs.map(bc=>
@@ -72,8 +84,7 @@ class BreadCrumbs extends React.Component {
               {<button className="btn_logout" onClick={this.handleClick}>выход</button>}
               <img className="logo" src={logo} alt="toolbaritem"/>
               </div>
-              </div>              
-              <Router>
+              </div>  
                       <Switch>                      
                       <Route path="/template" component={TemplatePage}>
                       <TemplatePage body={this.props.token} breadCrumbs={breadCrumbs} UpdateHeader={this.UpdateHeader}/>
@@ -84,15 +95,14 @@ class BreadCrumbs extends React.Component {
                       <Route path="/telement">
                         <TemplateElementPage body={this.props.token} breadCrumbs={breadCrumbs} UpdateHeader={this.UpdateHeader}/>
                       </Route>
-                      <Route path="/main">
+                      <Route exact path="/">
                         <MainPage body={this.props.token} breadCrumbs={breadCrumbs} UpdateHeader={this.UpdateHeader} NeedUpdate={this.state.needupdate}/>
                       </Route>     
                       <Route path="/projects">
                         <FolderPage breadCrumbs={breadCrumbs} NeedUpdate={this.state.needupdate} UpdateHeader={this.UpdateHeader}/>
                       </Route> 
-                        <Redirect from="/" to={{pathname: `/main`}}></Redirect>          
+                        {/* <Redirect from="/" to={{pathname: `/main`}}></Redirect>           */}
                       </Switch>
-                      </Router>
               </div>)
     }
   }

@@ -59,7 +59,7 @@ export default function Login({ setToken }) {
                               </Link>
                               </div>
         <label className="form-row">
-          <button type="submit">ВОЙТИ</button>
+          <button type="submit">войти</button>
         </label>
       </form>
            

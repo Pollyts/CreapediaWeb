@@ -42,7 +42,7 @@ export default class Registration extends Component{
     handleSubmit = async e => {
         e.preventDefault();
         await SingUp(this.state.mail,this.state.password);
-        alert("успешно");  
+        alert("Вы зарегистрировались! Для подтверждения адреса, пожалуйста, перейдите по ссылке, отправленную вам на указанную почту");  
         this.setState({ifregister: true});
       }
     render(){

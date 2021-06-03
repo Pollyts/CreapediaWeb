@@ -46,12 +46,16 @@
     color: #427696;
   }
   
-  .form-row button[type="submit"] {
-    margin: 30px;
+  .form-row button{
+    width: 300px;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px 0px 0px 0px;
     background: #427696;
     font-family: 'Alegreya';
     color: #EDD5C4;
-    padding: 10px 100px;
     border-radius: 50px;
     border-width: 0;
     cursor: pointer;
@@ -60,7 +64,7 @@
     text-transform: uppercase;
     transition: 1s cubic-bezier(.165, .84, .44, 1);
   }
-  .form-row button[type=submit]:hover {
+  .form-row button:hover {
     background: #79A6B1;
   }
   .RegistrationLink, .ForgotPass{  

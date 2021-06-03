@@ -83,8 +83,10 @@ export default class MainPage extends Component{
                         </div>)}
                         </div> 
                         <div className="settingsinheader">
-              {<button className="btn_logout" onClick={this.handleClick}>настройки</button>}
-              {<button className="btn_logout" onClick={this.handleClick}>выход</button>}
+                        <Link to={{pathname:"/settings"}} >
+              {<button className="btn_logout">настройки</button>}
+              </Link>    
+              {<button className="btn_logout" onClick={this.handleClick}>выход</button>}                                        
               <img className="logo" src={logo} alt="toolbaritem"/>
               </div>
                         </div>

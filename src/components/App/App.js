@@ -7,7 +7,8 @@ import ElementPage from '../ElementPage/ElementPage';
 import TemplateElementPage from '../TemplateElementPage/TemplateElementPage';
 import Login from '../Login/Login';
 import useToken from './useToken';
-import Registration from '../Registration/Registration'
+import Registration from '../Registration/Registration';
+import Settings from '../Settings/Settings';
 import './App.css';
 
 
@@ -29,7 +30,6 @@ function App(props) {
   }  
   //при наличии данных в localstorage
   return (
-    <div>
     <Router>
             <Switch>
             <Route path="/main" component={MainPage}></Route>
@@ -38,10 +38,10 @@ function App(props) {
             <Route path="/element" component={ElementPage}></Route>
             <Route path="/telement" component={TemplateElementPage}></Route>
             <Route path="/registration" component={Registration}></Route>   
+            <Route path="/settings"><Settings body={token}/></Route>
             <Redirect from="/" to={{pathname: `/main`, state: {body:token}}}/>          
             </Switch>
             </Router>
-    </div>
   );
 }
 

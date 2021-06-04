@@ -1,8 +1,10 @@
 import React, {Component} from 'react';
 import './ModalPages.css';
-async function SaveElement (elwithimg)
+
+// async function SaveElement (name, parentfolderid, image)
+async function SaveTemplateElement (elwithimg)
 { 
-    await fetch(process.env.REACT_APP_API_ELEMENTS,{
+    await fetch(process.env.REACT_APP_API_TEMPLATEELEMENTS,{
         method: 'POST', // или 'PUT'
         body: elwithimg, // данные могут быть 'строкой' или {объектом}!
         headers: {
@@ -11,13 +13,13 @@ async function SaveElement (elwithimg)
             console.log(response.status)});
     }
 
-export default class AddElement extends Component{
+export default class AddTemplateElement extends Component{
     constructor(props){
         super(props);
         this.state={name:"", filepath:null, file: null}
         this.onChange = this.onChange.bind(this);
         this.sendImage = this.sendImage.bind(this); 
-        this.handleImageChange = this.handleImageChange.bind(this);     
+        this.handleImageChange = this.handleImageChange.bind(this);    
     }   
     onChange(e) {
         var val = e.target.value;
@@ -26,7 +28,7 @@ export default class AddElement extends Component{
 
     async sendImage(event) {
         event.preventDefault();
-        await SaveElement(this.state.file);
+        await SaveTemplateElement(this.state.name,this.props.folder.Id );     
         this.props.onClose();        
         window.location.reload();
     };
@@ -40,7 +42,7 @@ export default class AddElement extends Component{
         }
         form.append('parentfolderid', this.props.folder.Id);
         form.append('Name', this.state.name);
-        this.setState({ file: form, filepath: URL.createObjectURL(e.target.files[0])});
+        this.setState({ file: form });
     };  
 
     render(){
@@ -52,24 +54,24 @@ export default class AddElement extends Component{
             <div className="ModalPage" onClick={this.props.onClose}> 
             <div className="modal-content" onClick={e=>e.stopPropagation()}>
                 <div className="modal-header">
-                    <div className="modal-title">Создание элемента</div>
+                    <h4 className="modal-title">Создание шаблонного элемента</h4>
                 </div>
                 <div className="modal-body">
                 <label className="formlabel"> Название:</label>
                 <input className="forminput" type="text" value={this.state.name} onChange={this.onChange}/>
                 <label className="formlabel">Расположение:</label>
-                <div className="place">
-                <label>{this.props.folder.Name}</label> <button className="button arrow"> -{'>'} </button>
-                </div>
+                <button className="placeholder">{this.props.folder.Name}</button>
                 <div className="modal-image">
+                <div>
                 <label className="formlabel">Фото:</label>                
-                <input type="file" onChange={(e)=>this.handleImageChange(e)}/>                
+                <input type="file" onChange={(e)=>this.handleImageChange(e)}/>
+                </div>
                 <img className="downloadimage" src={this.state.filepath}/>
                 </div>
                 </div>                
                 <div className="modal-footer">
-                <button className="button SaveButton" onClick={this.sendImage}>Сохранить</button>
-                <button className="button CloseButton" onClick={this.props.onClose}>Назад</button>
+                <button className="button" onClick={this.sendImage}>Save</button>
+                <button className="button" onClick={this.props.onClose}>Close</button>
                 </div>
             </div>            
             </div>

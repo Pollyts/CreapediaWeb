@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Link} from "react-router-dom";
 import './TemplatePage.css';
-import Toolbar from '../Toolbar/Toolbar';
+import Toolbar from '../Toolbar/ToolbarTemplateFolder';
 import logo from '../App/logo4x.png';
 
 export default class TemplatePage extends Component{
@@ -73,12 +73,11 @@ export default class TemplatePage extends Component{
           }
         const {folders, elements,breadCrumbs}=this.state;//сначала
         return(
-            <div>
+            <div className="folderPage">
                 <div className="Header">
                 <div className="BreadCrumbs">
                 {breadCrumbs.map(bc=>
-                        <div key={bc.title} className="gt">                            
-                            {/* <Link to={{pathname: `/template/${folder.Id}/${folder.Name}`}}> */}
+                        <div key={bc.title} className="gt">      
                             <Link className="BreadCrumb" to={{pathname:bc.path, state:{body:bc.body, breadCrumbs:breadCrumbs}}} >
                              {bc.title} 
                               </Link>
@@ -90,8 +89,8 @@ export default class TemplatePage extends Component{
               {<button className="btn_logout" onClick={this.handleClick}>выход</button>}
               <img className="logo" src={logo} alt="toolbaritem"/>
               </div>
-                        </div>    
-                        {/* <Toolbar previouspages={breadCrumbs} typeof_parentel="folder" parent={this.props.location.state.body}></Toolbar>         */}
+                        </div>   
+                                               
             <div className="listview">              
                         {folders.map(folder=>
                         <div key={folder.Id}>
@@ -102,16 +101,24 @@ export default class TemplatePage extends Component{
                               </Link>
                         </div>)} 
                         {elements.map(folder=>
-                        <div key={folder.Id}>
+                        <div key={folder.Id}>                            
                             <Link className="elementinlist" to={{pathname:`/telement`, state: {breadCrumbs:breadCrumbs, body:folder}}}>
+                            {/* {folder.Image===undefined} */}
+                            <img className="elementimage" src={`data:image/jpeg;base64,${folder.Image}`} />
                             <div className="NameElementOfList"> 
                              {folder.Name}
                               </div>
                               </Link>
-                        </div>)}                        
-                           
+                        </div>)}          
+                                      
+                           <div className="foldercomponents">
                         </div>  
+                        
                         </div>
+                        <div className="foldercomponents">
+                        <Toolbar previouspages={breadCrumbs} typeof_parentel="folder" parent={this.props.location.state.body}></Toolbar>
+                        </div>
+                        </div>  
         )
     }
 }

@@ -7,7 +7,7 @@ async function SaveFolder (name, parentfolderid)
       "Name": name,
       "ParentfolderId": Number(parentfolderid)
    }
-    await fetch(process.env.REACT_APP_API_FOLDERS,{
+    await fetch(process.env.REACT_APP_API_TEMPLATEFOLDERS,{
         method: 'POST', // или 'PUT'
         body: JSON.stringify(folder), // данные могут быть 'строкой' или {объектом}!
         headers: {

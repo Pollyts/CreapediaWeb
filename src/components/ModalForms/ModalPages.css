@@ -11,15 +11,25 @@
     font-size: 20px;
     color: #427696;
     font-size: 24px;
+    overflow:scroll;
 }
-.placeholder{
+.place{
     background-color: transparent;
     color: #427696;
+    margin-bottom: 10px;
 }
 .button{
     color: #427696;
-    background-color: transparent;
+    border:none;
+    background-color: transparent;    
     font-family: 'Alegreya';
+    outline: none;
+    cursor: pointer;
+}
+
+.arrow{
+    border: 1px solid #427696;
+    border-radius: 50px;
 }
 .modal-content{
     width: 500px;
@@ -28,16 +38,21 @@
     border-radius: 25px;
     height: auto;
 }
+input[type="file"]{
+font-size: 18px;
+margin-left:30px;
+}
 
 .forminput {
     border: #427696 1px solid;
     border-radius: 50px;
+    outline: none;
+    text-align: center;
+    
   }
 
-.modal-header, .modal-footer{
-    padding: 10px;
+.modal-header, .modal-footer{    
     font-size: 28px;
-
 }
 
 .modal-image{
@@ -48,20 +63,27 @@
 }
 
 .downloadimage{
-    width: 200px;
-    height: auto;
+    margin: 20px;
+    height: 200px;
+    width: auto;
 }
 .modal-header{
     text-align: center;
+    margin: 10px;
+    font-family: 'Alegreya';
 }
 .modal-footer{
-    display: flex;
-    justify-content: space-around;
-
+    display: flex;    
+}
+.SaveButton{
+width: 50%;
+border-right: 1px solid #eee;
+padding: 10px 0px; 
 }
 
-.modal-title{
-margin: 0;
+.CloseButton{
+width: 50%;
+padding: 10px 0px; 
 }
 
 .modal-body{
@@ -72,5 +94,5 @@ margin: 0;
     border-bottom: 1px solid #eee;
 }
 .formlabel{
-    padding-top: 20px;
+    padding: 20px 0px 10px 0px;
 }

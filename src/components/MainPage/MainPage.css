@@ -42,7 +42,7 @@
 .gt{
     display: inline; 
     color: #427696;   
-    padding: 10px 0px 0px 0px; 
+    /* padding: 10px 0px 0px 0px;  */
 }
 .btn_logout{
     margin: 0px 10px; 

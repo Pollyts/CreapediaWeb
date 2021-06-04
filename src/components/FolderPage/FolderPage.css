@@ -2,25 +2,28 @@
     display: flex;
   flex-wrap: wrap;
   width: inherit;
-  height: inherit;
   align-content: space-around;
-  margin: 30px;
-
+  padding-bottom: 150px;
 }
 .elementinlist{
     margin: 10px;
     width: 150px;
     height: 200px;
     border: 4px solid #427696;
-    background-color: #427696;
+    background-color: transparent;
     border-radius: 25px;
+    position: relative;
     display: flex;
-    align-items: flex-end;
+    flex-direction: column; 
+    justify-content: space-between;   
     overflow: hidden;
     text-decoration: none;
 }
-
+.folderPage{
+  height: 100vh;
+}
 .folderinlist{
+    position: relative;
     margin: 10px;
     width: 150px;
     height: 200px;
@@ -34,7 +37,8 @@
 }
 
 .NameElementOfList{
-    background-color: #fff;
+    position: absolute;
+    bottom: 0px;
     padding: 0px;
     border: 4px solid #427696;
     margin: -4px;
@@ -50,4 +54,16 @@
     justify-content: center; /* align horizontal */
     align-items: center; /* align vertical */    
     overflow: hidden;
+}
+
+.elementimage{
+    width: 100%;
+    height: 100%; 
+    object-fit: cover;
+    /* margin: -10px 0px 0px -10px;
+    top: 0px;
+    width: 110%;
+    height: auto;
+    object-fit: contain; */
+
 }

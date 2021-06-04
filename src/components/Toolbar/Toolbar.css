@@ -1,24 +1,29 @@
 .Toolbar{
     position: fixed;
+    bottom: 0;
     display: flex;
-    justify-content: space-around;
-    /* background-color: #FFECDD; */
-    background-color: #EDD5C4;
+    justify-self: flex-end;
     bottom: 0px;
+    justify-content: space-around;
+    background-color: #EDD5C4;
     width: 100%;
+    height: auto;
     padding: 20px 10px;
     border-top: 4px solid #427696;
 }
 
-.Toolbar button{
+.Toolbarbutton{
     padding: 5px 10px;
     border: 4px solid #427696;
     border-radius: 100px;
     font-size: 24px;
     color:#427696;
+    cursor: pointer;
     font-family: 'Alegreya';
+    background-color: transparent;
 }
 
-button{   
-    background-color: transparent;
+.ToolbarRelative{
+    display: flex;
+    justify-self: flex-end;
 }

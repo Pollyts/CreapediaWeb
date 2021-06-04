@@ -67,7 +67,7 @@ export default class AddElement extends Component{
                 <div className="place">
                 <label>{this.props.folder.Name}</label> <button className="button"> -{'>'} </button>
                 </div>
-                <div>
+                {/* <div>
                 <div>
                 {this.props.prevpages.map(bc=>
                         <div key={bc.title} className="gt">
@@ -78,7 +78,7 @@ export default class AddElement extends Component{
                         </div>)}
                         </div>                              
 
-                </div>
+                </div> */}
                 </div>
                 <div className="modal-footer">
                 <button className="button" onClick={this.handleSubmit}>Save</button>

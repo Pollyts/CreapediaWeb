@@ -110,6 +110,7 @@ export default class ElementPage extends Component{
                         
                            
                         </div>  
+                        <Toolbar previouspages={breadCrumbs} typeof_parentel="element" parent={this.props.location.state.body}></Toolbar>
                         </div>
         )
     }

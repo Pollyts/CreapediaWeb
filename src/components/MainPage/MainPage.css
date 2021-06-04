@@ -31,7 +31,7 @@
     font-size: 48px;
     
   }
-  .BreadCrumbs{
+.BreadCrumbs{
     margin: 20px; 
 }
 .BreadCrumb{    
@@ -65,6 +65,7 @@
     /* box-sizing: border-box; */
     display: flex;
     justify-content: space-between;
+    align-items:center;
     width: 100%; /* Full width */  
     overflow: hidden;   
     font-size: 24px;

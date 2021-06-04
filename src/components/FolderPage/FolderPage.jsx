@@ -72,7 +72,7 @@ export default class FolderPage extends Component{
           }
         const {folders, elements,breadCrumbs}=this.state;//сначала
         return(
-            <div>
+            <div className="folderPage">
                 <div className="Header">
                 <div className="BreadCrumbs">
                 {breadCrumbs.map(bc=>
@@ -88,7 +88,8 @@ export default class FolderPage extends Component{
               {<button className="btn_logout" onClick={this.handleClick}>выход</button>}
               <img className="logo" src={logo} alt="toolbaritem"/>
               </div>
-                        </div>                            
+                        </div>   
+                                               
             <div className="listview">              
                         {folders.map(folder=>
                         <div key={folder.Id}>
@@ -99,18 +100,23 @@ export default class FolderPage extends Component{
                               </Link>
                         </div>)} 
                         {elements.map(folder=>
-                        <div key={folder.Id}>
+                        <div key={folder.Id}>                            
                             <Link className="elementinlist" to={{pathname:`/element`, state: {breadCrumbs:breadCrumbs, body:folder}}}>
+                            <img className="elementimage" src={`data:image/jpeg;base64,${folder.Image}`} />
                             <div className="NameElementOfList"> 
                              {folder.Name}
                               </div>
                               </Link>
                         </div>)}          
                                       
-                           
+                           <div className="foldercomponents">
                         </div>  
+                        
+                        </div>
+                        <div className="foldercomponents">
                         <Toolbar previouspages={breadCrumbs} typeof_parentel="folder" parent={this.props.location.state.body}></Toolbar>
                         </div>
+                        </div>  
         )
     }
 }

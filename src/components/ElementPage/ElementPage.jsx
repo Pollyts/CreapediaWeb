@@ -93,7 +93,8 @@ export default class ElementPage extends Component{
               {<button className="btn_logout" onClick={this.handleClick}>выход</button>}
               <img className="logo" src={logo} alt="toolbaritem"/>
               </div>
-                        </div>    
+                        </div>   
+                        <div className="ElementBody">
                         {/* <Toolbar previouspages={breadCrumbs} typeof_parentel="element" parent={this.props.location.state.body}></Toolbar> */}
                         <div className="Characteristics">                        
                         {groups.map(group=>
@@ -109,6 +110,8 @@ export default class ElementPage extends Component{
                     </div>)} 
                         
                            
+                        </div> 
+                        <img className="ImageElement" src={`data:image/jpeg;base64,${this.props.location.state.body.Image}`} />
                         </div>  
                         <Toolbar previouspages={breadCrumbs} typeof_parentel="element" parent={this.props.location.state.body}></Toolbar>
                         </div>

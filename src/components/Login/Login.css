@@ -60,10 +60,13 @@
     border-width: 0;
     cursor: pointer;
     outline: none;
-
-    text-transform: uppercase;
     transition: 1s cubic-bezier(.165, .84, .44, 1);
   }
+
+  input::-webkit-input-placeholder {
+    color: #427696; /*Change the placeholder color*/
+    opacity: 0.5; /*Change the opacity between 0 and 1*/
+}
   .form-row button:hover {
     background: #79A6B1;
   }

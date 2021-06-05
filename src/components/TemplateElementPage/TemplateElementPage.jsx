@@ -92,7 +92,7 @@ export default class TemplateElementPage extends Component{
                             <Link className="BreadCrumb" to={{pathname:bc.path, state:{body:bc.body, breadCrumbs:breadCrumbs}}} >
                              {bc.title} 
                               </Link>
-                              &gt;&gt;
+                              &ensp;&rarr;&ensp;
                         </div>)}
                         </div> 
                         <Toolbar previouspages={breadCrumbs} typeof_parentel="templateelement" parent={this.props.location.state.body}></Toolbar>   

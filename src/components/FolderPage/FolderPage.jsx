@@ -80,7 +80,7 @@ export default class FolderPage extends Component{
                             <Link className="BreadCrumb" to={{pathname:bc.path, state:{body:bc.body, breadCrumbs:breadCrumbs}}} >
                              {bc.title} 
                               </Link>
-                              &ensp;&rarr;
+                              &ensp;&rarr;&ensp;
                         </div>)}
                         </div> 
                         <div className="settingsinheader">

@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Link} from "react-router-dom";
-import Toolbar from '../Toolbar/Toolbar';
+import Toolbar from '../Toolbar/ToolBarTemplateElement';
 import './TempateElementPage.css';
 
 export default class TemplateElementPage extends Component{

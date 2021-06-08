@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {Link} from "react-router-dom";
 import './MainPage.css';
-import Toolbar from '../Toolbar/Toolbar';
 import logo from '../App/logo4x.png';
 
 export default class MainPage extends Component{

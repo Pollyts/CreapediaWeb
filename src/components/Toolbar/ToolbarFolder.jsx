@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
-import AddElement from '../ModalForms/AddElement';
-import AddFolder from '../ModalForms/AddFolder';
-import DeleteComponent from '../ModalForms/DeleteComponent';
-import ExportComponent from '../ModalForms/ExportComponent';
+import AddFolder from '../ModalForms/Folder/AddFolder';
+import DeleteComponent from '../ModalForms/Folder/DeleteFolder';
 import './Toolbar.css';
 
 export default function Toolbar(props) {
@@ -39,7 +37,7 @@ export default function Toolbar(props) {
             <div className="Toolbar">
             <button className="Toolbarbutton" onClick={() => set_showAddElement(true)}>Добавить характеристики</button>
             <AddElement folder={props.parent} prevpages={props.previouspages} typeofcomponent={props.typeof_parentel} onClose={()=>set_showAddElement(false)} show={showAddElement}/>
-            <button className="Toolbarbutton" onClick={() => set_showAddFolder(true)}>Добавить шаблон</button>
+            <button className="Toolbarbutton" onClick={() => set_showAddFolder(true)}>Добавить класс</button>
             <AddFolder folder={props.parent} prevpages={props.previouspages} onClose={()=>set_showAddFolder(false)} show={showAddFolder}/>
             <button className="Toolbarbutton" onClick={() => set_showDeleteComponent(true)}>Удалить элемент</button>
             <DeleteComponent prevpages={props.previouspages} component={props.parent} typeofcomponent={props.typeof_parentel} onClose={()=>set_showDeleteComponent(false)} show={showDeleteComponent}/>

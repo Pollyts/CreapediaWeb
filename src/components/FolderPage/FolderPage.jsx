@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Link} from "react-router-dom";
-import Toolbar from '../Toolbar/Toolbar';
+import Toolbar from '../Toolbar/ToolbarFolder';
 import logo from '../App/logo4x.png';
 import './FolderPage.css';
 
@@ -99,12 +99,12 @@ export default class FolderPage extends Component{
                               </div>
                               </Link>
                         </div>)} 
-                        {elements.map(folder=>
-                        <div key={folder.Id}>                            
-                            <Link className="elementinlist" to={{pathname:`/element`, state: {breadCrumbs:breadCrumbs, body:folder}}}>
-                            <img className="elementimage" src={`data:image/jpeg;base64,${folder.Image}`} />
+                        {elements.map(el=>
+                        <div key={el.Id}>                            
+                            <Link className="elementinlist" to={{pathname:`/element`, state: {breadCrumbs:breadCrumbs, body:el}}}>
+                            <img className="elementimage" src={`data:image/jpeg;base64,${el.Image}`} />
                             <div className="NameElementOfList"> 
-                             {folder.Name}
+                             {el.Name}
                               </div>
                               </Link>
                         </div>)}          

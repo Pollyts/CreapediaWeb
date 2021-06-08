@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Link} from "react-router-dom";
-import Toolbar from '../Toolbar/Toolbar';
+import Toolbar from '../Toolbar/ToolbarElement';
 import './ElementPage.css';
 import logo from '../App/logo4x.png';
 

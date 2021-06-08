@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import './ModalPages.css';
+import '../ModalPages.css';
 import {Redirect} from "react-router-dom";
 
 async function DeleteFolder (folderid)
@@ -66,14 +66,14 @@ export default class DeleteComponent extends Component{
             <div className="ModalPage" onClick={this.props.onClose}> 
             <div className="modal-content" onClick={e=>e.stopPropagation()}>
                 <div className="modal-header">
-                    <h4 className="modal-title">Удаление {this.props.component.Name}</h4>
+                    <div className="modal-title">Удаление папки {this.props.component.Name}</div>
                 </div>
                 <div className="modal-body">
                 <label className="formlabel"> Вы действительно хотите удалить {this.props.typeofcomponent==="template" ? 'папку' : 'элемент'} {this.props.component.Name}?</label>
                 </div>
                 <div className="modal-footer">
-                <button className="button" onClick={this.handleSubmit}>Да</button>
-                <button className="button" onClick={this.props.onClose}>Отменить</button>
+                <button className="button SaveButton"  onClick={this.handleSubmit}>Да</button>
+                <button className="button CloseButton" onClick={this.props.onClose}>Отменить</button>
                 </div>
             </div>            
             </div>

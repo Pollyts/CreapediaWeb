@@ -1,14 +1,15 @@
 import React, {Component} from 'react';
 import '../ModalPages.css';
+import {Redirect} from "react-router-dom";
 
 async function SaveFolder (name, parentfolderid)
 {   
     const folder =   {
       "Name": name,
-      "ParentfolderId": Number(parentfolderid)
+      "Id": Number(parentfolderid)
    }
     await fetch(process.env.REACT_APP_API_FOLDERS,{
-        method: 'POST', // или 'PUT'
+        method: 'PUT', // или 'PUT'
         body: JSON.stringify(folder), // данные могут быть 'строкой' или {объектом}!
         headers: {
             'Accept': 'application/json',
@@ -17,10 +18,10 @@ async function SaveFolder (name, parentfolderid)
             console.log(response.status)});
 }
 
-export default class AddFolder extends Component{
+export default class EditFolder extends Component{
     constructor(props){
         super(props);
-        this.state={name:"", folders:null, breadCrumbs:null}
+        this.state={name:this.props.folder.Name, folders:null, isupdated:null}
         this.onChange = this.onChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);   
         this.changedirectory = this.changedirectory.bind(this);
@@ -39,19 +40,35 @@ export default class AddFolder extends Component{
         console.log(this.props);
         await SaveFolder(this.state.name,this.props.folder.Id );
         this.props.onClose();
-        window.location.reload();
+        this.setState({isupdated:true});
       }
-
+componentDidUpdate(prevProps){
+    if (prevProps.folder.Id !== this.props.folder.Id)
+    {
+        console.log("zashel");
+        this.setState({name:this.props.folder.Name, folders:null, isupdated:null});
+    }    
+}
     render(){
+        if(this.state.isupdated)
+        {
+            let bc=this.props.prevpages;
+            bc[bc.length-1].title=this.state.name;
+            bc[bc.length-1].body.Name=this.state.name;
+            this.setState({isupdated: false});
+            return <Redirect to={{pathname: bc[bc.length-1].path, state: { body: bc[bc.length-1].body, breadCrumbs:bc}            
+  }}/>
+        }
         if(!this.props.show)
         {
             return null
         }
+        
         return(
             <div className="ModalPage" onClick={this.props.onClose}> 
             <div className="modal-content" onClick={e=>e.stopPropagation()}>
                 <div className="modal-header">
-                    <div className="modal-title">Создание папки</div>
+                    <div className="modal-title">Редактировать папку</div>
                 </div>
                 <div className="modal-body">
                 <label className="formlabel"> Название:</label>

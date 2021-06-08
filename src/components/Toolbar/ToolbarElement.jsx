@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
-import AddElement from '../ModalForms/Element/AddElement';
-import AddFolder from '../ModalForms/Folder/AddFolder';
-import DeleteComponent from '../ModalForms/Element/DeleteElement';
-import ExportComponent from '../ModalForms/ExportComponent';
+import AddCharacteristics from '../ModalForms/Element/AddCharacteristics';
+import AddTemplateElement from '../ModalForms/Element/AddTemplateElement';
+import DeleteElement from '../ModalForms/Element/DeleteElement';
+import EditElement from '../ModalForms/Element/EditElement';
+import ExportElement from '../ModalForms/Element/ExportElement';
+
+
 import './Toolbar.css';
 
 export default function Toolbar(props) {
@@ -11,44 +14,23 @@ export default function Toolbar(props) {
     const [showAddFolder, set_showAddFolder] = useState(false);
     const [showDeleteComponent, set_showDeleteComponent] = useState(false);
     const [showExportComponent, set_showExportComponent] = useState(false);
-
-
-    if((props.typeof_parentel==="folder")||(props.typeof_parentel==="templatefolder"))
-    {
-        return(
-            <div className="ToolbarRelative">
-            <div className="Toolbar">
-            <button className="Toolbarbutton" onClick={() => set_showAddElement(true)}>Добавить элемент</button>
-            <AddElement folder={props.parent} prevpages={props.previouspages} typeofcomponent={props.typeof_parentel} onClose={()=>set_showAddElement(false)} show={showAddElement}/>
-            <button className="Toolbarbutton" onClick={() => set_showAddFolder(true)}>Добавить папку</button>
-            <AddFolder folder={props.parent} prevpages={props.previouspages} onClose={()=>set_showAddFolder(false)} show={showAddFolder}/>
-            <button className="Toolbarbutton" onClick={() => set_showDeleteComponent(true)}>Удалить папку</button>
-            <DeleteComponent prevpages={props.previouspages} component={props.parent} typeofcomponent={props.typeof_parentel} onClose={()=>set_showDeleteComponent(false)} show={showDeleteComponent}/>
-            <button className="Toolbarbutton">Изменить папку</button>
-            <button className="Toolbarbutton" onClick={() => set_showExportComponent(true)}>Экспорт папки</button>
-            <ExportComponent component={props.parent} typeofcomponent={props.typeof_parentel} onClose={()=>set_showExportComponent(false)} show={showExportComponent}/>
-            <button className="Toolbarbutton">Импорт компонента</button>
-            </div>
-            </div>
-          )
-    }    
-    if((props.typeof_parentel==="element")||(props.typeof_parentel==="templateelement"))
-    {
+    const [showEditComponent, set_showEditComponent] = useState(false);
+    
         return(
             <div className="ToolbarRelative">
             <div className="Toolbar">
             <button className="Toolbarbutton" onClick={() => set_showAddElement(true)}>Добавить характеристики</button>
-            <AddElement folder={props.parent} prevpages={props.previouspages} typeofcomponent={props.typeof_parentel} onClose={()=>set_showAddElement(false)} show={showAddElement}/>
+            <AddCharacteristics element={props.parent} prevpages={props.previouspages} onClose={()=>set_showAddElement(false)} show={showAddElement}/>
             <button className="Toolbarbutton" onClick={() => set_showAddFolder(true)}>Добавить класс</button>
-            <AddFolder folder={props.parent} prevpages={props.previouspages} onClose={()=>set_showAddFolder(false)} show={showAddFolder}/>
+            <AddTemplateElement element={props.parent} prevpages={props.previouspages} onClose={()=>set_showAddFolder(false)} show={showAddFolder}/>
             <button className="Toolbarbutton" onClick={() => set_showDeleteComponent(true)}>Удалить элемент</button>
-            <DeleteComponent prevpages={props.previouspages} component={props.parent} typeofcomponent={props.typeof_parentel} onClose={()=>set_showDeleteComponent(false)} show={showDeleteComponent}/>
-            <button className="Toolbarbutton" >Изменить элемент</button>
+            <DeleteElement prevpages={props.previouspages} component={props.parent} onClose={()=>set_showDeleteComponent(false)} show={showDeleteComponent}/>
+            <button className="Toolbarbutton" onClick={() => set_showEditComponent(true)}>Изменить элемент</button>
+            <EditElement element={props.parent} prevpages={props.previouspages} onClose={()=>set_showEditComponent(false)} show={showEditComponent}/>
             <button className="Toolbarbutton" onClick={() => set_showExportComponent(true)}>Экспорт элемента</button>
-            <ExportComponent component={props.parent} typeofcomponent={props.typeof_parentel} onClose={()=>set_showExportComponent(false)} show={showExportComponent}/>
+            <ExportElement component={props.parent} typeofcomponent={props.typeof_parentel} onClose={()=>set_showExportComponent(false)} show={showExportComponent}/>
             </div>
             </div>
           )
-    }
   
 }

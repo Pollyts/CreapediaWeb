@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import './ModalPages.css';
+import '../ModalPages.css';
 async function SaveTemplateElement (elwithimg)
 { 
     await fetch(process.env.REACT_APP_API_TEMPLATEELEMENTS,{

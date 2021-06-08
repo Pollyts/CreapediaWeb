@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import './ModalPages.css';
+import '../ModalPages.css';
 
 async function SaveFolder (name, parentfolderid)
 {   

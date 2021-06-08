@@ -1,14 +1,28 @@
 import React, {Component} from 'react';
-import './ModalPages.css';
-async function SaveElement (elwithimg)
+import '../ModalPages.css';
+async function SaveElement (name, pfid)
 { 
+    const element =   {
+        "Name": name,
+        "ParentfolderId": Number(pfid)
+     }
     await fetch(process.env.REACT_APP_API_ELEMENTS,{
         method: 'POST', // или 'PUT'
-        body: elwithimg, // данные могут быть 'строкой' или {объектом}!
+        body: JSON.stringify(element), // данные могут быть 'строкой' или {объектом}!
         headers: {
             'Accept': 'application/json',
+            'Content-Type': 'application/json'
           }}).then(function(response) {
             console.log(response.status)});
+    }
+    async function SaveImage (elwithimg){
+        await fetch(process.env.REACT_APP_API_ELEMENTS+"/image",{
+            method: 'POST', // или 'PUT'
+            body: elwithimg, // данные могут быть 'строкой' или {объектом}!
+            headers: {
+                'Accept': 'application/json'
+              }}).then(function(response) {
+                console.log(response.status)});
     }
 
 export default class AddElement extends Component{
@@ -26,21 +40,29 @@ export default class AddElement extends Component{
 
     async sendImage(event) {
         event.preventDefault();
-        await SaveElement(this.state.file);
+        await SaveElement(this.state.name, this.props.folder.Id);
+        if (this.state.file!=null)
+        await SaveImage(this.state.file);
         this.props.onClose();        
         window.location.reload();
     };
     
     handleImageChange(e) {
         e.preventDefault();
+        if(e.target.files.length>0)
+        {
         let form = new FormData();
         for (var index = 0; index < e.target.files.length; index++) {
             var element = e.target.files[index];
             form.append('image', element);
         }
         form.append('parentfolderid', this.props.folder.Id);
-        form.append('Name', this.state.name);
         this.setState({ file: form, filepath: URL.createObjectURL(e.target.files[0])});
+    }
+    else if (this.state.file!=null)
+    {
+        this.setState({ file: null, filepath: null})
+    }
     };  
 
     render(){

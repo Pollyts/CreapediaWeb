@@ -30,9 +30,9 @@ export default function Toolbar(props) {
             <button className="Toolbarbutton" onClick={() => set_showEditComponent(true)}>Изменить папку</button>
             <EditFolder prevpages={props.previouspages} folder={props.parent} onClose={()=>set_showEditComponent(false)} show={showEditComponent}/>
             <button className="Toolbarbutton" onClick={() => set_showExportComponent(true)}>Экспорт папки</button>
-            <ExportFolder prevpages={props.previouspages} component={props.parent} onClose={()=>set_showExportComponent(false)} show={showExportComponent}/>
+            <ExportFolder prevpages={props.previouspages} folder={props.parent} onClose={()=>set_showExportComponent(false)} show={showExportComponent}/>
             <button className="Toolbarbutton" onClick={() => set_showImportComponent(true)}>Импорт в папку</button>
-            <ImportFolder prevpages={props.previouspages} component={props.parent} onClose={()=>set_showImportComponent(false)} show={showImportComponent}/>
+            <ImportFolder prevpages={props.previouspages} folder={props.parent} onClose={()=>set_showImportComponent(false)} show={showImportComponent}/>
             </div>
             </div>
     )    

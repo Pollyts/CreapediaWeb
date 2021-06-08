@@ -93,8 +93,21 @@ padding: 10px 0px;
     flex-direction: column;
     border-top: 1px solid #eee;
     border-bottom: 1px solid #eee;
+    padding-bottom: 20px;
 }
 .formlabel{
     padding: 20px 0px 10px 0px;
     text-align:center;
+}
+
+.formwithradio{
+    align-items:flex-start;
+    padding-top: 20px;
+}
+
+.radiobutton{
+    display: flex;
+}
+input[type="radio"]{
+    margin: 10px;
 }

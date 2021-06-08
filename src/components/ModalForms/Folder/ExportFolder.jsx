@@ -12,7 +12,27 @@ async function DeleteFolder (folderid)
           }}).then(function(response) {
             console.log(response.status)});
 }
-async function DeleteElement (elementid)
+async function ExportToUser (elementid)
+{   
+    await fetch(process.env.REACT_APP_API_ELEMENTS + `/${elementid}`,{
+        method: 'DELETE', // или 'PUT'
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          }}).then(function(response) {
+            console.log(response.status)});
+}
+async function ExportToLibrary (elementid)
+{   
+    await fetch(process.env.REACT_APP_API_ELEMENTS + `/${elementid}`,{
+        method: 'DELETE', // или 'PUT'
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          }}).then(function(response) {
+            console.log(response.status)});
+}
+async function ExportToFolder (elementid)
 {   
     await fetch(process.env.REACT_APP_API_ELEMENTS + `/${elementid}`,{
         method: 'DELETE', // или 'PUT'
@@ -23,26 +43,41 @@ async function DeleteElement (elementid)
             console.log(response.status)});
 }
 
-export default class DeleteComponent extends Component{
+export default class ExportFolder extends Component{
     constructor(props){
         super(props);
         console.log(this.props);
-        this.state={isdeleted:null}
-        this.handleSubmit = this.handleSubmit.bind(this);        
+        this.state={exporttype:null, body:null}
+        this.handleSubmit = this.handleSubmit.bind(this); 
+        this.setTypeOfExport = this.setTypeOfExport.bind(this); 
+        this.onMailChange = this.onMailChange.bind(this); 
+        this.onPasswordChange = this.onPasswordChange.bind(this); 
+               
     }
+
+    setTypeOfExport(event) {
+        this.setState({exporttype:event.target.value});
+        console.log("wow");
+      }
+      onMailChange(event) {
+        this.setState({body:event.target.value});
+      }
+      onPasswordChange(event) {
+        this.setState({body:event.target.value});
+      }
    
     handleSubmit = async e => {
         e.preventDefault();
-        if(this.props.typeofcomponent==="folder")
-        {
-          await DeleteFolder(this.props.component.Id);  
-        }        
-        else
-        {
-            await DeleteElement(this.props.component.Id);
-        }        
+        // if(this.props.typeofcomponent==="folder")
+        // {
+        //   await DeleteFolder(this.props.component.Id);  
+        // }        
+        // else
+        // {
+        //     await DeleteElement(this.props.component.Id);
+        // }        
         this.props.onClose();
-        this.setState({isdeleted:true});
+        // this.setState({isdeleted:true});
       }
 
     render(){
@@ -66,14 +101,38 @@ export default class DeleteComponent extends Component{
             <div className="ModalPage" onClick={this.props.onClose}> 
             <div className="modal-content" onClick={e=>e.stopPropagation()}>
                 <div className="modal-header">
-                    <h4 className="modal-title">Удаление {this.props.component.Name}</h4>
+                    <div className="modal-title">Экспорт папки {this.props.folder.Name}</div>
                 </div>
-                <div className="modal-body">
-                <label className="formlabel"> Вы действительно хотите удалить {this.props.typeofcomponent==="template" ? 'папку' : 'элемент'} {this.props.component.Name}?</label>
+                <div className="modal-body">   
+                <div className="formwithradio">
+                <div className="radiobutton" onChange={this.setTypeOfExport.bind(this)}>
+                <input type="radio" value="user" name="gender"/> Другому пользователю
                 </div>
+                <div className="radiobutton" onChange={this.setTypeOfExport.bind(this)}>
+                <input type="radio" value="folder" name="gender"/> В другую папку
+                </div>
+                <div className="radiobutton" onChange={this.setTypeOfExport.bind(this)}>
+                <input type="radio" value="library" name="gender"/> В общую библиотеку
+                </div>
+                </div>   
+                </div>
+                {this.state.exporttype==="user" ? <div className="modal-body">
+                    <label className="formlabel"> Введите почту получателя:</label>
+                    <input className="forminput" type="text" value={this.state.body} onChange={this.onMailChange}/>
+                </div> :null}
+                {this.state.exporttype==="library" ? <div className="modal-body">
+                    <label className="formlabel"> Задайте пароль:</label>
+                    <input className="forminput" type="text" value={this.state.body} onChange={this.onPasswordChange}/>
+                </div> :null}
+                {this.state.exporttype==="folder" ? <div className="modal-body">
+                <label className="formlabel">Расположение:</label>
+                <div className="place">
+                <label>{this.props.folder.Name}</label> <button className="button arrow"> &ensp;&rarr;&ensp; </button>
+                </div>
+                </div> :null}
                 <div className="modal-footer">
-                <button className="button" onClick={this.handleSubmit}>Да</button>
-                <button className="button" onClick={this.props.onClose}>Отменить</button>
+                <button className="button SaveButton"  onClick={this.handleSubmit}>Экспортировать</button>
+                <button className="button CloseButton" onClick={this.props.onClose}>Отменить</button>
                 </div>
             </div>            
             </div>

@@ -69,7 +69,7 @@ export default class DeleteComponent extends Component{
                     <div className="modal-title">Удаление папки {this.props.component.Name}</div>
                 </div>
                 <div className="modal-body">
-                <label className="formlabel"> Вы действительно хотите удалить {this.props.typeofcomponent==="template" ? 'папку' : 'элемент'} {this.props.component.Name}?</label>
+                <label className="formlabel"> Вы действительно хотите удалить папку {this.props.component.Name}?</label>
                 </div>
                 <div className="modal-footer">
                 <button className="button SaveButton"  onClick={this.handleSubmit}>Да</button>

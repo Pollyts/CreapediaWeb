@@ -85,8 +85,9 @@ export default class AddElement extends Component{
                 </div>
                 <div className="modal-image">
                 <label className="formlabel">Фото:</label>                
-                <input type="file" onChange={(e)=>this.handleImageChange(e)}/>                
-                <img className="downloadimage" src={this.state.filepath}/>
+                <input type="file" onChange={(e)=>this.handleImageChange(e)}/>  
+                {this.state.filepath===null ? <div/> :<img className="downloadimage" src={this.state.filepath}/>}             
+                
                 </div>
                 </div>                
                 <div className="modal-footer">

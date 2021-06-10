@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import '../ModalPages.css';
 import {Redirect} from "react-router-dom";
 
-async function DeleteFolder (folderid)
+async function ImportFromFolder (folderid)
 {
     await fetch(process.env.REACT_APP_API_FOLDERS + `/${folderid}`,{
         method: 'DELETE', // или 'PUT'
@@ -12,7 +12,7 @@ async function DeleteFolder (folderid)
           }}).then(function(response) {
             console.log(response.status)});
 }
-async function DeleteElement (elementid)
+async function ImportFromLibrary (elementid)
 {   
     await fetch(process.env.REACT_APP_API_ELEMENTS + `/${elementid}`,{
         method: 'DELETE', // или 'PUT'
@@ -23,26 +23,37 @@ async function DeleteElement (elementid)
             console.log(response.status)});
 }
 
-export default class DeleteComponent extends Component{
+export default class ImportFolder extends Component{
     constructor(props){
         super(props);
         console.log(this.props);
-        this.state={isdeleted:null}
-        this.handleSubmit = this.handleSubmit.bind(this);        
+        this.state={importtype:null, body:null}
+        this.handleSubmit = this.handleSubmit.bind(this); 
+        this.setTypeOfImport = this.setTypeOfImport.bind(this);
+        this.onPasswordChange = this.onPasswordChange.bind(this); 
+               
     }
+
+    setTypeOfImport(event) {
+        this.setState({importtype:event.target.value});
+        console.log("wow");
+      }
+      onPasswordChange(event) {
+        this.setState({body:event.target.value});
+      }
    
     handleSubmit = async e => {
         e.preventDefault();
-        if(this.props.typeofcomponent==="folder")
-        {
-          await DeleteFolder(this.props.component.Id);  
-        }        
-        else
-        {
-            await DeleteElement(this.props.component.Id);
-        }        
+        // if(this.props.typeofcomponent==="folder")
+        // {
+        //   await DeleteFolder(this.props.component.Id);  
+        // }        
+        // else
+        // {
+        //     await DeleteElement(this.props.component.Id);
+        // }        
         this.props.onClose();
-        this.setState({isdeleted:true});
+        // this.setState({isdeleted:true});
       }
 
     render(){
@@ -66,14 +77,31 @@ export default class DeleteComponent extends Component{
             <div className="ModalPage" onClick={this.props.onClose}> 
             <div className="modal-content" onClick={e=>e.stopPropagation()}>
                 <div className="modal-header">
-                    <h4 className="modal-title">Удаление {this.props.component.Name}</h4>
+                    <div className="modal-title">Импорт в папку {this.props.folder.Name}</div>
                 </div>
-                <div className="modal-body">
-                <label className="formlabel"> Вы действительно хотите удалить {this.props.typeofcomponent==="template" ? 'папку' : 'элемент'} {this.props.component.Name}?</label>
+                <div className="modal-body">   
+                <div className="formwithradio">
+                <div className="radiobutton" onChange={this.setTypeOfExport.bind(this)}>
+                <input type="radio" value="fromfolder" name="gender"/> Из другой папки
                 </div>
+                <div className="radiobutton" onChange={this.setTypeOfExport.bind(this)}>
+                <input type="radio" value="fromlibrary" name="gender"/> Из общей библиотеки
+                </div>
+                </div>   
+                </div>
+                {this.state.importtype==="fromlibrary" ? <div className="modal-body">
+                    <label className="formlabel"> Задайте пароль:</label>
+                    <input className="forminput" type="text" value={this.state.body} onChange={this.onPasswordChange}/>
+                </div> :null}
+                {this.state.importtype==="fromfolder" ? <div className="modal-body">
+                <label className="formlabel">Расположение:</label>
+                <div className="place">
+                <label>{this.props.folder.Name}</label> <button className="button arrow"> &ensp;&rarr;&ensp; </button>
+                </div>
+                </div> :null}
                 <div className="modal-footer">
-                <button className="button" onClick={this.handleSubmit}>Да</button>
-                <button className="button" onClick={this.props.onClose}>Отменить</button>
+                <button className="button SaveButton"  onClick={this.handleSubmit}>Экспортировать</button>
+                <button className="button CloseButton" onClick={this.props.onClose}>Отменить</button>
                 </div>
             </div>            
             </div>

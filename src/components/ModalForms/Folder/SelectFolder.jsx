@@ -8,7 +8,7 @@ import './FolderPage.css';
 export default class FolderPage extends Component{
     constructor(props){
         super(props); 
-        this.state={folders:null, elements:null,  breadCrumbs:null};
+        this.state={folders:null,  breadCrumbs:null};
         this.handleClick = this.handleClick.bind(this)
     }
     handleClick(e) {
@@ -107,7 +107,11 @@ export default class FolderPage extends Component{
                              {el.Name}
                               </div>
                               </Link>
-                        </div>)}                          
+                        </div>)}          
+                                      
+                           <div className="foldercomponents">
+                        </div>  
+                        
                         </div>
                         <div className="foldercomponents">
                         <Toolbar previouspages={breadCrumbs} parent={this.props.location.state.body}></Toolbar>

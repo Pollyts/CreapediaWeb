@@ -2,16 +2,6 @@ import React, {Component} from 'react';
 import '../ModalPages.css';
 import {Redirect} from "react-router-dom";
 
-async function DeleteFolder (folderid)
-{
-    await fetch(process.env.REACT_APP_API_FOLDERS + `/${folderid}`,{
-        method: 'DELETE', // или 'PUT'
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-          }}).then(function(response) {
-            console.log(response.status)});
-}
 async function ExportToUser (elementid)
 {   
     await fetch(process.env.REACT_APP_API_ELEMENTS + `/${elementid}`,{
@@ -47,16 +37,61 @@ export default class ExportFolder extends Component{
     constructor(props){
         super(props);
         console.log(this.props);
-        this.state={exporttype:null, body:null}
+        this.state={exporttype:null, body:null, path:{Name:this.props.folder.Name, Id:this.props.folder.Id}, folders:null, breadCrumbs:this.props.prevpages, text:"Показать"}
         this.handleSubmit = this.handleSubmit.bind(this); 
         this.setTypeOfExport = this.setTypeOfExport.bind(this); 
         this.onMailChange = this.onMailChange.bind(this); 
         this.onPasswordChange = this.onPasswordChange.bind(this); 
+        this.showlocation = this.showlocation.bind(this); 
+        this.changedirectory = this.changedirectory.bind(this); 
                
     }
 
+    changedirectory= param => async event => {
+        const breadCrumbs = this.state.breadCrumbs; 
+        const index = breadCrumbs.map(function(e) { return e.body.Id; }).indexOf(param);
+        if(index===-1)
+        {
+        breadCrumbs.push({
+            title: param.Name,
+            path: `/projects`,
+            body:{
+                "Name":param.Name,
+                "Id":param.Id
+            }
+          });
+        }
+        else
+        {
+            breadCrumbs.length=index+1;
+        }
+        await fetch(process.env.REACT_APP_API_FOLDERS+`/${param.Id}`) 
+        .then(response=>{ return response.json()})
+        .then(data=>{
+            this.setState({folders:data, breadCrumbs:breadCrumbs, path:{Name:param.Name, Id:param.Id}});
+        }).catch(err => console.log(err));  
+        console.log(this.state);
+    };
+
+    async showlocation(event){
+        await fetch(process.env.REACT_APP_API_FOLDERS+`/${this.props.folder.Id}`) 
+        .then(response=>{ return response.json()})
+        .then(data=>{
+            this.state.text==="Показать"?this.setState({text:'Свернуть',folders:data}):this.setState({text:'Показать'});
+        }).catch(err => console.log(err));  
+        
+    }
+
     setTypeOfExport(event) {
-        this.setState({exporttype:event.target.value});
+        if(event.target.value==="folder")
+        {
+            this.setState({exporttype:event.target.value, path:{Name:this.props.folder.Name, Id:this.props.folder.Id}});
+        }
+        
+        else
+        {
+            this.setState({exporttype:event.target.value});
+        }
         console.log("wow");
       }
       onMailChange(event) {
@@ -79,6 +114,12 @@ export default class ExportFolder extends Component{
         this.props.onClose();
         // this.setState({isdeleted:true});
       }
+    async componentDidUpdate(prevProps){
+    if (prevProps.folder.Id !== this.props.folder.Id)
+    {
+        this.setState({exporttype:null, body:null, path:{Name:this.props.folder.Name, Id:this.props.folder.Id}, folders:null, breadCrumbs:this.props.prevpages, text:"Показать"});
+    }
+  }
 
     render(){
         console.log("рендер удаления");
@@ -125,9 +166,34 @@ export default class ExportFolder extends Component{
                     <input className="forminput" type="text" value={this.state.body} onChange={this.onPasswordChange}/>
                 </div> :null}
                 {this.state.exporttype==="folder" ? <div className="modal-body">
-                <label className="formlabel">Расположение:</label>
-                <div className="place">
-                <label>{this.props.folder.Name}</label> <button className="button arrow"> &ensp;&rarr;&ensp; </button>
+                <label className="formlabel">Экспорт в папку:</label>
+                <div className="selectedpath"><label>{this.state.path.Name}</label> <button className="button arrow" onClick={this.showlocation}> {this.state.text} {this.state.text==="Показать"? <div>&ensp;&darr;</div>:<div>&ensp;&uarr;</div>} </button></div>
+                
+                <div className="place">        
+                {this.state.text==="Показать"? null:<div className="parentwindowforselectingpath">
+                {this.state.breadCrumbs.map(bc=>
+                        <div key={bc.title} className="gt">
+                            <button className="BreadCrumb">
+                             {bc.title} 
+                              </button>
+                              &ensp;&rarr;&ensp;
+                        </div>)}
+                <div className="windowforselectingpath">
+                
+                        <div>              
+                        {this.state.folders.map(folder=>
+                        <div key={folder.Id}>
+                            <button onClick={this.changedirectory({Id:folder.Id, Name:folder.Name})}>
+                             <div> 
+                             {folder.Name}
+                              </div>
+                              </button>
+                        </div>)}                         
+                        </div>
+                        </div>                              
+
+                </div>}
+                
                 </div>
                 </div> :null}
                 <div className="modal-footer">

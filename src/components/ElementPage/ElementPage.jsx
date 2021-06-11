@@ -113,7 +113,7 @@ export default class ElementPage extends Component{
                         </div> 
                         <img className="ImageElement" src={`data:image/jpeg;base64,${this.props.location.state.body.Image}`} />
                         </div>  
-                        <Toolbar previouspages={breadCrumbs} typeof_parentel="element" parent={this.props.location.state.body}></Toolbar>
+                        <Toolbar previouspages={breadCrumbs} parent={this.props.location.state.body}></Toolbar>
                         </div>
         )
     }

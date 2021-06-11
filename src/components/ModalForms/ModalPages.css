@@ -42,6 +42,35 @@
     border: 1px solid #427696;
 }
 
+.modalbuttonfolder{
+    border: 1px solid #427696;
+    border-radius: 50px;
+    width: 200px;
+    height: 30px;
+    overflow: hidden;
+    cursor: pointer;
+    background-color: transparent;
+    color: #427696;
+    margin-bottom: 10px;
+}
+
+.modalbreadcrumbs{
+    padding-bottom: 10px;
+    border-bottom: 1px solid #427696;
+}
+
+.modalfolders{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px 0px 50px 0px;    
+}
+
+.withoutframe{
+    border: none;    
+    cursor: pointer;
+}
+
 .arrow{
     display: flex;
     margin-left: 20px;
@@ -50,7 +79,7 @@
 }
 .modal-content{
     width: 500px;
-    background-color: #fff;
+    background-color: #FFECDD;
     border: #427696 7px solid;
     border-radius: 25px;
     height: auto;
@@ -99,6 +128,7 @@ padding: 10px 0px;
 }
 .selectedpath{
     display: flex;
+    margin-bottom: 10px;
 }
 
 .CloseButton{
@@ -111,8 +141,8 @@ padding: 10px 0px;
     padding: 0px 10px;
     display: flex;
     flex-direction: column;
-    border-top: 1px solid #eee;
-    border-bottom: 1px solid #eee;
+    border-top: 1px solid #427696;
+    border-bottom: 1px solid #427696;
     padding-bottom: 20px;
 }
 .formlabel{

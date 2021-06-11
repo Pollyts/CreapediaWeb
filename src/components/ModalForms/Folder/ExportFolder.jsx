@@ -2,35 +2,29 @@ import React, {Component} from 'react';
 import '../ModalPages.css';
 import {Redirect} from "react-router-dom";
 
-async function ExportToUser (elementid)
+async function ExportToUser (folderid, usermail)
 {   
-    await fetch(process.env.REACT_APP_API_ELEMENTS + `/${elementid}`,{
-        method: 'DELETE', // или 'PUT'
+    await fetch(process.env.REACT_APP_API_FOLDERS + `/exporttouser?folderid=${folderid}&usermail=${usermail}`,{
+        method: 'GET', // или 'PUT'
         headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-          }}).then(function(response) {
-            console.log(response.status)});
+            'Content-Type':'application/json'
+        }}).then(data => data.json());
 }
-async function ExportToLibrary (elementid)
+async function ExportToLibrary (folderid, password)
 {   
-    await fetch(process.env.REACT_APP_API_ELEMENTS + `/${elementid}`,{
-        method: 'DELETE', // или 'PUT'
+    await fetch(process.env.REACT_APP_API_FOLDERS + `/exporttolibrary?folderid=${folderid}&password=${password}`,{
+        method: 'GET', // или 'PUT'
         headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-          }}).then(function(response) {
-            console.log(response.status)});
+            'Content-Type':'application/json'
+        }}).then(data => data.json());
 }
-async function ExportToFolder (elementid)
+async function ExportToFolder (folderid, newrootid)
 {   
-    await fetch(process.env.REACT_APP_API_ELEMENTS + `/${elementid}`,{
-        method: 'DELETE', // или 'PUT'
+    await fetch(process.env.REACT_APP_API_FOLDERS + `/exporttofolder?folderid=${folderid}&newrootid=${newrootid}`,{
+        method: 'GET', // или 'PUT'
         headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-          }}).then(function(response) {
-            console.log(response.status)});
+            'Content-Type':'application/json'
+        }}).then(data => data.json());
 }
 
 export default class ExportFolder extends Component{
@@ -47,9 +41,27 @@ export default class ExportFolder extends Component{
                
     }
 
+    handleSubmit = async e => {
+        e.preventDefault();
+        if(this.state.exporttype==="user")
+        {
+            await ExportToUser(this.props.folder.Id, this.state.body);
+        }
+        else if (this.state.exporttype==="library")
+        {
+            await ExportToLibrary(this.props.folder.Id, this.state.body);
+
+        }
+        else if (this.state.exporttype==="folder")
+        {
+            await ExportToFolder(this.props.folder.Id, this.state.path.Id)
+        }    
+        this.props.onClose();
+      }
+
     changedirectory= param => async event => {
         const breadCrumbs = this.state.breadCrumbs; 
-        const index = breadCrumbs.map(function(e) { return e.body.Id; }).indexOf(param);
+        const index = breadCrumbs.map(function(e) { return e.body.Id; }).indexOf(param.Id);
         if(index===-1)
         {
         breadCrumbs.push({
@@ -101,19 +113,7 @@ export default class ExportFolder extends Component{
         this.setState({body:event.target.value});
       }
    
-    handleSubmit = async e => {
-        e.preventDefault();
-        // if(this.props.typeofcomponent==="folder")
-        // {
-        //   await DeleteFolder(this.props.component.Id);  
-        // }        
-        // else
-        // {
-        //     await DeleteElement(this.props.component.Id);
-        // }        
-        this.props.onClose();
-        // this.setState({isdeleted:true});
-      }
+    
     async componentDidUpdate(prevProps){
     if (prevProps.folder.Id !== this.props.folder.Id)
     {
@@ -135,9 +135,8 @@ export default class ExportFolder extends Component{
         if(!this.props.show)
         {
             return null
-        }     
-        
-        console.log(this.props);
+        }
+            console.log(this.props);
         return(
             <div className="ModalPage" onClick={this.props.onClose}> 
             <div className="modal-content" onClick={e=>e.stopPropagation()}>
@@ -171,19 +170,21 @@ export default class ExportFolder extends Component{
                 
                 <div className="place">        
                 {this.state.text==="Показать"? null:<div className="parentwindowforselectingpath">
-                {this.state.breadCrumbs.map(bc=>
+                    <div className="modalbreadcrumbs">
+                {this.state.breadCrumbs.slice(1).map(bc=>
                         <div key={bc.title} className="gt">
-                            <button className="BreadCrumb">
+                            <button className="BreadCrumb withoutframe" onClick={this.changedirectory({Id:bc.body.Id, Name:bc.body.Name})}>
                              {bc.title} 
                               </button>
                               &ensp;&rarr;&ensp;
                         </div>)}
+                        </div>
                 <div className="windowforselectingpath">
                 
-                        <div>              
+                        <div className="modalfolders">              
                         {this.state.folders.map(folder=>
                         <div key={folder.Id}>
-                            <button onClick={this.changedirectory({Id:folder.Id, Name:folder.Name})}>
+                            <button className="modalbuttonfolder" onClick={this.changedirectory({Id:folder.Id, Name:folder.Name})}>
                              <div> 
                              {folder.Name}
                               </div>

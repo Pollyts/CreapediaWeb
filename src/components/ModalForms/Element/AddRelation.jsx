@@ -1,98 +1,237 @@
 import React, {Component} from 'react';
 import '../ModalPages.css';
-async function SaveElement (name, pfid)
-{ 
-    const element =   {
-        "Name": name,
-        "ParentfolderId": Number(pfid)
+import {Redirect} from "react-router-dom";
+
+async function AddRelationTwoLines (firstelement, secondelement, firsttosec,sectofirst)
+{   
+    const box =   {
+        "Firstelementid": Number(firstelement),
+        "Secondelementid": Number(secondelement),
+        "Rel1to2":firsttosec,
+        "Rel2to1":sectofirst
      }
-    await fetch(process.env.REACT_APP_API_ELEMENTS,{
+    await fetch(process.env.REACT_APP_API_ELEMENTS + `/relation2`,{
         method: 'POST', // или 'PUT'
-        body: JSON.stringify(element), // данные могут быть 'строкой' или {объектом}!
+        body: JSON.stringify(box), // данные могут быть 'строкой' или {объектом}!
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
           }}).then(function(response) {
             console.log(response.status)});
-    }
-    async function SaveImage (elwithimg){
-        await fetch(process.env.REACT_APP_API_ELEMENTS+"/image",{
-            method: 'POST', // или 'PUT'
-            body: elwithimg, // данные могут быть 'строкой' или {объектом}!
-            headers: {
-                'Accept': 'application/json'
-              }}).then(function(response) {
-                console.log(response.status)});
-    }
+}
 
-export default class AddElement extends Component{
+async function AddRelationOneLine (firstelement, secondelement, firsttosec)
+{   
+    const box =   {
+        "Firstelementid": Number(firstelement),
+        "Secondelementid": Number(secondelement),
+        "Rel1to2":firsttosec,
+        "Rel2to1":null
+     }
+    await fetch(process.env.REACT_APP_API_ELEMENTS + `/relation1`,{
+        method: 'POST', // или 'PUT'
+        body: JSON.stringify(box), // данные могут быть 'строкой' или {объектом}!
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          }}).then(function(response) {
+            console.log(response.status)});
+}
+
+export default class AddRelation extends Component{
     constructor(props){
         super(props);
-        this.state={name:"", filepath:null, file: null}
-        this.onChange = this.onChange.bind(this);
-        this.sendImage = this.sendImage.bind(this); 
-        this.handleImageChange = this.handleImageChange.bind(this);     
-    }   
-    onChange(e) {
-        var val = e.target.value;
-        this.setState({name: val});
+        console.log(this.props);
+        this.state={path:{Name:'', Id:null}, typeofrel:"Односторонняя", firstrel:null,secondrel:null, defaultdirection:true, isneedupdate:true, folders:null, elements:null, breadCrumbs:this.props.prevpages.slice(0, -1)}
+        this.handleSubmit = this.handleSubmit.bind(this); 
+        this.changedirectory = this.changedirectory.bind(this); 
+        this.Selecttelement = this.Selecttelement.bind(this);   
+        this.CloseWindow = this.CloseWindow.bind(this);
+        this.changedirection = this.changedirection.bind(this);
+        this.changeonelinerel = this.changeonelinerel.bind(this);
+        this.changesecondlinerel = this.changesecondlinerel.bind(this);
+        this.changetypeofrel = this.changetypeofrel.bind(this);
+
     }
 
-    async sendImage(event) {
-        event.preventDefault();
-        await SaveElement(this.state.name, this.props.folder.Id);
-        if (this.state.file!=null)
-        await SaveImage(this.state.file);
-        this.props.onClose();        
-        window.location.reload();
-    };
-    
-    handleImageChange(e) {
+    changetypeofrel(e){
+        this.state.typeofrel==="Односторонняя"?this.setState({typeofrel:"Двусторонняя"}):this.setState({typeofrel:"Односторонняя"})
+
+    }
+
+    changeonelinerel(e){
+        this.setState({firstrel:e.target.value});
+    }
+
+    changesecondlinerel(e){
+        this.setState({secondrel:e.target.value});
+    }
+
+    changedirection(e){
+        this.state.defaultdirection?this.setState({defaultdirection:false}):this.setState({defaultdirection:true});
+    }
+
+    CloseWindow(){
+        this.props.onClose();
+        this.setState({isneedupdate:true});
+    }
+
+    Selecttelement = param => async event =>{
+        this.setState({path:{Name:param.Name, Id:param.Id}})
+    }
+
+    handleSubmit = async e => {
         e.preventDefault();
-        if(e.target.files.length>0)
+        if (this.state.typeofrel==="Односторонняя")
         {
-        let form = new FormData();
-        for (var index = 0; index < e.target.files.length; index++) {
-            var element = e.target.files[index];
-            form.append('image', element);
+            if(this.state.defaultdirection)
+            {
+                await AddRelationOneLine(this.props.element.Id, this.state.path.Id,this.state.firstrel)
+            }else{
+                await AddRelationOneLine(this.state.path.Id,this.props.element.Id,this.state.firstrel)
+            }
         }
-        form.append('parentfolderid', this.props.folder.Id);
-        this.setState({ file: form, filepath: URL.createObjectURL(e.target.files[0])});
+        else{
+            if(this.state.defaultdirection)
+            {
+                await AddRelationTwoLines(this.props.element.Id, this.state.path.Id,this.state.firstrel,this.state.secondrel)
+
+            }else{
+                await AddRelationTwoLines(this.state.path.Id,this.props.element.Id,this.state.firstrel,this.state.secondrel)
+            }
+        }
+        // await AddTemplate(this.state.path.Id,this.props.element.Id)
+        this.props.onClose();
+      }
+    
+    async GetFoldersAndElements (idparent) {
+        let folders;
+        let elements;
+        await fetch(process.env.REACT_APP_API_FOLDERS+`/${idparent}`) 
+        .then(response=>{ return response.json()})
+        .then(data=>{
+            folders=data;
+        }).catch(err => console.log(err));  
+        await fetch(process.env.REACT_APP_API_ELEMENTS+`/${idparent}`) 
+        .then(response=>{ return response.json()})
+        .then(data=>{
+            elements=data;
+        }).catch(err => console.log(err));  
+        this.setState({folders:folders, elements:elements});
     }
-    else if (this.state.file!=null)
-    {
-        this.setState({ file: null, filepath: null})
-    }
+
+    changedirectory= param => async event => {
+        const breadCrumbs = this.state.breadCrumbs;         
+        const index = breadCrumbs.map(function(e) { return e.body.Id; }).indexOf(param.Id);
+        if(index===-1)
+        {
+        breadCrumbs.push({
+            title: param.Name,
+            path: `/templates`,
+            body:{
+                "Name":param.Name,
+                "Id":param.Id
+            }
+          });
+        }
+        else
+        {
+            breadCrumbs.length=index+1;
+        }  
+        this.setState({breadCrumbs:breadCrumbs})
+        await this.GetFoldersAndElements(param.Id,breadCrumbs)
     };  
+    
+    async componentDidUpdate(prevProps){
+    if (this.props.show)
+    {
+    if (this.state.isneedupdate === true)
+    {
+        this.setState({path:{Name:'', Id:null}, defaultdirection:true, isneedupdate:false, folders:null, elements:null, breadCrumbs:this.props.prevpages.slice(0, -1)})
+          await this.GetFoldersAndElements(this.state.breadCrumbs[this.state.breadCrumbs.length-1].body.Id);
+    }
+    }
+  }
 
     render(){
         if(!this.props.show)
         {
             return null
         }
+        if((!this.state.breadCrumbs)||(!this.state.folders)||(!this.state.elements)){
+            return null
+        }
+        console.log(this.props);
         return(
             <div className="ModalPage" onClick={this.props.onClose}> 
             <div className="modal-content" onClick={e=>e.stopPropagation()}>
                 <div className="modal-header">
-                    <div className="modal-title">Создание элемента</div>
+                    <div className="modal-title">Добавление связи</div>
                 </div>
-                <div className="modal-body">
-                <label className="formlabel"> Название:</label>
-                <input className="forminput" type="text" value={this.state.name} onChange={this.onChange}/>
-                <label className="formlabel">Расположение:</label>
-                <div className="place">
-                <label>{this.props.folder.Name}</label> <button className="button arrow"> -{'>'} </button>
+                <div className="modal-body">   
+                <label className="formlabel">Связать элемент с:</label>
+                <div className="selectedpath"><label>{this.state.path.Name!==''?<div>{this.state.path.Name}</div>:<div>Элемент не выбран</div>}</label></div>
+                <div className="place">        
+                <div className="parentwindowforselectingpath">
+                    <div className="modalbreadcrumbs">
+                {this.state.breadCrumbs.slice(1).map(bc=>
+                        <div key={bc.title} className="gt">
+                            <button className="BreadCrumb withoutframe" onClick={this.changedirectory({Id:bc.body.Id, Name:bc.body.Name})}>
+                             {bc.title} 
+                              </button>
+                              &ensp;&rarr;&ensp;
+                        </div>)}
+                        </div>
+                <div className="windowforselectingpath">     
+                {this.state.folders.length>0?<div className="modalfolders">        
+                        {this.state.folders.map(folder=>
+                        <div key={folder.Id} >
+                            <button className="modalbuttonfolder" onClick={this.changedirectory({Id:folder.Id, Name:folder.Name})}>
+                             <div> 
+                             {folder.Name}
+                              </div>
+                              </button>
+                        </div>)} 
+                        </div>:null}     
+
+                {this.state.elements.length>0?<div className="modalfolders">              
+                        {this.state.elements.map(el=>
+                        <div key={el.Id}>
+                            <button className="modalbuttonelement" onClick={this.Selecttelement({Id:el.Id, Name:el.Name})}>
+                             <div> 
+                             {el.Name}
+                              </div>
+                              </button>
+                        </div>)}                         
+                        </div>:null}
+                        </div>                              
+
                 </div>
-                <div className="modal-image">
-                <label className="formlabel">Фото:</label>                
-                <input type="file" onChange={(e)=>this.handleImageChange(e)}/>  
-                {this.state.filepath===null ? <div/> :<img className="downloadimage" src={this.state.filepath}/>}             
                 
                 </div>
-                </div>                
+                {this.state.path.Name!==''? 
+                <div className="Relations">                
+                    {this.state.defaultdirection?
+                    <label className="formlabel">Связь {this.props.element.Name} с {this.state.path.Name}</label>
+                    :<label className="formlabel">Связь {this.state.path.Name} с {this.props.element.Name}</label>}                
+                <button className="button arrow" onClick={this.changedirection}>&harr;</button>
+                <input className="forminput" type="text" value={this.state.firstrel} onChange={this.changeonelinerel}/>
+                {this.state.typeofrel==="Двусторонняя"?
+                <div>
+                    {this.state.defaultdirection?
+                    <label className="formlabel">Связь {this.state.path.Name} с {this.props.element.Name}</label>
+                    :<label className="formlabel">Связь {this.props.element.Name} с {this.state.path.Name}</label>}
+                <input className="forminput" type="text" value={this.state.secondrel} onChange={this.changesecondlinerel}/></div>:null}
+                <div className="selectedpath">
+                <label className="formlabel">Тип связи: {this.state.typeofrel}</label>                
+                <button className="button arrow" onClick={this.changetypeofrel}>Изменить</button>
+                </div>
+                </div>
+                :null}                
+                </div>
                 <div className="modal-footer">
-                <button className="button SaveButton" onClick={this.sendImage}>Сохранить</button>
-                <button className="button CloseButton" onClick={this.props.onClose}>Назад</button>
+                <button className="button SaveButton"  onClick={this.handleSubmit}>Экспортировать</button>
+                <button className="button CloseButton" onClick={this.CloseWindow}>Отменить</button>
                 </div>
             </div>            
             </div>

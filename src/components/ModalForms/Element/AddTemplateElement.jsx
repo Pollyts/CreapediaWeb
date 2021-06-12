@@ -4,11 +4,11 @@ import {Redirect} from "react-router-dom";
 
 async function AddTemplate (templateid, elementid)
 {   
-    await fetch(process.env.REACT_APP_API_ELEMENTS + `/templatefolder?templateid=${templateid}&elementid=${elementid}`,{
-        method: 'GET', // или 'PUT'
-        headers: {
-            'Content-Type':'application/json'
-        }}).then(data => data.json());
+    // await fetch(process.env.REACT_APP_API_ELEMENTS + `/templatefolder?templateid=${templateid}&elementid=${elementid}`,{
+    //     method: 'GET', // или 'PUT'
+    //     headers: {
+    //         'Content-Type':'application/json'
+    //     }}).then(data => data.json());
     console.log(templateid)
 }
 

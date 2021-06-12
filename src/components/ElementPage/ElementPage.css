@@ -34,6 +34,22 @@ margin-left: 30px;
     display: flex;
 }
 
+.ShowMenu{    
+    display: flex;
+    margin-bottom: 10px;
+    justify-content: space-around;
+}
+
+.button{
+border: none;
+background-color: transparent;
+color: #427696;
+font-size: 30px;
+}
+.current{
+    border-bottom: 4px solid #427696;
+}
+
 .ImageElement{
     margin: 10px;
     width: 30vw;

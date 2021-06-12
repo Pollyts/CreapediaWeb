@@ -7,8 +7,12 @@ import logo from '../App/logo4x.png';
 export default class ElementPage extends Component{
     constructor(props){
         super(props); 
-        this.state={templatecharacteristics: null, breadCrumbs:null, characteristics:null, savepath:null};
-    }    
+        this.state={templatecharacteristics: null, breadCrumbs:null, characteristics:null, showcharacreristics:true,relations:null};
+    }   
+    
+    ChangeShow = param => e => {
+        this.setState({showcharacreristics:param})
+    }
     
     async GetTemplateCharacteristics(parentid){
         const breadCrumbs = this.props.location.state.breadCrumbs; 
@@ -93,10 +97,22 @@ export default class ElementPage extends Component{
               {<button className="btn_logout" onClick={this.handleClick}>выход</button>}
               <img className="logo" src={logo} alt="toolbaritem"/>
               </div>
-                        </div>   
-                        <div className="ElementBody">
-                        {/* <Toolbar previouspages={breadCrumbs} typeof_parentel="element" parent={this.props.location.state.body}></Toolbar> */}
-                        <div className="Characteristics">                        
+                        </div>                                                   
+                        <div className="ElementBody">    
+                        <div className="Characteristics"> 
+                        {this.state.showcharacreristics?
+                            <div className="ShowMenu">
+                                <button className="button current">
+                                    характеристики</button>
+                                <button className="button" onClick={this.ChangeShow(false)}>
+                                    связи</button>
+                            </div>
+                            :<div className="ShowMenu">
+                                <button className="button" onClick={this.ChangeShow(true)}>
+                                    характеристики</button>
+                                <button className="button current">
+                                    связи</button>
+                            </div>}                       
                         {groups.map(group=>
                         <div key={group.idparent} className="ParentElement">
                             {group.name}

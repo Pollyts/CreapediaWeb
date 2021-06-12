@@ -1,98 +1,159 @@
 import React, {Component} from 'react';
 import '../ModalPages.css';
-async function SaveElement (name, pfid)
-{ 
-    const element =   {
-        "Name": name,
-        "ParentfolderId": Number(pfid)
-     }
-    await fetch(process.env.REACT_APP_API_ELEMENTS,{
-        method: 'POST', // или 'PUT'
-        body: JSON.stringify(element), // данные могут быть 'строкой' или {объектом}!
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-          }}).then(function(response) {
-            console.log(response.status)});
-    }
-    async function SaveImage (elwithimg){
-        await fetch(process.env.REACT_APP_API_ELEMENTS+"/image",{
-            method: 'POST', // или 'PUT'
-            body: elwithimg, // данные могут быть 'строкой' или {объектом}!
-            headers: {
-                'Accept': 'application/json'
-              }}).then(function(response) {
-                console.log(response.status)});
-    }
+import {Redirect} from "react-router-dom";
 
-export default class AddElement extends Component{
+async function AddTemplate (templateid, elementid)
+{   
+    await fetch(process.env.REACT_APP_API_ELEMENTS + `/templatefolder?templateid=${templateid}&elementid=${elementid}`,{
+        method: 'GET', // или 'PUT'
+        headers: {
+            'Content-Type':'application/json'
+        }}).then(data => data.json());
+    console.log(templateid)
+}
+
+export default class AddTemplateElement extends Component{
     constructor(props){
         super(props);
-        this.state={name:"", filepath:null, file: null}
-        this.onChange = this.onChange.bind(this);
-        this.sendImage = this.sendImage.bind(this); 
-        this.handleImageChange = this.handleImageChange.bind(this);     
-    }   
-    onChange(e) {
-        var val = e.target.value;
-        this.setState({name: val});
+        console.log(this.props);
+        this.state={path:{Name:'', Id:null}, isneedupdate:true, folders:null, telements:null, breadCrumbs:null}
+        this.handleSubmit = this.handleSubmit.bind(this); 
+        this.changedirectory = this.changedirectory.bind(this); 
+        this.Selecttelement = this.Selecttelement.bind(this);   
+        this.CloseWindow = this.CloseWindow.bind(this);
+
     }
 
-    async sendImage(event) {
-        event.preventDefault();
-        await SaveElement(this.state.name, this.props.folder.Id);
-        if (this.state.file!=null)
-        await SaveImage(this.state.file);
-        this.props.onClose();        
-        window.location.reload();
-    };
-    
-    handleImageChange(e) {
+    CloseWindow(){
+        this.props.onClose();
+        this.setState({isneedupdate:true});
+    }
+
+    Selecttelement = param => async event =>{
+        this.setState({path:{Name:param.Name, Id:param.Id}})
+    }
+
+    handleSubmit = async e => {
         e.preventDefault();
-        if(e.target.files.length>0)
+        await AddTemplate(this.state.path.Id,this.props.element.Id)
+        this.props.onClose();
+      }
+    
+    async GetFoldersAndElements (idparent, breadCrumbs) {
+        let folders;
+        let elements;
+        await fetch(process.env.REACT_APP_API_TEMPLATEFOLDERS+`/${idparent}`) 
+        .then(response=>{ return response.json()})
+        .then(data=>{
+            this.setState({folders:data});
+        }).catch(err => console.log(err));  
+        await fetch(process.env.REACT_APP_API_TEMPLATEELEMENTS+`/${idparent}`) 
+        .then(response=>{ return response.json()})
+        .then(data=>{
+            this.setState({telements:data});
+        }).catch(err => console.log(err));  
+    }
+
+    changedirectory= param => async event => {
+        const breadCrumbs = this.state.breadCrumbs;         
+        const index = breadCrumbs.map(function(e) { return e.body.Id; }).indexOf(param.Id);
+        if(index===-1)
         {
-        let form = new FormData();
-        for (var index = 0; index < e.target.files.length; index++) {
-            var element = e.target.files[index];
-            form.append('image', element);
+        breadCrumbs.push({
+            title: param.Name,
+            path: `/templates`,
+            body:{
+                "Name":param.Name,
+                "Id":param.Id
+            }
+          });
         }
-        form.append('parentfolderid', this.props.folder.Id);
-        this.setState({ file: form, filepath: URL.createObjectURL(e.target.files[0])});
-    }
-    else if (this.state.file!=null)
-    {
-        this.setState({ file: null, filepath: null})
-    }
+        else
+        {
+            breadCrumbs.length=index+1;
+        }  
+        this.setState({breadCrumbs:breadCrumbs})
+        await this.GetFoldersAndElements(param.Id,breadCrumbs)
     };  
+    
+    async componentDidUpdate(prevProps){
+    if (this.props.show)
+    {
+    if (this.state.isneedupdate === true)
+    {
+        this.setState({path:{Name:'', Id:null}, folders:null, telements:null, breadCrumbs:[{
+            title: 'Библиотека',
+            path: '/templae',  
+            body: {
+                "Name":"Библиотека",
+                "Id":0
+            }            
+          }], isneedupdate:false})
+          await this.GetFoldersAndElements(0, null);
+    }
+    }
+  }
 
     render(){
         if(!this.props.show)
         {
             return null
         }
+        if((!this.state.breadCrumbs)||(!this.state.folders)||(!this.state.telements)){
+            return null
+        }
+        console.log(this.props);
         return(
             <div className="ModalPage" onClick={this.props.onClose}> 
             <div className="modal-content" onClick={e=>e.stopPropagation()}>
                 <div className="modal-header">
-                    <div className="modal-title">Создание элемента</div>
+                    <div className="modal-title">Добавление класса</div>
                 </div>
-                <div className="modal-body">
-                <label className="formlabel"> Название:</label>
-                <input className="forminput" type="text" value={this.state.name} onChange={this.onChange}/>
-                <label className="formlabel">Расположение:</label>
-                <div className="place">
-                <label>{this.props.folder.Name}</label> <button className="button arrow"> -{'>'} </button>
+                <div className="modal-body">   
+                <label className="formlabel">Расположение класса:</label>
+                <div className="selectedpath"><label>{this.state.path.Name}</label></div>
+                <div className="place">        
+                <div className="parentwindowforselectingpath">
+                    <div className="modalbreadcrumbs">
+                {this.state.breadCrumbs.map(bc=>
+                        <div key={bc.title} className="gt">
+                            <button className="BreadCrumb withoutframe" onClick={this.changedirectory({Id:bc.body.Id, Name:bc.body.Name})}>
+                             {bc.title} 
+                              </button>
+                              &ensp;&rarr;&ensp;
+                        </div>)}
+                        </div>
+                <div className="windowforselectingpath">     
+                {this.state.folders.length>0?<div className="modalfolders">        
+                        {this.state.folders.map(folder=>
+                        <div key={folder.Id} >
+                            <button className="modalbuttonfolder" onClick={this.changedirectory({Id:folder.Id, Name:folder.Name})}>
+                             <div> 
+                             {folder.Name}
+                              </div>
+                              </button>
+                        </div>)} 
+                        </div>:null}     
+
+                {this.state.telements.length>0?<div className="modalfolders">              
+                        {this.state.telements.map(el=>
+                        <div key={el.Id}>
+                            <button className="modalbuttonelement" onClick={this.Selecttelement({Id:el.Id, Name:el.Name})}>
+                             <div> 
+                             {el.Name}
+                              </div>
+                              </button>
+                        </div>)}                         
+                        </div>:null}
+                        </div>                              
+
                 </div>
-                <div className="modal-image">
-                <label className="formlabel">Фото:</label>                
-                <input type="file" onChange={(e)=>this.handleImageChange(e)}/>  
-                {this.state.filepath===null ? <div/> :<img className="downloadimage" src={this.state.filepath}/>}             
                 
                 </div>
-                </div>                
+                </div>
                 <div className="modal-footer">
-                <button className="button SaveButton" onClick={this.sendImage}>Сохранить</button>
-                <button className="button CloseButton" onClick={this.props.onClose}>Назад</button>
+                <button className="button SaveButton"  onClick={this.handleSubmit}>Экспортировать</button>
+                <button className="button CloseButton" onClick={this.CloseWindow}>Отменить</button>
                 </div>
             </div>            
             </div>

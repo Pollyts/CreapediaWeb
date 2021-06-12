@@ -66,6 +66,12 @@
     margin: 10px 0px 50px 0px;    
 }
 
+.modalbuttonelement{
+    border: none;
+    color: #427696;
+    background-color: transparent;
+}
+
 .withoutframe{
     border: none;    
     cursor: pointer;

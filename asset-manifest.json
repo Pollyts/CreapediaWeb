@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/creapediaweb/static/css/main.91ea4867.chunk.css",
+    "main.js": "/creapediaweb/static/js/main.98ac84a4.chunk.js",
+    "main.js.map": "/creapediaweb/static/js/main.98ac84a4.chunk.js.map",
+    "runtime-main.js": "/creapediaweb/static/js/runtime-main.6ac5c095.js",
+    "runtime-main.js.map": "/creapediaweb/static/js/runtime-main.6ac5c095.js.map",
+    "static/css/2.679831fc.chunk.css": "/creapediaweb/static/css/2.679831fc.chunk.css",
+    "static/js/2.18d45b2c.chunk.js": "/creapediaweb/static/js/2.18d45b2c.chunk.js",
+    "static/js/2.18d45b2c.chunk.js.map": "/creapediaweb/static/js/2.18d45b2c.chunk.js.map",
+    "static/js/3.4098a097.chunk.js": "/creapediaweb/static/js/3.4098a097.chunk.js",
+    "static/js/3.4098a097.chunk.js.map": "/creapediaweb/static/js/3.4098a097.chunk.js.map",
+    "index.html": "/creapediaweb/index.html",
+    "static/css/2.679831fc.chunk.css.map": "/creapediaweb/static/css/2.679831fc.chunk.css.map",
+    "static/css/main.91ea4867.chunk.css.map": "/creapediaweb/static/css/main.91ea4867.chunk.css.map",
+    "static/js/2.18d45b2c.chunk.js.LICENSE.txt": "/creapediaweb/static/js/2.18d45b2c.chunk.js.LICENSE.txt",
+    "static/media/logo4x.bffe58ac.png": "/creapediaweb/static/media/logo4x.bffe58ac.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.6ac5c095.js",
+    "static/css/2.679831fc.chunk.css",
+    "static/js/2.18d45b2c.chunk.js",
+    "static/css/main.91ea4867.chunk.css",
+    "static/js/main.98ac84a4.chunk.js"
+  ]
+}

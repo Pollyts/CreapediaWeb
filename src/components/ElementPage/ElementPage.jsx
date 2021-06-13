@@ -83,15 +83,20 @@ export default class ElementPage extends Component {
   async componentDidMount() {
     await this.GetTemplateCharacteristics(this.props.location.state.body.Id);
     await this.GetCharacteristics(this.props.location.state.body.Id);
-    await this.GetRelations(this.props.location.state.body.Id)
+    await this.GetRelations(this.props.location.state.body.Id);
   }
 
   render() {
     if (!this.state.templatecharacteristics || !this.state.characteristics) {
       return <div />;
     }
-    const { templatecharacteristics, characteristics, breadCrumbs,showcharacreristics,relations} =
-      this.state; //сначала
+    const {
+      templatecharacteristics,
+      characteristics,
+      breadCrumbs,
+      showcharacreristics,
+      relations,
+    } = this.state; //сначала
     const array = templatecharacteristics.map(function (item) {
       return { idparent: item.IdParent, name: item.NameParent };
     });
@@ -154,33 +159,46 @@ export default class ElementPage extends Component {
                 <button className="button current">связи</button>
               </div>
             )}
-            {showcharacreristics ?<div>{groups.map((group) => (
-              <div key={group.idparent} className="ParentElement">
-                {group.name}
-                {templatecharacteristics
-                  .filter((number) => number.IdParent === group.idparent)
-                  .map((number) => (
-                    <div
-                      key={number.IdCharacter}
-                      className="ParentCharacteristic"
-                    >
-                      {number.NameCharacter}: {number.ValueCharacter}
-                    </div>
-                  ))}
-              </div>
-            ))}
+            {showcharacreristics ? (
+              <div>
+                {groups.map((group) => (
+                  <div key={group.idparent} className="ParentElement">
+                    {group.name}
+                    {templatecharacteristics
+                      .filter((number) => number.IdParent === group.idparent)
+                      .map((number) => (
+                        <div
+                          key={number.IdCharacter}
+                          className="ParentCharacteristic"
+                        >
+                          {number.NameCharacter}: {number.ValueCharacter}
+                        </div>
+                      ))}
+                  </div>
+                ))}
 
-            {characteristics.map((folder) => (
-              <div key={folder.Id}>
-                {folder.Name}: {folder.Value}
+                {characteristics.map((folder) => (
+                  <div key={folder.Id}>
+                    {folder.Name}: {folder.Value}
+                  </div>
+                ))}
               </div>
-            ))}</div>:<div>{relations.map((folder) => (
-                <div key={folder.IdFirst}>
-                  {folder.NameFirstElement}&ensp;&rarr;&ensp;{folder.NameSecondElement}: {folder.Rel1to2}
-                  {folder.Rel2to1!==null?<div>{folder.NameSecondElement}&ensp;&rarr;&ensp;{folder.NameFirstElement}: {folder.Rel2to1}</div>:null}
-                </div>
-              ))}</div>}
-            
+            ) : (
+              <div>
+                {relations.map((folder) => (
+                  <div key={folder.IdFirst}>
+                    {folder.NameFirstElement}&ensp;&rarr;&ensp;
+                    {folder.NameSecondElement}: {folder.Rel1to2}
+                    {folder.Rel2to1 !== null ? (
+                      <div>
+                        {folder.NameSecondElement}&ensp;&rarr;&ensp;
+                        {folder.NameFirstElement}: {folder.Rel2to1}
+                      </div>
+                    ) : null}
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
           <img
             className="ImageElement"

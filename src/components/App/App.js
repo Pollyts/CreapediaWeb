@@ -9,6 +9,7 @@ import Login from '../Login/Login';
 import useToken from './useToken';
 import Registration from '../Registration/Registration';
 import Settings from '../Settings/Settings';
+import GeneralLibrary from '../GeneralLibrary/GeneralLibrary';
 import './App.css';
 
 
@@ -37,7 +38,7 @@ function App(props) {
             <Route path="/projects" component={FolderPage}></Route> 
             <Route path="/element" component={ElementPage}></Route>
             <Route path="/telement" component={TemplateElementPage}></Route>
-            <Route path="/registration" component={Registration}></Route>   
+            <Route path="/library" component={GeneralLibrary}></Route>  
             <Route path="/settings"><Settings body={token}/></Route>
             <Redirect from="/" to={{pathname: `/main`, state: {body:token}}}/>          
             </Switch>

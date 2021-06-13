@@ -132,7 +132,7 @@ export default class AddRelation extends Component {
         );
       }
     }
-    // await AddTemplate(this.state.path.Id,this.props.element.Id)
+    window.location.reload();    
     this.props.onClose();
   };
 

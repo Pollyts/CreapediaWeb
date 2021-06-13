@@ -2,16 +2,6 @@ import React, {Component} from 'react';
 import '../ModalPages.css';
 import {Redirect} from "react-router-dom";
 
-async function DeleteFolder (folderid)
-{
-    await fetch(process.env.REACT_APP_API_FOLDERS + `/${folderid}`,{
-        method: 'DELETE', // или 'PUT'
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-          }}).then(function(response) {
-            console.log(response.status)});
-}
 async function DeleteElement (elementid)
 {   
     await fetch(process.env.REACT_APP_API_ELEMENTS + `/${elementid}`,{
@@ -33,14 +23,7 @@ export default class DeleteComponent extends Component{
    
     handleSubmit = async e => {
         e.preventDefault();
-        if(this.props.typeofcomponent==="folder")
-        {
-          await DeleteFolder(this.props.component.Id);  
-        }        
-        else
-        {
-            await DeleteElement(this.props.component.Id);
-        }        
+        await DeleteElement(this.props.element.Id);
         this.props.onClose();
         this.setState({isdeleted:true});
       }
@@ -66,14 +49,14 @@ export default class DeleteComponent extends Component{
             <div className="ModalPage" onClick={this.props.onClose}> 
             <div className="modal-content" onClick={e=>e.stopPropagation()}>
                 <div className="modal-header">
-                    <h4 className="modal-title">Удаление {this.props.component.Name}</h4>
+                    <div className="modal-title">Удаление элемента {this.props.element.Name}</div>
                 </div>
                 <div className="modal-body">
-                <label className="formlabel"> Вы действительно хотите удалить {this.props.typeofcomponent==="template" ? 'папку' : 'элемент'} {this.props.component.Name}?</label>
+                <label className="formlabel"> Вы действительно хотите удалить элемент {this.props.element.Name}?</label>
                 </div>
                 <div className="modal-footer">
-                <button className="button" onClick={this.handleSubmit}>Да</button>
-                <button className="button" onClick={this.props.onClose}>Отменить</button>
+                <button className="button SaveButton"  onClick={this.handleSubmit}>Да</button>
+                <button className="button CloseButton" onClick={this.props.onClose}>Отменить</button>
                 </div>
             </div>            
             </div>

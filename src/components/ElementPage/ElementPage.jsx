@@ -129,11 +129,14 @@ export default class ElementPage extends Component {
             ))}
           </div>
           <div className="settingsinheader">
-            {
-              <button className="btn_logout" onClick={this.handleClick}>
-                настройки
-              </button>
-            }
+            <Link
+              to={{ pathname: `/library`, state: { breadCrumbs: breadCrumbs } }}
+            >
+              {<button className="btn_logout">общая библиотека</button>}
+            </Link>
+            <Link to={{ pathname: "/settings" }}>
+              {<button className="btn_logout">настройки</button>}
+            </Link>
             {
               <button className="btn_logout" onClick={this.handleClick}>
                 выход

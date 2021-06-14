@@ -40,7 +40,7 @@ export default function Login({ setToken }) {
     <div className="body">  
     <div className="border">       
       <form className='login-wrapper' onSubmit={handleSubmit}>
-      <img className="logo" src={logo} alt="toolbaritem"/>
+      <img className="logologin" src={logo} alt="toolbaritem"/>
       <div className='header'>Creapedia</div>
         <label className="form-row">
           <p>почта</p>

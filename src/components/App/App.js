@@ -39,7 +39,7 @@ function App(props) {
             <Route path="/element" component={ElementPage}></Route>
             <Route path="/telement" component={TemplateElementPage}></Route>
             <Route path="/library" component={GeneralLibrary}></Route>  
-            <Route path="/settings"><Settings body={token}/></Route>
+            <Route path="/settings" component={Settings}></Route>
             <Redirect from="/" to={{pathname: `/main`, state: {body:token}}}/>          
             </Switch>
             </Router>

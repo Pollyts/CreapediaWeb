@@ -54,7 +54,7 @@ export default class Registration extends Component{
 <div className="body">  
     <div className="border">       
       <form className='login-wrapper' onSubmit={this.handleSubmit}>
-      <img className="logo" src={logo} alt="toolbaritem"/>
+      <img className="logologin" src={logo} alt="toolbaritem"/>
       <div className='header'>Регистрация</div>
         <label className="form-row">
           <p>почта</p>

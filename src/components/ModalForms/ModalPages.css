@@ -38,7 +38,7 @@
     border: 4px solid #427696;
     border-radius: 50px;
     width: 200px;
-    height: 30px;
+    height: 40px;
     overflow: hidden;
     cursor: pointer;
     background-color: transparent;
@@ -68,6 +68,20 @@
     border: none;    
     cursor: pointer;
 }
+
+.ShowSelector{
+    display: flex;
+    margin-bottom: 10px;
+    width: 100%;
+    justify-content: space-around;
+}
+
+.button-selector-modal{
+    border: none;
+    background-color: transparent;
+    color: #427696;
+    font-size: 24px;
+    }
 
 .arrow{
     color: #427696;
@@ -138,7 +152,8 @@ input[type="file"]{
 }
 .SaveButton{
 width: 50%;
-border-right: 4px solid #eee;
+font-family: "Alegreya";
+border-right: 4px solid #427696;
 padding: 10px 0px; 
 }
 .selectedpath{

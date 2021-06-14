@@ -132,7 +132,7 @@ ChangeShow = (param) => (e) => {
   };
 
   async showlocation(event) {
-    await fetch(process.env.REACT_APP_API_FOLDERS + `/${this.props.prevpages[this.props.prevpages.length-2].body.Id}`)
+    await fetch(process.env.REACT_APP_API_FOLDERS + `/${this.state.breadCrumbs[this.state.breadCrumbs.length-1].body.Id}`)
       .then((response) => {
         return response.json();
       })
@@ -186,18 +186,17 @@ ChangeShow = (param) => (e) => {
           <div className="modal-header">
             <div className="modal-title">Редактировать папку</div>
           </div>
-          <div className="modal-body-withoutcenter">
           {this.state.typeofedit === "folder" ? (
-              <div className="ShowMenu">
-                <button className="button current">папка</button>
+              <div className="ShowSelector">
+                <button className="button-selector-modal current">папка</button>
                 <button
-                  className="button"
+                  className="button-selector-modal"
                   onClick={this.ChangeShow("subfolders")}
                 >
                   подпапки
                 </button>
                 <button
-                  className="button"
+                  className="button-selector-modal"
                   onClick={this.ChangeShow("elements")}
                 >
                   элементы
@@ -205,13 +204,13 @@ ChangeShow = (param) => (e) => {
               </div>
             ) : null}
           {this.state.typeofedit === "subfolders" ? (
-              <div className="ShowMenu">
-                <button className="button" onClick={this.ChangeShow("folder")}>
+              <div className="ShowSelector">
+                <button className="button-selector-modal" onClick={this.ChangeShow("folder")}>
                   папка
                 </button>
-                <button className="button current">подпапки</button>
+                <button className="button-selector-modal current">подпапки</button>
                 <button
-                  className="button"
+                  className="button-selector-modal"
                   onClick={this.ChangeShow("elements")}
                 >
                   элементы
@@ -219,21 +218,21 @@ ChangeShow = (param) => (e) => {
               </div>
             ) : null}
             {this.state.typeofedit === "elements" ? (
-              <div className="ShowMenu">
-                <button className="button" onClick={this.ChangeShow("folder")}>
+              <div className="ShowSelector">
+                <button className="button-selector-modal" onClick={this.ChangeShow("folder")}>
                   папка
                 </button>
                 <button
-                  className="button"
+                  className="button-selector-modal"
                   onClick={this.ChangeShow("subfolders")}
                 >
                   подпапки
                 </button>
-                <button className="button current">элементы</button>
+                <button className="button-selector-modal current">элементы</button>
               </div>
             ) : null}
 
-            {this.state.typeofedit === "folder" ? (<div>
+            {this.state.typeofedit === "folder" ? (<div className="modal-body">
             <label className="formlabel"> Название:</label>
             <input
               className="forminput"
@@ -244,7 +243,7 @@ ChangeShow = (param) => (e) => {
             <label className="formlabel">Расположение:</label>
             <div className="selectedpath">
               <label>{this.state.path.Name}</label>{" "}
-              <button className="button arrow" onClick={this.showlocation}>
+              <button className="arrow" onClick={this.showlocation}>
                 {" "}
                 {this.state.text}{" "}
                 {this.state.text === "Показать" ? (
@@ -294,7 +293,7 @@ ChangeShow = (param) => (e) => {
               )}
             </div></div>) : null}
             {this.state.typeofedit === "subfolders" ? (
-              <div>
+              <div className="modal-body-withoutcenter">
                 {this.state.subfolders.map((folder) => (
                           <div key={folder.Id} className="element-with-delete-button">
                               <button className="arrow" onClick={this.RemoveSubfolder(folder.Id)}>&otimes;</button>
@@ -306,7 +305,7 @@ ChangeShow = (param) => (e) => {
               </div>
             ) : null}
             {this.state.typeofedit === "elements" ? (
-              <div>
+              <div className="modal-body-withoutcenter">
                 {this.state.elements.map((folder) => (
                           <div key={folder.Id} className="element-with-delete-button">
                               <button className="arrow" onClick={this.RemoveElement(folder.Id)}>&otimes;</button>
@@ -319,13 +318,11 @@ ChangeShow = (param) => (e) => {
             ) : null}
             
 
-            
-          </div>
           <div className="modal-footer">
-            <button className="button SaveButton" onClick={this.handleSubmit}>
+            <button className="SaveButton button" onClick={this.handleSubmit}>
               Сохранить
             </button>
-            <button className="button CloseButton" onClick={this.Close}>
+            <button className="CloseButton button" onClick={this.Close}>
               Назад
             </button>
           </div>

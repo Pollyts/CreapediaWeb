@@ -18,14 +18,6 @@
     color: #427696;
     margin-bottom: 10px;
 }
-.button{
-    color: #427696;
-    border:none;
-    background-color: transparent;    
-    font-family: 'Alegreya';
-    outline: none;
-    cursor: pointer;
-}
 
 .windowforselectingpath{
     width: 100%;
@@ -39,11 +31,11 @@
     width: 400px;
     height: 200px;
     overflow: hidden; 
-    border: 1px solid #427696;
+    border: 4px solid #427696;
 }
 
 .modalbuttonfolder{
-    border: 1px solid #427696;
+    border: 4px solid #427696;
     border-radius: 50px;
     width: 200px;
     height: 30px;
@@ -56,7 +48,7 @@
 
 .modalbreadcrumbs{
     padding-bottom: 10px;
-    border-bottom: 1px solid #427696;
+    border-bottom: 4px solid #427696;
 }
 
 .modalfolders{
@@ -78,29 +70,46 @@
 }
 
 .arrow{
+    color: #427696;
+    padding: 0;
+    border:none;
+    background-color: transparent;    
+    font-family: 'Alegreya';
+    outline: none;
+    cursor: pointer;
     display: flex;
     margin-left: 20px;
-    border: 1px solid #427696;
     border-radius: 50px;
 }
 .modal-content{
     width: 500px;
     background-color: #FFECDD;
-    border: #427696 7px solid;
+    border: #427696 4px solid;
     border-radius: 25px;
     height: auto;
 }
 input[type="file"]{
-font-size: 18px;
-margin-left:30px;
+    display: none;
 }
 
+.custom-file-upload{    
+    border: 4px solid #427696;
+    border-radius: 50px;
+    font-size: 22px;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+}
+.custom-file-upload:hover {
+    background: #79A6B1;
+  }
+
 .forminput {
-    border: #427696 1px solid;
+    border: #427696 4px solid;
     border-radius: 50px;
     outline: none;
-    text-align: center;
-    
+    text-align: center;   
+    background-color: transparent; 
   }
 
 .modal-header, .modal-footer{    
@@ -129,7 +138,7 @@ margin-left:30px;
 }
 .SaveButton{
 width: 50%;
-border-right: 1px solid #eee;
+border-right: 4px solid #eee;
 padding: 10px 0px; 
 }
 .selectedpath{
@@ -141,18 +150,38 @@ padding: 10px 0px;
 width: 50%;
 padding: 10px 0px; 
 }
+.subfolders{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
 
+.element-with-delete-button{
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+.modal-body-withoutcenter{
+    align-items: flex-start;
+    padding: 0px 10px;
+    display: flex;
+    flex-direction: column;
+    border-top: 4px solid #427696;
+    border-bottom: 4px solid #427696;
+    padding-bottom: 20px;
+}
 .modal-body{
     align-items: center;
     padding: 0px 10px;
     display: flex;
     flex-direction: column;
-    border-top: 1px solid #427696;
-    border-bottom: 1px solid #427696;
+    border-top: 4px solid #427696;
+    border-bottom: 4px solid #427696;
     padding-bottom: 20px;
 }
 .formlabel{
-    padding: 20px 0px 10px 0px;
+    padding: 20px 10px 10px 10px;
     text-align:center;
 }
 

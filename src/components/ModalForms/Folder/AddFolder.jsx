@@ -56,10 +56,10 @@ export default class AddFolder extends Component{
                 <div className="modal-body">
                 <label className="formlabel"> Название:</label>
                 <input className="forminput" type="text" value={this.state.name} onChange={this.onChange}/>
-                <label className="formlabel">Расположение:</label>
+                {/* <label className="formlabel">Расположение:</label>
                 <div className="place">
                 <label>{this.props.folder.Name}</label> <button className="button arrow"> -{'>'} </button>
-                </div>
+                </div> */}
                 {/* <div>
                 <div>
                 {this.props.prevpages.map(bc=>

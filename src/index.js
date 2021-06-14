@@ -4,12 +4,12 @@ import 'normalize.css';
 import './index.css';
 import App from './components/App/App';
 import reportWebVitals from './reportWebVitals';
-import { HashRouter } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 
 ReactDOM.render(
-  <HashRouter>
+  <BrowserRouter>
     <App/>
-    </HashRouter>,
+    </BrowserRouter>,
   document.getElementById('root')
 );
 

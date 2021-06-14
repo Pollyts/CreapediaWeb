@@ -6,17 +6,21 @@ async function SaveElement (name, pfid)
         "Name": name,
         "ParentfolderId": Number(pfid)
      }
+     let elemid;
     await fetch(process.env.REACT_APP_API_ELEMENTS,{
         method: 'POST', // или 'PUT'
         body: JSON.stringify(element), // данные могут быть 'строкой' или {объектом}!
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
-          }}).then(function(response) {
-            console.log(response.status)});
+          }}).then(response=>{ return response.json()})
+          .then(data=>{
+              elemid=data;
+          }).catch(err => console.log(err));
+    return elemid
     }
-    async function SaveImage (elwithimg){
-        await fetch(process.env.REACT_APP_API_ELEMENTS+"/image",{
+    async function SaveImage (id,elwithimg){
+        await fetch(process.env.REACT_APP_API_ELEMENTS+`/image/${id}`,{
             method: 'POST', // или 'PUT'
             body: elwithimg, // данные могут быть 'строкой' или {объектом}!
             headers: {
@@ -40,9 +44,9 @@ export default class AddElement extends Component{
 
     async sendImage(event) {
         event.preventDefault();
-        await SaveElement(this.state.name, this.props.folder.Id);
+        const elemid=await SaveElement(this.state.name, this.props.folder.Id);
         if (this.state.file!=null)
-        await SaveImage(this.state.file);
+        await SaveImage(elemid, this.state.file);
         this.props.onClose();        
         window.location.reload();
     };
@@ -79,13 +83,15 @@ export default class AddElement extends Component{
                 <div className="modal-body">
                 <label className="formlabel"> Название:</label>
                 <input className="forminput" type="text" value={this.state.name} onChange={this.onChange}/>
-                <label className="formlabel">Расположение:</label>
+                {/* <label className="formlabel">Расположение:</label>
                 <div className="place">
                 <label>{this.props.folder.Name}</label> <button className="button arrow"> -{'>'} </button>
-                </div>
+                </div> */}
                 <div className="modal-image">
-                <label className="formlabel">Фото:</label>                
+                <label className="formlabel">Фото:</label>   
+                <label className="custom-file-upload">Загрузить изображение           
                 <input type="file" onChange={(e)=>this.handleImageChange(e)}/>  
+                </label>  
                 {this.state.filepath===null ? <div/> :<img className="downloadimage" src={this.state.filepath}/>}             
                 
                 </div>

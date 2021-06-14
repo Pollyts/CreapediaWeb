@@ -82,7 +82,11 @@
     color: #427696;
     font-size: 24px;
     }
-
+.exportdiv{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 .arrow{
     color: #427696;
     padding: 0;
@@ -164,6 +168,7 @@ padding: 10px 0px;
 .CloseButton{
 width: 50%;
 padding: 10px 0px; 
+font-family: "Alegreya";
 }
 .subfolders{
     display: flex;
@@ -207,7 +212,8 @@ padding: 10px 0px;
 
 .radiobutton{
     display: flex;
+    align-items: center;
 }
-input[type="radio"]{
-    margin: 10px;
+input[type='radio']{
+    margin-right: 10px;
 }

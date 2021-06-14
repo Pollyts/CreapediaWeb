@@ -90,7 +90,7 @@ export default class ImportFolder extends Component{
                 </div>   
                 </div>
                 {this.state.importtype==="fromlibrary" ? <div className="modal-body">
-                    <label className="formlabel"> Задайте пароль:</label>
+                    <label className="formlabel"> Введите пароль:</label>
                     <input className="forminput" type="text" value={this.state.body} onChange={this.onPasswordChange}/>
                 </div> :null}
                 {this.state.importtype==="fromfolder" ? <div className="modal-body">

@@ -125,7 +125,7 @@ export default class ExportFolder extends Component {
         path: { Name: this.props.folder.Name, Id: this.props.folder.Id },
       });
     } else {
-      this.setState({ exporttype: event.target.value });
+      this.setState({ exporttype: event.target.value, body:null });
     }
     console.log("wow");
   }
@@ -201,9 +201,9 @@ export default class ExportFolder extends Component {
                 библиотеку
               </div>
             </div>
-          </div>
+          
           {this.state.exporttype === "user" ? (
-            <div className="modal-body">
+            <div className="exportdiv">
               <label className="formlabel"> Введите почту получателя:</label>
               <input
                 className="forminput"
@@ -214,7 +214,7 @@ export default class ExportFolder extends Component {
             </div>
           ) : null}
           {this.state.exporttype === "library" ? (
-            <div className="modal-body">
+            <div className="exportdiv">
               <label className="formlabel"> Задайте пароль:</label>
               <input
                 className="forminput"
@@ -225,11 +225,11 @@ export default class ExportFolder extends Component {
             </div>
           ) : null}
           {this.state.exporttype === "folder" ? (
-            <div className="modal-body">
+            <div className="exportdiv">
               <label className="formlabel">Экспорт в папку:</label>
               <div className="selectedpath">
                 <label>{this.state.path.Name}</label>{" "}
-                <button className="button arrow" onClick={this.showlocation}>
+                <button className="arrow" onClick={this.showlocation}>
                   {" "}
                   {this.state.text}{" "}
                   {this.state.text === "Показать" ? (
@@ -281,6 +281,7 @@ export default class ExportFolder extends Component {
               </div>
             </div>
           ) : null}
+          </div>
           <div className="modal-footer">
             <button className="button SaveButton" onClick={this.handleSubmit}>
               Экспортировать

@@ -40,6 +40,7 @@ export default class EditFolder extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.showlocation = this.showlocation.bind(this);
     this.Close = this.Close.bind(this);
+    this.onChange=this.onChange.bind(this);
   }
 
   Close(e) {    
@@ -296,7 +297,7 @@ ChangeShow = (param) => (e) => {
               <div>
                 {this.state.subfolders.map((folder) => (
                           <div key={folder.Id} className="element-with-delete-button">
-                              <button className="arrow">&otimes;</button>
+                              <button className="arrow" onClick={this.RemoveSubfolder(folder.Id)}>&otimes;</button>
                             <label>
                               {folder.Name}
                             </label>
@@ -308,7 +309,7 @@ ChangeShow = (param) => (e) => {
               <div>
                 {this.state.elements.map((folder) => (
                           <div key={folder.Id} className="element-with-delete-button">
-                              <button className="arrow">&otimes;</button>
+                              <button className="arrow" onClick={this.RemoveElement(folder.Id)}>&otimes;</button>
                             <label>
                               {folder.Name}
                             </label>

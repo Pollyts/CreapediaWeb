@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/CreapediaWeb/static/css/main.2734b5a6.chunk.css",
-    "main.js": "/CreapediaWeb/static/js/main.d8e1b8e3.chunk.js",
-    "main.js.map": "/CreapediaWeb/static/js/main.d8e1b8e3.chunk.js.map",
+    "main.js": "/CreapediaWeb/static/js/main.50637e87.chunk.js",
+    "main.js.map": "/CreapediaWeb/static/js/main.50637e87.chunk.js.map",
     "runtime-main.js": "/CreapediaWeb/static/js/runtime-main.4f67ef2b.js",
     "runtime-main.js.map": "/CreapediaWeb/static/js/runtime-main.4f67ef2b.js.map",
     "static/css/2.679831fc.chunk.css": "/CreapediaWeb/static/css/2.679831fc.chunk.css",
@@ -21,6 +21,6 @@
     "static/css/2.679831fc.chunk.css",
     "static/js/2.4469648f.chunk.js",
     "static/css/main.2734b5a6.chunk.css",
-    "static/js/main.d8e1b8e3.chunk.js"
+    "static/js/main.50637e87.chunk.js"
   ]
 }

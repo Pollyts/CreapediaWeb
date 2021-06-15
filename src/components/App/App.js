@@ -22,9 +22,9 @@ function App(props) {
     return (
         <Router>
             <Switch>            
-            <Route path="/CreapediaWeb/registration" component={Registration}></Route>  
-            <Route path="/CreapediaWeb/login"><Login setToken={setToken}/></Route>     
-            <Redirect from="/" to={{pathname: `/CreapediaWeb/login`}}></Redirect>
+            <Route path="/registration" component={Registration}></Route>  
+            <Route path="/login"><Login setToken={setToken}/></Route>     
+            <Redirect from="/" to={{pathname: `/login`}}></Redirect>
             </Switch>
             </Router>  
     )

@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import Toolbar from "../Toolbar/ToolbarElement";
 import "./ElementPage.css";
 import logo from "../App/logo4x.png";
+import arrow from "./arrow.png";
+import reversearrow from "./reverse arrow.png";
 
 export default class ElementPage extends Component {
   constructor(props) {
@@ -141,7 +143,7 @@ export default class ElementPage extends Component {
               <button className="btn_logout" onClick={this.handleClick}>
                 выход
               </button>
-            }
+            }            
             <img className="logo" src={logo} alt="toolbaritem" />
           </div>
         </div>
@@ -187,17 +189,35 @@ export default class ElementPage extends Component {
                 ))}
               </div>
             ) : (
-              <div>
+              <div className="relations">
                 {relations.map((folder) => (
                   <div key={folder.IdFirst}>
-                    {folder.NameFirstElement}&ensp;&rarr;&ensp;
-                    {folder.NameSecondElement}: {folder.Rel1to2}
-                    {folder.Rel2to1 !== null ? (
-                      <div>
-                        {folder.NameSecondElement}&ensp;&rarr;&ensp;
-                        {folder.NameFirstElement}: {folder.Rel2to1}
+                    {folder.Rel2to1 == null ? <div className="onerelation">
+                      {folder.NameFirstElement}
+                      <div className="relation">
+                      <div className="firstelement">
+                      {folder.Rel1to2}
                       </div>
-                    ) : null}
+                      <img src={arrow} className="imagearrow" alt="toolbaritem" />
+                      </div>
+                      {folder.NameSecondElement} 
+                    </div>    
+                       :
+                       <div className="onerelation">
+                       {folder.NameFirstElement}
+                       <div className="relation">
+                         <div className="firstelement">
+                       {folder.Rel1to2}
+                       </div>
+                       <img src={arrow} className="imagearrow" alt="toolbaritem" />
+                       <img src={reversearrow} className="imagearrow" alt="toolbaritem" />
+                       <div className="secondelement">
+                       {folder.Rel2to1}
+                       </div>
+                       </div>
+                       {folder.NameSecondElement} 
+                     </div> 
+                     }
                   </div>
                 ))}
               </div>

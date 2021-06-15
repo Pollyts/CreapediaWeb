@@ -218,13 +218,13 @@ export default class AddRelation extends Component {
             <div className="modal-title">Добавление связи</div>
           </div>
           <div className="modal-body">
+            <div className="flexdiv">
             <label className="formlabel">Связать элемент с:</label>
-            <div className="selectedpath">
               <label>
                 {this.state.path.Name !== "" ? (
                   <div>{this.state.path.Name}</div>
                 ) : (
-                  <div>Элемент не выбран</div>
+                  <div>&ensp; Элемент не выбран</div>
                 )}
               </label>
             </div>
@@ -286,7 +286,9 @@ export default class AddRelation extends Component {
               </div>
             </div>
             {this.state.path.Name !== "" ? (
+              <div>
               <div className="Relations">
+                <div className="flexdiv">                  
                 {this.state.defaultdirection ? (
                   <label className="formlabel">
                     Связь {this.props.element.Name} с {this.state.path.Name}
@@ -299,14 +301,18 @@ export default class AddRelation extends Component {
                 <button className="button arrow" onClick={this.changedirection}>
                   &harr;
                 </button>
+                </div>
                 <input
                   className="forminput"
                   type="text"
                   value={this.state.firstrel}
                   onChange={this.changeonelinerel}
                 />
+                </div>
+                
                 {this.state.typeofrel === "Двусторонняя" ? (
-                  <div>
+                  <div className="Relations">
+                    <div className="flexdiv">
                     {this.state.defaultdirection ? (
                       <label className="formlabel">
                         Связь {this.state.path.Name} с {this.props.element.Name}
@@ -316,6 +322,7 @@ export default class AddRelation extends Component {
                         Связь {this.props.element.Name} с {this.state.path.Name}
                       </label>
                     )}
+                    </div>
                     <input
                       className="forminput"
                       type="text"
@@ -324,12 +331,12 @@ export default class AddRelation extends Component {
                     />
                   </div>
                 ) : null}
-                <div className="selectedpath">
+                <div className="flexdiv">
                   <label className="formlabel">
                     Тип связи: {this.state.typeofrel}
                   </label>
                   <button
-                    className="button arrow"
+                    className="arrow"
                     onClick={this.changetypeofrel}
                   >
                     Изменить
@@ -340,7 +347,7 @@ export default class AddRelation extends Component {
           </div>
           <div className="modal-footer">
             <button className="button SaveButton" onClick={this.handleSubmit}>
-              Экспортировать
+              Связать
             </button>
             <button className="button CloseButton" onClick={this.CloseWindow}>
               Отменить

@@ -100,19 +100,29 @@ export default class AddCharacteristics extends Component{
                     <div className="modal-title">Добавление характеристик</div>
                 </div>
                 <div className="modal-body">
+                    
+                    <div className="newcharswindow">
+                <div className="newcharacter">
                 <label className="formlabel"> Название:</label>
                 <input className="forminput" type="text" value={this.state.currentchar.name} onChange={this.CreateNewName}/>
+                </div>
+                <div className="newcharacter">
                 <label className="formlabel"> Значение:</label>
                 <input className="forminput" type="text" value={this.state.currentchar.value} onChange={this.CreateNewValue}/>  
+                </div>
                 {this.state.characteristics!==null? this.state.characteristics.map(char=>
-                        <div key={char.id}>
+                        <div key={char.id} className="linenewchar">
+                            <div className="newcharacter">
                             <label className="formlabel"> Название:</label>
                             <input className="forminput" type="text" value={char.name} onChange={this.ChangeName(char.id)}/>
+                            </div>
+                            <div className="newcharacter">
                             <label className="formlabel"> Значение:</label>
                             <input className="forminput" type="text" value={char.value} onChange={this.ChangeValue(char.id)}/>  
-                        </div>):null} 
-                </div>  
-                <button onClick={this.CreateNew}>Добавить еще одну</button>              
+                            </div></div>):null}
+                            </div> 
+                        <button className="arrow" onClick={this.CreateNew}>+ Добавить еще одну</button>   
+                </div>                             
                 <div className="modal-footer">
                 <button className="button SaveButton" onClick={this.Save}>Сохранить</button>
                 <button className="button CloseButton" onClick={this.props.onClose}>Назад</button>

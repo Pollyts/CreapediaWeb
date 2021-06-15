@@ -110,6 +110,29 @@ width: 100%;
     flex-direction: column;
     align-items: center;
 }
+
+.linenewchar{
+margin-top: 20px;
+}
+.newcharswindow{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: auto;
+    max-height: 400px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    width: 100%;
+    
+}
+::-webkit-scrollbar {
+    width: 0px;
+    background: transparent; /* make scrollbar transparent */
+}
+
+.newcharacter{
+    margin: 5px;
+}
 .arrow{
     color: #427696;
     padding: 0;

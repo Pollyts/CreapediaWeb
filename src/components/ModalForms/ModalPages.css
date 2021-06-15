@@ -13,6 +13,20 @@
     font-size: 24px;
     overflow:scroll;
 }
+
+.libcomponent{
+display: flex;
+justify-content: space-between;
+cursor: pointer;
+padding: 4px 16px;
+width: 100%;
+
+}
+
+.libcomponent:hover{
+    background-color: #79A6B1;
+    
+}
 .place{
     background-color: transparent;
     color: #427696;
@@ -21,15 +35,16 @@
 
 .windowforselectingpath{
     width: 100%;
-    height: 100%;
+    height: 300px;
     overflow-y: scroll;
+    overflow-x: hidden;
     padding-right: 25px; /* Increase/decrease this value for cross-browser compatibility */
     box-sizing: content-box; /* So the width will be 100% + 17px */
 }
 
 .parentwindowforselectingpath{    
     width: 400px;
-    height: 200px;
+    /* height: 200px; */
     overflow: hidden; 
     border: 4px solid #427696;
 }
@@ -55,13 +70,21 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 10px 0px 50px 0px;    
+    margin: 10px 0px;    
 }
 
 .modalbuttonelement{
     border: none;
-    color: #427696;
+    width: 200px;
+    height: 40px;
+    overflow: hidden;
+    cursor: pointer;
     background-color: transparent;
+    color: #427696;
+    margin-bottom: 10px;
+}
+.import{
+    margin-bottom: 10px;
 }
 
 .withoutframe{

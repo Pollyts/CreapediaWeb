@@ -47,8 +47,8 @@ export default class FolderPage extends Component {
       .catch((err) => console.log(err));
     console.log(this.state);
   }
-  GetElements(parentid) {
-    fetch(process.env.REACT_APP_API_ELEMENTS + `/${parentid}`)
+  async GetElements(parentid) {
+    await fetch(process.env.REACT_APP_API_ELEMENTS + `/${parentid}`)
       .then((response) => {
         return response.json();
       })

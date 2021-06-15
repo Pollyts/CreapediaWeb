@@ -12,19 +12,19 @@ async function ExportToUser(folderid, usermail) {
         "Content-Type": "application/json",
       },
     }
-  ).then((data) => data.json());
+  );
 }
-async function ExportToLibrary(folderid, password) {
+async function ExportToLibrary(folderid,name, password) {
   await fetch(
     process.env.REACT_APP_API_FOLDERS +
-      `/exporttolibrary?folderid=${folderid}&password=${password}`,
+      `/exporttolibrary?folderid=${folderid}&name=${name}&password=${password}`,
     {
       method: "GET", // или 'PUT'
       headers: {
         "Content-Type": "application/json",
       },
     }
-  ).then((data) => data.json());
+  );
 }
 async function ExportToFolder(folderid, newrootid) {
   await fetch(
@@ -36,7 +36,7 @@ async function ExportToFolder(folderid, newrootid) {
         "Content-Type": "application/json",
       },
     }
-  ).then((data) => data.json());
+  );
 }
 
 export default class ExportFolder extends Component {
@@ -45,7 +45,7 @@ export default class ExportFolder extends Component {
     console.log(this.props);
     this.state = {
       exporttype: null,
-      body: null,
+      body: '',
       path: { Name: this.props.folder.Name, Id: this.props.folder.Id },
       folders: null,
       breadCrumbs: this.props.prevpages,
@@ -64,7 +64,7 @@ export default class ExportFolder extends Component {
     if (this.state.exporttype === "user") {
       await ExportToUser(this.props.folder.Id, this.state.body);
     } else if (this.state.exporttype === "library") {
-      await ExportToLibrary(this.props.folder.Id, this.state.body);
+      await ExportToLibrary(this.props.folder.Id, this.props.folder.Name, this.state.body);
     } else if (this.state.exporttype === "folder") {
       await ExportToFolder(this.props.folder.Id, this.state.path.Id);
     }
@@ -106,7 +106,7 @@ export default class ExportFolder extends Component {
   };
 
   async showlocation(event) {
-    await fetch(process.env.REACT_APP_API_FOLDERS + `/${this.props.folder.Id}`)
+    await fetch(process.env.REACT_APP_API_FOLDERS + `/${this.state.breadCrumbs[this.state.breadCrumbs.length-1].body.Id}`)
       .then((response) => {
         return response.json();
       })
@@ -122,10 +122,10 @@ export default class ExportFolder extends Component {
     if (event.target.value === "folder") {
       this.setState({
         exporttype: event.target.value,
-        path: { Name: this.props.folder.Name, Id: this.props.folder.Id },
+        path: { Name: this.state.breadCrumbs[this.state.breadCrumbs.length-1].body.Name, Id: this.state.breadCrumbs[this.state.breadCrumbs.length-1].body.Id },
       });
     } else {
-      this.setState({ exporttype: event.target.value, body:null });
+      this.setState({ exporttype: event.target.value, body:'' });
     }
     console.log("wow");
   }
@@ -140,7 +140,7 @@ export default class ExportFolder extends Component {
     if (prevProps.folder.Id !== this.props.folder.Id) {
       this.setState({
         exporttype: null,
-        body: null,
+        body: '',
         path: { Name: this.props.folder.Name, Id: this.props.folder.Id },
         folders: null,
         breadCrumbs: this.props.prevpages,
@@ -149,22 +149,7 @@ export default class ExportFolder extends Component {
     }
   }
 
-  render() {
-    console.log("рендер удаления");
-    if (this.state.isdeleted) {
-      let bc = this.props.prevpages;
-      bc.length = bc.length - 1;
-      this.setState({ isdeleted: false });
-      console.log("Я в удалении");
-      return (
-        <Redirect
-          to={{
-            pathname: bc[bc.length - 1].path,
-            state: { body: bc[bc.length - 1].body, breadCrumbs: bc },
-          }}
-        />
-      );
-    }
+  render() {  
     if (!this.props.show) {
       return null;
     }

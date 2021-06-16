@@ -21,11 +21,11 @@ export default function Toolbar(props) {
             <div className="Toolbar">
             <button className="Toolbarbutton" onClick={() => set_showAddElement(true)}>Добавить характеристики</button>
             <AddCharacteristics element={props.parent} prevpages={props.previouspages} onClose={()=>set_showAddElement(false)} show={showAddElement}/>
-            {/* <button className="Toolbarbutton" onClick={() => set_showAddFolder(true)}>Добавить класс</button>
+            <button className="Toolbarbutton" onClick={() => set_showAddFolder(true)}>Добавить класс</button>
             <AddTemplateElement element={props.parent} prevpages={props.previouspages} onClose={()=>set_showAddFolder(false)} show={showAddFolder}/>
             <button className="Toolbarbutton" onClick={() => set_showDeleteComponent(true)}>Удалить класс</button>
             <DeleteElement prevpages={props.previouspages} component={props.parent} onClose={()=>set_showDeleteComponent(false)} show={showDeleteComponent}/>
-            <button className="Toolbarbutton" onClick={() => set_showEditComponent(true)}>Изменить класс</button>
+            {/* <button className="Toolbarbutton" onClick={() => set_showEditComponent(true)}>Изменить класс</button>
             <EditElement element={props.parent} prevpages={props.previouspages} onClose={()=>set_showEditComponent(false)} show={showEditComponent}/>
             <button className="Toolbarbutton" onClick={() => set_showExportComponent(true)}>Экспорт класса</button>
             <ExportElement component={props.parent} typeofcomponent={props.typeof_parentel} onClose={()=>set_showExportComponent(false)} show={showExportComponent}/> */}

@@ -57,7 +57,7 @@ export default class ImportFolder extends Component {
       await ImportFromFolder(this.props.folder.Id, this.state.path.Id, this.state.path.type);
       this.props.onClose();
     } else if (this.state.importtype === "fromlibrary") {
-      await ImportFromLibrary(this.props.folder.Id,this.state.selcomp.Id,this.state.selcomp.type,this.state.body);
+      await ImportFromLibrary(this.props.folder.Id,this.state.selcomp.Id,this.state.body);
       this.props.onClose();
     } else alert("Выберите тип импорта");
   };

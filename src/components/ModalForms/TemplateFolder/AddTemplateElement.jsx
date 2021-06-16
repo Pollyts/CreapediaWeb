@@ -1,23 +1,26 @@
 import React, {Component} from 'react';
 import '../ModalPages.css';
-async function SaveTemplateElement (elwithimg)
+async function SaveTemplateElement (name, pfid )
 { 
+    const telem =   {
+        "Name": name,
+        "ParentfolderId": Number(pfid)
+     }
     await fetch(process.env.REACT_APP_API_TEMPLATEELEMENTS,{
         method: 'POST', // или 'PUT'
-        body: elwithimg, // данные могут быть 'строкой' или {объектом}!
+        body: JSON.stringify(telem), // данные могут быть 'строкой' или {объектом}!
         headers: {
             'Accept': 'application/json',
-          }}).then(function(response) {
-            console.log(response.status)});
+            'Content-Type': 'application/json'
+          }});
     }
 
 export default class AddElement extends Component{
     constructor(props){
         super(props);
-        this.state={name:"", filepath:null, file: null}
+        this.state={name:""}
         this.onChange = this.onChange.bind(this);
-        this.sendImage = this.sendImage.bind(this); 
-        this.handleImageChange = this.handleImageChange.bind(this);     
+        this.sendImage = this.sendImage.bind(this);  
     }   
     onChange(e) {
         var val = e.target.value;
@@ -26,22 +29,11 @@ export default class AddElement extends Component{
 
     async sendImage(event) {
         event.preventDefault();
-        await SaveTemplateElement(this.state.file);
+        await SaveTemplateElement(this.state.name, this.props.folder.Id);
         this.props.onClose();        
         window.location.reload();
-    };
+    }; 
     
-    handleImageChange(e) {
-        e.preventDefault();
-        let form = new FormData();
-        for (var index = 0; index < e.target.files.length; index++) {
-            var element = e.target.files[index];
-            form.append('image', element);
-        }
-        form.append('parentfolderid', this.props.folder.Id);
-        form.append('Name', this.state.name);
-        this.setState({ file: form, filepath: URL.createObjectURL(e.target.files[0])});
-    };  
 
     render(){
         if(!this.props.show)
@@ -52,15 +44,15 @@ export default class AddElement extends Component{
             <div className="ModalPage" onClick={this.props.onClose}> 
             <div className="modal-content" onClick={e=>e.stopPropagation()}>
                 <div className="modal-header">
-                    <div className="modal-title">Создание шаблонного элемента</div>
+                    <div className="modal-title">Создание класса</div>
                 </div>
                 <div className="modal-body">
                 <label className="formlabel"> Название:</label>
                 <input className="forminput" type="text" value={this.state.name} onChange={this.onChange}/>
-                <label className="formlabel">Расположение:</label>
+                {/* <label className="formlabel">Расположение:</label>
                 <div className="place">
                 <label>{this.props.folder.Name}</label> <button className="button arrow"> -{'>'} </button>
-                </div>
+                </div> */}
                 {/* <div className="modal-image">
                 <label className="formlabel">Фото:</label>                
                 <input type="file" onChange={(e)=>this.handleImageChange(e)}/>                

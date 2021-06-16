@@ -18,24 +18,24 @@ export default function Toolbar(props) {
     const [showImportComponent, set_showImportComponent] = useState(false);
     
     
-        return(
-            <div className="ToolbarRelative">
-            <div className="Toolbar">
-            <button className="Toolbarbutton" onClick={() => set_showAddElement(true)}>Добавить класс</button>
-            <AddElement folder={props.parent} prevpages={props.previouspages} onClose={()=>set_showAddElement(false)} show={showAddElement}/>
-            <button className="Toolbarbutton" onClick={() => set_showAddFolder(true)}>Добавить папку</button>
-            <AddFolder folder={props.parent} prevpages={props.previouspages} onClose={()=>set_showAddFolder(false)} show={showAddFolder}/>
-            <button className="Toolbarbutton" onClick={() => set_showDeleteComponent(true)}>Удалить папку</button>
-            <DeleteComponent prevpages={props.previouspages} component={props.parent} onClose={()=>set_showDeleteComponent(false)} show={showDeleteComponent}/>
-            <button className="Toolbarbutton" onClick={() => set_showEditComponent(true)}>Изменить папку</button>
-            <EditFolder folder={props.parent} prevpages={props.previouspages} onClose={()=>set_showEditComponent(false)} show={showEditComponent}/>
-            <button className="Toolbarbutton" onClick={() => set_showExportComponent(true)}>Экспорт папки</button>
-            <ExportFolder component={props.parent} onClose={()=>set_showExportComponent(false)} show={showExportComponent}/>
-            <button className="Toolbarbutton">Импорт в папку</button>
-            <ImportFolder component={props.parent} onClose={()=>set_showImportComponent(false)} show={showImportComponent}/>
-            </div>
-            </div>
-          )
+    return(
+        <div className="ToolbarRelative">
+        <div className="Toolbar">
+        <button className="Toolbarbutton" onClick={() => set_showAddElement(true)}>Добавить класс</button>
+        <AddElement prevpages={props.previouspages} folder={props.parent} onClose={()=>set_showAddElement(false)} show={showAddElement}/>
+        {/* <button className="Toolbarbutton" onClick={() => set_showAddFolder(true)}>Добавить папку</button>
+        <AddFolder prevpages={props.previouspages} folder={props.parent} onClose={()=>set_showAddFolder(false)} show={showAddFolder}/>
+        <button className="Toolbarbutton" onClick={() => set_showDeleteComponent(true)}>Удалить папку</button>
+        <DeleteComponent prevpages={props.previouspages} component={props.parent} onClose={()=>set_showDeleteComponent(false)} show={showDeleteComponent}/>
+        <button className="Toolbarbutton" onClick={() => set_showEditComponent(true)}>Изменить папку</button>
+        <EditFolder prevpages={props.previouspages} folder={props.parent} onClose={()=>set_showEditComponent(false)} show={showEditComponent}/>
+        <button className="Toolbarbutton" onClick={() => set_showExportComponent(true)}>Экспорт папки</button>
+        <ExportFolder prevpages={props.previouspages} folder={props.parent} onClose={()=>set_showExportComponent(false)} show={showExportComponent}/>
+        <button className="Toolbarbutton" onClick={() => set_showImportComponent(true)}>Импорт в папку</button>
+        <ImportFolder prevpages={props.previouspages} folder={props.parent} onClose={()=>set_showImportComponent(false)} show={showImportComponent}/> */}
+        </div>
+        </div>
+)   
     
   
 }

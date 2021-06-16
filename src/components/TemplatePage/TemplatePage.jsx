@@ -116,7 +116,7 @@ export default class TemplatePage extends Component{
                         
                         </div>
                         <div className="foldercomponents">
-                        <Toolbar previouspages={breadCrumbs} typeof_parentel="folder" parent={this.props.location.state.body}></Toolbar>
+                        <Toolbar previouspages={breadCrumbs} parent={this.props.location.state.body}></Toolbar>
                         </div>
                         </div>  
         )

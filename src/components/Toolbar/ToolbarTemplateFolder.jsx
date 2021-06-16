@@ -25,9 +25,9 @@ export default function Toolbar(props) {
         <AddElement prevpages={props.previouspages} folder={props.parent} onClose={()=>set_showAddElement(false)} show={showAddElement}/>
         <button className="Toolbarbutton" onClick={() => set_showAddFolder(true)}>Добавить папку</button>
         <AddFolder prevpages={props.previouspages} folder={props.parent} onClose={()=>set_showAddFolder(false)} show={showAddFolder}/>
-        {/* <button className="Toolbarbutton" onClick={() => set_showDeleteComponent(true)}>Удалить папку</button>
+        <button className="Toolbarbutton" onClick={() => set_showDeleteComponent(true)}>Удалить папку</button>
         <DeleteComponent prevpages={props.previouspages} component={props.parent} onClose={()=>set_showDeleteComponent(false)} show={showDeleteComponent}/>
-        <button className="Toolbarbutton" onClick={() => set_showEditComponent(true)}>Изменить папку</button>
+        {/* <button className="Toolbarbutton" onClick={() => set_showEditComponent(true)}>Изменить папку</button>
         <EditFolder prevpages={props.previouspages} folder={props.parent} onClose={()=>set_showEditComponent(false)} show={showEditComponent}/>
         <button className="Toolbarbutton" onClick={() => set_showExportComponent(true)}>Экспорт папки</button>
         <ExportFolder prevpages={props.previouspages} folder={props.parent} onClose={()=>set_showExportComponent(false)} show={showExportComponent}/>

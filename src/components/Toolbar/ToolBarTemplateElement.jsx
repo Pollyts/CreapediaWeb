@@ -27,8 +27,8 @@ export default function Toolbar(props) {
             <DeleteElement prevpages={props.previouspages} component={props.parent} onClose={()=>set_showDeleteComponent(false)} show={showDeleteComponent}/>
             <button className="Toolbarbutton" onClick={() => set_showEditComponent(true)}>Изменить класс</button>
             <EditElement element={props.parent} prevpages={props.previouspages} onClose={()=>set_showEditComponent(false)} show={showEditComponent}/>
-            {/* <button className="Toolbarbutton" onClick={() => set_showExportComponent(true)}>Экспорт класса</button>
-            <ExportElement component={props.parent} typeofcomponent={props.typeof_parentel} onClose={()=>set_showExportComponent(false)} show={showExportComponent}/> */}
+            <button className="Toolbarbutton" onClick={() => set_showExportComponent(true)}>Экспорт класса</button>
+            <ExportElement element={props.parent} prevpages={props.previouspages} onClose={()=>set_showExportComponent(false)} show={showExportComponent}/>
             </div>
             </div>
           )

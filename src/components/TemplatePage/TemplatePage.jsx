@@ -104,7 +104,7 @@ export default class TemplatePage extends Component{
                         <div key={folder.Id}>                            
                             <Link className="elementinlist" to={{pathname:`/telement`, state: {breadCrumbs:breadCrumbs, body:folder}}}>
                             {/* {folder.Image===undefined} */}
-                            <img className="elementimage" src={`data:image/jpeg;base64,${folder.Image}`} />
+                            {/* <img className="elementimage" src={`data:image/jpeg;base64,${folder.Image}`} /> */}
                             <div className="NameElementOfList"> 
                              {folder.Name}
                               </div>

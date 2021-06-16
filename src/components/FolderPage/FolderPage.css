@@ -15,12 +15,19 @@
     position: relative;
     display: flex;
     flex-direction: column; 
-    justify-content: space-between;   
+    justify-content: center;   
     overflow: hidden;
     text-decoration: none;
 }
 .folderPage{
   height: 100vh;
+}
+.NoImage{
+    color: #427696;
+    opacity: 0.5;
+    font-size: 30px;
+    align-self: center;
+    margin-top: -30px;
 }
 .folderinlist{
     position: relative;

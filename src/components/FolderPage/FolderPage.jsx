@@ -132,10 +132,13 @@ export default class FolderPage extends Component {
                   state: { breadCrumbs: breadCrumbs, body: el },
                 }}
               >
+                {el.Image!==null?
                 <img
                   className="elementimage"
                   src={`data:image/jpeg;base64,${el.Image}`}
+                  alt="No Image"
                 />
+  :<div className="NoImage">No Image</div>}
                 <div className="NameElementOfList">{el.Name}</div>
               </Link>
             </div>

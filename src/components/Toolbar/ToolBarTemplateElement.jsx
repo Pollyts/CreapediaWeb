@@ -18,7 +18,7 @@ export default function Toolbar(props) {
     
         return(
             <div className="ToolbarRelative">
-            <div className="Toolbar">
+            {/* <div className="Toolbar">
             <button className="Toolbarbutton" onClick={() => set_showAddElement(true)}>Добавить характеристики</button>
             <AddCharacteristics element={props.parent} prevpages={props.previouspages} onClose={()=>set_showAddElement(false)} show={showAddElement}/>
             <button className="Toolbarbutton" onClick={() => set_showAddFolder(true)}>Добавить класс</button>
@@ -29,7 +29,7 @@ export default function Toolbar(props) {
             <EditElement element={props.parent} prevpages={props.previouspages} onClose={()=>set_showEditComponent(false)} show={showEditComponent}/>
             <button className="Toolbarbutton" onClick={() => set_showExportComponent(true)}>Экспорт класса</button>
             <ExportElement component={props.parent} typeofcomponent={props.typeof_parentel} onClose={()=>set_showExportComponent(false)} show={showExportComponent}/>
-            </div>
+            </div> */}
             </div>
           )
   

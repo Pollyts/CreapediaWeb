@@ -1,22 +1,37 @@
 import React, { Component } from "react";
 import "../ModalPages.css";
 
-async function Edit(arrayofcharacteristics, idel) {
-  const box = {
-    characteristics: arrayofcharacteristics,
-    elementid: Number(idel),
+async function Edit (elementid, name,characteristics,tchars,relations) {
+  let elemid;
+  const element = {
+    IdElement: Number(elementid),
+    Name: name,
+    characteristics: characteristics,
+    templatecharacteristics: tchars,
+    relations:relations
   };
-  await fetch(process.env.REACT_APP_API_CHARACTERISTICS, {
-    method: "POST", // или 'PUT'
-    body: JSON.stringify(box), // данные могут быть 'строкой' или {объектом}!
+  await fetch(process.env.REACT_APP_API_ELEMENTS, {
+    method: "PUT", // или 'PUT'
+    body: JSON.stringify(element), // данные могут быть 'строкой' или {объектом}!
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
     },
-  }).then(function (response) {
-    console.log(response.status);
-  });
+  }).then(response=>{ return response.json()})
+  .then(data=>{
+      elemid=data;
+  }).catch(err => console.log(err));
+return elemid
 }
+    async function EditImage (id,elwithimg){
+        await fetch(process.env.REACT_APP_API_ELEMENTS+`/image/${id}`,{
+            method: 'POST', // или 'PUT'
+            body: elwithimg, // данные могут быть 'строкой' или {объектом}!
+            headers: {
+                'Accept': 'application/json'
+              }}).then(function(response) {
+                console.log(response.status)});
+    }
 
 export default class EditElement extends Component {
   constructor(props) {
@@ -26,7 +41,9 @@ export default class EditElement extends Component {
       characteristics: null,
       typeofedit: "element",
       relations: null,
-      element: this.props.element,
+      file:null,
+      filepath:null,
+      name:this.props.element.Name,
       isneedupdate: true,
     };
     this.onChange = this.onChange.bind(this);
@@ -34,13 +51,13 @@ export default class EditElement extends Component {
     this.handleImageChange = this.handleImageChange.bind(this);
   }
   //Для характеристик: изменить название характеристики
-  ChangeName = (param) => (e) => {
-    this.setState((prevState) => {
-      const newItems = [...prevState.characteristics];
-      newItems[param].name = e.target.value;
-      return { characteristics: newItems };
-    });
-  };
+  // ChangeName = (param) => (e) => {
+  //   this.setState((prevState) => {
+  //     const newItems = [...prevState.characteristics];
+  //     newItems[param].name = e.target.value;
+  //     return { characteristics: newItems };
+  //   });
+  // };
 
   ChangeShow = (param) => (e) => {
     this.setState({ typeofedit: param });
@@ -63,13 +80,13 @@ export default class EditElement extends Component {
     }));
   };
   //Для характеристик: изменить значение характеристики
-  ChangeValue = (param) => (e) => {
-    this.setState((prevState) => {
-      const newItems = [...prevState.characteristics];
-      newItems[param].value = e.target.value;
-      return { characteristics: newItems };
-    });
-  };
+  // ChangeValue = (param) => (e) => {
+  //   this.setState((prevState) => {
+  //     const newItems = [...prevState.characteristics];
+  //     newItems[param].value = e.target.value;
+  //     return { characteristics: newItems };
+  //   });
+  // };
 
   //Для свзяли: удалить связь
   DeleteRelation = (param) => (e) => {
@@ -82,15 +99,18 @@ export default class EditElement extends Component {
     var val = e.target.value;
     this.setState({ name: val });
   }
-  //Для элемента: изменить фото
+  
   async Save(event) {
     event.preventDefault();
-    // await SaveElement(this.state.name, this.props.folder.Id);
-    // if (this.state.file != null) await SaveImage(this.state.file);
+    const elemid=await Edit(this.props.element.Id, this.state.name, this.state.characteristics, this.state.templatecharacteristics, this.state.relations);
+    if (this.state.file != null) 
+    {
+      await EditImage(elemid, this.state.file);
+    }    
     this.props.onClose();
     window.location.reload();
   }
-
+//Для элемента: изменить фото
   handleImageChange(e) {
     e.preventDefault();
     if (e.target.files.length > 0) {
@@ -99,7 +119,6 @@ export default class EditElement extends Component {
         var element = e.target.files[index];
         form.append("image", element);
       }
-      form.append("parentfolderid", this.props.folder.Id);
       this.setState({
         file: form,
         filepath: URL.createObjectURL(e.target.files[0]),
@@ -113,7 +132,7 @@ export default class EditElement extends Component {
     let chars;
     let relations;
     await fetch(
-      process.env.REACT_APP_API_CHARACTERISTICS + `?idelement=${parentid}`
+      process.env.REACT_APP_API_CHARACTERISTICS + `/only?idelement=${parentid}`
     )
       .then((response) => {
         return response.json();
@@ -153,7 +172,9 @@ export default class EditElement extends Component {
             characteristics: null,
             typeofedit: "element",
             relations: null,
-            element: this.props.element,
+            file:null,
+            filepath:null,
+            name:this.props.element.Name,
             isneedupdate: false,
           });
         await this.GetFoldersElementsRelations(this.props.element.Id);
@@ -168,37 +189,23 @@ export default class EditElement extends Component {
     if ((!this.state.characteristics)||(!this.state.templatecharacteristics)||(!this.state.relations)) {
         return null;
       }
-
-    const array = this.state.templatecharacteristics.map(function (item) {
-      return { idparent: item.IdParent, name: item.NameParent };
-    });
-    var setObj = new Set(); // create key value pair from array of array
-
-    var groups = array.reduce((acc, item) => {
-      if (!setObj.has(item.idparent)) {
-        setObj.add(item.idparent, item);
-        acc.push(item);
-      }
-      return acc;
-    }, []);
     return (
       <div className="ModalPage" onClick={this.props.onClose}>
         <div className="modal-content" onClick={(e) => e.stopPropagation()}>
           <div className="modal-header">
             <div className="modal-title">Редактирование элемента</div>
           </div>
-          <div className="modal-body">
             {this.state.typeofedit === "element" ? (
-              <div className="ShowMenu">
-                <button className="button current">элемент</button>
+              <div className="ShowSelector">
+                <button className="button-selector-modal current">элемент</button>
                 <button
-                  className="button"
+                  className="button-selector-modal"
                   onClick={this.ChangeShow("characteristics")}
                 >
                   харакеристики
                 </button>
                 <button
-                  className="button"
+                  className="button-selector-modal"
                   onClick={this.ChangeShow("relations")}
                 >
                   связи
@@ -206,13 +213,13 @@ export default class EditElement extends Component {
               </div>
             ) : null}
             {this.state.typeofedit === "characteristics" ? (
-              <div className="ShowMenu">
-                <button className="button" onClick={this.ChangeShow("element")}>
+              <div className="ShowSelector">
+                <button className="button-selector-modal" onClick={this.ChangeShow("element")}>
                   элемент
                 </button>
-                <button className="button current">харакеристики</button>
+                <button className="button-selector-modal current">харакеристики</button>
                 <button
-                  className="button"
+                  className="button-selector-modal"
                   onClick={this.ChangeShow("relations")}
                 >
                   связи
@@ -220,22 +227,22 @@ export default class EditElement extends Component {
               </div>
             ) : null}
             {this.state.typeofedit === "relations" ? (
-              <div className="ShowMenu">
-                <button className="button" onClick={this.ChangeShow("element")}>
+              <div className="ShowSelector">
+                <button className="button-selector-modal" onClick={this.ChangeShow("element")}>
                   элемент
                 </button>
                 <button
-                  className="button"
+                  className="button-selector-modal"
                   onClick={this.ChangeShow("characteristics")}
                 >
                   харакеристики
                 </button>
-                <button className="button current">связи</button>
+                <button className="button-selector-modal current">связи</button>
               </div>
             ) : null}
 
             {this.state.typeofedit === "element" ? (
-              <div>
+              <div className="modal-body">
                 <label className="formlabel"> Название:</label>
                 <input
                   className="forminput"
@@ -245,12 +252,12 @@ export default class EditElement extends Component {
                 />
                 <div className="modal-image">
                   <label className="formlabel">Изображение:</label>
-                  <input
-                    type="file"
-                    onChange={(e) => this.handleImageChange(e)}
-                  />
+                  <label className="custom-file-upload">Загрузить изображение           
+                <input type="file" onChange={(e)=>this.handleImageChange(e)}/>  
+                </label>
                   {this.state.filepath === null ? (
-                    <div />
+                    <div>
+                    <img className="downloadimage" src={`data:image/jpeg;base64,${this.props.element.Image}`} /></div>
                   ) : (
                     <img className="downloadimage" src={this.state.filepath} />
                   )}
@@ -259,25 +266,15 @@ export default class EditElement extends Component {
             ) : null}
             {this.state.typeofedit === "characteristics" ? (
               <div>
-                {groups.map((group) => (
-                  <div key={group.idparent} className="ParentElement">
-                    <button className="button arrow">&otimes;</button>{group.name}
-                    {/* {templatecharacteristics
-                    .filter((number) => number.IdParent === group.idparent)
-                    .map((number) => (
-                      <div
-                        key={number.IdCharacter}
-                        className="ParentCharacteristic"
-                      >
-                        {number.NameCharacter}: {number.ValueCharacter}
-                      </div>
-                    ))} */}
+                {this.state.templatecharacteristics.map((group) => (
+                  <div key={group.Id} onClick={this.DeleteClass(group.Id)} className="element-with-delete-button ParentElement">
+                    <button className="arrow">&otimes;</button>{group.Name}
                   </div>
                 ))}
 
                 {this.state.characteristics.map((folder) => (
-                  <div key={folder.Id}>
-                    <button className="button arrow">&otimes;</button> {folder.Name}: {folder.Value}
+                  <div key={folder.Id} onClick={this.DeleteChar(folder.Id)} className="element-with-delete-button">
+                    <button className="arrow">&otimes;</button> {folder.Name}: {folder.Value}
                   </div>
                 ))}
               </div>
@@ -285,24 +282,17 @@ export default class EditElement extends Component {
             {this.state.typeofedit === "relations" ? (
               <div>
                 {this.state.relations.map((folder) => (
-                  <div key={folder.IdFirst}>
-                      <button className="button arrow">&otimes;</button>
-                    {folder.NameFirstElement}&ensp;&rarr;&ensp;
-                    {folder.NameSecondElement}: {folder.Rel1to2}
-                    {folder.Rel2to1 !== null ? (
-                      <div>
-                        {folder.NameSecondElement}&ensp;&rarr;&ensp;
-                        {folder.NameFirstElement}: {folder.Rel2to1}
-                      </div>
-                    ) : null}
+                  <div key={folder.Id} className="element-with-delete-button">
+                      <button className="arrow" onClick={this.DeleteRelation(folder.Id)}>&otimes;</button>
+                    {folder.NameFirstElement}&ensp;&mdash;&ensp;
+                    {folder.NameSecondElement}                   
                   </div>
                 ))}
               </div>
             ) : null}
-          </div>
           <div className="modal-footer">
             <button className="button SaveButton" onClick={this.Save}>
-              Сохранить изменения
+              Сохранить
             </button>
             <button className="button CloseButton" onClick={this.props.onClose}>
               Назад

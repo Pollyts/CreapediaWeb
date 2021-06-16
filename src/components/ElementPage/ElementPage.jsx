@@ -189,6 +189,7 @@ export default class ElementPage extends Component {
                 ))}
               </div>
             ) : (
+              <div className="container-center">
               <div className="relations">
                 {relations.map((folder) => (
                   <div key={folder.IdFirst}>
@@ -221,8 +222,10 @@ export default class ElementPage extends Component {
                   </div>
                 ))}
               </div>
+              </div>
             )}
           </div>
+          
           <img
             className="ImageElement"
             src={`data:image/jpeg;base64,${this.props.location.state.body.Image}`}

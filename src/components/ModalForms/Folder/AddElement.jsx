@@ -60,7 +60,6 @@ export default class AddElement extends Component{
             var element = e.target.files[index];
             form.append('image', element);
         }
-        form.append('parentfolderid', this.props.folder.Id);
         this.setState({ file: form, filepath: URL.createObjectURL(e.target.files[0])});
     }
     else if (this.state.file!=null)
@@ -88,7 +87,7 @@ export default class AddElement extends Component{
                 <label>{this.props.folder.Name}</label> <button className="button arrow"> -{'>'} </button>
                 </div> */}
                 <div className="modal-image">
-                <label className="formlabel">Фото:</label>   
+                <label className="formlabel">Изображение:</label>   
                 <label className="custom-file-upload">Загрузить изображение           
                 <input type="file" onChange={(e)=>this.handleImageChange(e)}/>  
                 </label>  

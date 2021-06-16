@@ -200,7 +200,7 @@ export default class AddTemplateElement extends Component {
           </div>
           <div className="modal-footer">
             <button className="button SaveButton" onClick={this.handleSubmit}>
-              Экспортировать
+              Добавить класс
             </button>
             <button className="button CloseButton" onClick={this.CloseWindow}>
               Отменить

@@ -17,7 +17,7 @@ async function SaveFolder (name, parentfolderid)
             console.log(response.status)});
 }
 
-export default class AddElement extends Component{
+export default class AddTemplateFolder extends Component{
     constructor(props){
         super(props);
         this.state={name:"", folders:null, breadCrumbs:null}
@@ -56,10 +56,10 @@ export default class AddElement extends Component{
                 <div className="modal-body">
                 <label className="formlabel"> Название:</label>
                 <input className="forminput" type="text" value={this.state.name} onChange={this.onChange}/>
-                <label className="formlabel">Расположение:</label>
+                {/* <label className="formlabel">Расположение:</label>
                 <div className="place">
                 <label>{this.props.folder.Name}</label> <button className="button arrow"> -{'>'} </button>
-                </div>
+                </div> */}
                 {/* <div>
                 <div>
                 {this.props.prevpages.map(bc=>

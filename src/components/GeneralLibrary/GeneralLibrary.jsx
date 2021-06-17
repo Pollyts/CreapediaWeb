@@ -1,41 +1,69 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import logo from "../App/logo4x.png";
+import './GeneralLibrary.css';
+
+async function ImportFromLibrary(importcompid, userid,type) {
+    await fetch(
+      process.env.REACT_APP_API_LIBRARY +
+        `/importfromlib?userid=${userid}&importcompid=${importcompid}`,
+      {
+        method: "GET", // или 'PUT'
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+  }
+
 
 export default class Library extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      templatecomponents: null,
+    breadCrumbs:this.props.location.state.breadCrumbs,
       components: null,
       showcomponents: true
     };
   }
 
+  
+
+  Import = (param) => async e => {
+    await ImportFromLibrary(param)
+    if(this.state.showcomponents)
+    {
+        alert('Элемент успешно перенесён в раздел "Проекты", папка "Импорт"');
+    }
+    else{
+        alert('Элемент успешно перенесён в раздел "Библиотека", папка "Импорт"');
+    }    
+  };
+
   ChangeShow = (param) => (e) => {
     this.setState({ showcomponents: param });
   };
 
-  async GetTemplateComponents(parentid) {
+  async GetLibrary() {
     const breadCrumbs = this.props.location.state.breadCrumbs;
     const index = breadCrumbs
-      .map(function (e) {
-        return e.body.Id;
-      })
-      .indexOf(this.props.location.state.body.Id);
-    
-    if (index === -1) {
-      breadCrumbs.push({
-        title: this.props.location.state.body.Name,
-        path: `/library`,
-        body: {
-          Name: this.props.location.state.body.Name,
-          Id: this.props.location.state.body.Id,
-        },
-      });
-    } else {
-      breadCrumbs.length = index + 1;
-    }
+    .map(function (e) {
+      return e.body.Id;
+    })
+    .indexOf(0);
+  // const index=breadCrumbs.indexOf(elem => elem.path==`/template/${this.props.match.params.id}/${this.props.match.params.name}`);
+  if (index === -1) {
+    breadCrumbs.push({
+      title: 'Общая библиотека',
+      path: `/library`,
+      body: {
+        Name: 'Общая библиотека',
+        Id: 0,
+      },
+    });
+  } else {
+    breadCrumbs.length = index + 1;
+  }
     await fetch(
       process.env.REACT_APP_API_LIBRARY + `/all`
     )
@@ -44,64 +72,27 @@ export default class Library extends Component {
       })
       .then((data) => {
         this.setState({
-          templatecharacteristics: data,
+          components: data,
           breadCrumbs: breadCrumbs,
         });
       })
       .catch((err) => console.log(err));
-    console.log(this.state);
   }
-  async GetCharacteristics(parentid) {
-    await fetch(process.env.REACT_APP_API_CHARACTERISTICS + `/${parentid}`)
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        this.setState({ characteristics: data });
-      })
-      .catch((err) => console.log(err));
-  }
-
-  async GetRelations(parentid) {
-    await fetch(process.env.REACT_APP_API_RELATIONS + `/${parentid}`)
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        this.setState({ relations: data });
-      })
-      .catch((err) => console.log(err));
-  }
-
+  
   async componentDidMount() {
-    await this.GetTemplateCharacteristics(this.props.location.state.body.Id);
-    await this.GetCharacteristics(this.props.location.state.body.Id);
-    await this.GetRelations(this.props.location.state.body.Id);
+    await this.GetLibrary();
   }
 
   render() {
-    if (!this.state.templatecharacteristics || !this.state.characteristics) {
+    if (!this.state.components) {
       return <div />;
     }
     const {
-      templatecharacteristics,
-      characteristics,
-      breadCrumbs,
-      showcharacreristics,
-      relations,
+        breadCrumbs,
+        components,
+        showcomponents
     } = this.state; //сначала
-    const array = templatecharacteristics.map(function (item) {
-      return { idparent: item.IdParent, name: item.NameParent };
-    });
-    var setObj = new Set(); // create key value pair from array of array
-
-    var groups = array.reduce((acc, item) => {
-      if (!setObj.has(item.idparent)) {
-        setObj.add(item.idparent, item);
-        acc.push(item);
-      }
-      return acc;
-    }, []); //converting back to array from mapobject
+    
     return (
       <div>
         <div className="Header">
@@ -138,10 +129,65 @@ export default class Library extends Component {
             <img className="logo" src={logo} alt="toolbaritem" />
           </div>
         </div>
-        <div className="ElementBody">
-          <div className="Characteristics">            
-          </div>
+        <div className="libmenu">
+          {showcomponents ? (
+              <div>
+              <div className="ShowMenu">
+                <button className="button current">элементы</button>
+                <button className="button" onClick={this.ChangeShow(false)}>
+                  классы
+                </button>
+              </div>
+              <table className="LibTable">
+  <tr>
+    <td className="td-header">Название</td>
+    <td className="td-header">Тип</td>
+    <td className="td-header">Пароль</td>
+    <td className="td-header"></td>
+  </tr>
+  {components.filter(
+        (rel) => rel.Typeofcomponent==="папка с элементами" || rel.Typeofcomponent==="элемент"
+      ).map((folder) => (
+                  <tr key={folder.Id}>
+                      <td>{folder.Name}</td>
+                      <td>{folder.Typeofcomponent}</td>
+                      <td>{folder.Password==null?<div>Нет</div>:<div>Есть</div>}</td>
+                      <td className="ImportButton" onClick={this.Import(folder.Id)}>Импорт</td>
+                  </tr>
+                ))}
+</table>
+              </div>
+            ) : (
+                <div>
+              <div className="ShowMenu">
+                <button className="button" onClick={this.ChangeShow(true)}>
+                  элементы
+                </button>
+                <button className="button current">классы</button>
+              </div>
+              <table className="LibTable">
+  <tr>
+    <td className="td-header">Название</td>
+    <td className="td-header">Тип</td>
+    <td className="td-header">Пароль</td>
+    <td className="td-header"></td>
+  </tr>
+  {components.filter(
+        (rel) => rel.Typeofcomponent==="папка с классами" || rel.Typeofcomponent==="класс"
+      ).map((folder) => (
+                  <tr key={folder.Id}>
+                      <td>{folder.Name}</td>
+                      <td>{folder.Typeofcomponent}</td>
+                      <td>{folder.Password==null?<div>Нет</div>:<div>Есть</div>}</td>
+                      <td className="ImportButton" onClick={this.Import(folder.Id)}>Импорт</td>
+                  </tr>
+                ))}
+</table>
+             
+              </div>
+            )}   
         </div>
+        
       </div>
     );
   }

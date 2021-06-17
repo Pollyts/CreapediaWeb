@@ -1,0 +1,37 @@
+.libmenu{
+margin-top: 10px;
+}
+
+.LibTable{
+    width: -webkit-fill-available;
+    height: 100%;
+    box-sizing: border-box;
+    margin: 30px;
+    font-size: 21px;
+    border: 2px solid #FFECDD;
+    border-radius: 25px;
+    overflow-y: auto;
+    overflow-x: hidden;   
+    border-collapse: separate; 
+    border-spacing: 0
+}
+
+.td-header{
+font-family: 'Alegreya';
+text-align: center;
+border:none
+/* border: 2px solid #FFECDD; */
+
+}
+td{
+    text-align: center;
+    padding: 5px 0px;
+border-top: 2px solid #FFECDD;
+}
+
+.ImportButton:hover{
+    background-color: #427696;
+    cursor: pointer;
+    overflow: hidden;
+    border-radius: 50px;
+}

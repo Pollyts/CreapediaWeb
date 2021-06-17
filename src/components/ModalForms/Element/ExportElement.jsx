@@ -66,15 +66,15 @@ export default class ExportElement extends Component {
   handleSubmit = async (e) => {
     e.preventDefault();
     if (this.state.exporttype === "user") {
-      await ExportToUser(this.props.folder.Id, this.state.body);
+      await ExportToUser(this.props.element.Id, this.element.body);
     } else if (this.state.exporttype === "library") {
       await ExportToLibrary(
-        this.props.folder.Id,
-        this.props.folder.Name,
+        this.props.element.Id,
+        this.props.element.Name,
         this.state.body
       );
     } else if (this.state.exporttype === "folder") {
-      await ExportToFolder(this.props.folder.Id, this.state.path.Id);
+      await ExportToFolder(this.props.element.Id, this.state.path.Id);
     }
     this.props.onClose();
   };

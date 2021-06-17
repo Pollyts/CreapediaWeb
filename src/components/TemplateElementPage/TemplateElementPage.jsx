@@ -74,7 +74,12 @@ export default class TemplateElementPage extends Component {
 
   render() {
     if (!this.state.templatecharacteristics || !this.state.characteristics) {
-      return <div />;
+      return <div className="waitingpage">
+        <div className="Loading">
+        <img className="logo" src={logo} alt="toolbaritem" />
+        <label className="formlabel">Загрузка...</label>
+        </div>
+      </div>;
     }
     const {
       templatecharacteristics,
@@ -113,6 +118,7 @@ export default class TemplateElementPage extends Component {
             ))}
           </div>
           <div className="settingsinheader">
+          <input type="text" className="search" placeholder="поиск" ></input>
             <Link
               to={{ pathname: `/library`, state: { breadCrumbs: breadCrumbs } }}
             >

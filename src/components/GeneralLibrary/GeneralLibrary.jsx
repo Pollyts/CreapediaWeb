@@ -85,7 +85,12 @@ export default class Library extends Component {
 
   render() {
     if (!this.state.components) {
-      return <div />;
+      return <div className="waitingpage">
+        <div className="Loading">
+        <img className="logo" src={logo} alt="toolbaritem" />
+        <label className="formlabel">Загрузка...</label>
+        </div>
+      </div>;
     }
     const {
         breadCrumbs,
@@ -113,7 +118,7 @@ export default class Library extends Component {
             ))}
           </div>
           <div className="settingsinheader">
-          <input type="text" placeholder="поиск"></input>            
+          <input type="text" className="search" placeholder="поиск" ></input>            
             <Link
               to={{ pathname: `/library`, state: { breadCrumbs: breadCrumbs } }}
             >

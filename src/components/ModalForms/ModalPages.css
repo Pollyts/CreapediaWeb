@@ -18,14 +18,16 @@
 display: flex;
 justify-content: space-between;
 cursor: pointer;
-padding: 4px 16px;
-width: 100%;
+margin: 4px 16px;
+padding: 0px 5px;
+width: -webkit-fill-available;
 
 }
 
 
 
 .libcomponent:hover{
+    border-radius: 50px;
     background-color: #79A6B1;
     
 }

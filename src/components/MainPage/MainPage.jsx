@@ -61,7 +61,12 @@ export default class MainPage extends Component {
 
   render() {
     if (!this.state.user || !this.state.mainfolders) {
-      return <div />;
+      return <div className="waitingpage">
+        <div className="Loading">
+        <img className="logo" src={logo} alt="toolbaritem" />
+        <label className="formlabel">Загрузка...</label>
+        </div>
+      </div>;
     }
     const mainfolders = this.state.mainfolders;
     const breadCrumbs = [

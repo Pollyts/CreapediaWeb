@@ -56,9 +56,11 @@ export default class ImportFolder extends Component {
     if (this.state.importtype === "fromfolder") {
       await ImportFromFolder(this.props.folder.Id, this.state.path.Id, this.state.path.type);
       this.props.onClose();
+      window.location.reload();
     } else if (this.state.importtype === "fromlibrary") {
       await ImportFromLibrary(this.props.folder.Id,this.state.selcomp.Id,this.state.body);
       this.props.onClose();
+      window.location.reload();
     } else alert("Выберите тип импорта");
   };
 
@@ -103,7 +105,7 @@ export default class ImportFolder extends Component {
       });
     } else {
       let libcomps;
-      await fetch(process.env.REACT_APP_API_LIBRARY + `/папка`)
+      await fetch(process.env.REACT_APP_API_LIBRARY + `/папка с элементами`)
         .then((response) => {
           return response.json();
         })
@@ -288,7 +290,7 @@ export default class ImportFolder extends Component {
                   </div>
                 </div>
                 <div className="exportdiv">
-                  <label className="formlabel"> Задайте пароль:</label>
+                  <label className="formlabel"> Введите пароль:</label>
                   <input
                     className="forminput"
                     type="text"

@@ -30,6 +30,23 @@
     margin-top: -30px;
 }
 
+.Loading{
+display: flex;
+flex-direction: column;
+}
+
+.waitingpage{
+    position: fixed;
+    left: 0;
+    top:0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(237, 213, 196);    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .search{
     border-radius: 50px;
     border: 1px solid #427696;
@@ -68,6 +85,7 @@
     background-color: #EDD5C4;
     color: #427696;
     font-size: 24px;
+    text-align: center;
     font-family: 'Alegreya';
     justify-content: center; /* align horizontal */
     align-items: center; /* align vertical */    

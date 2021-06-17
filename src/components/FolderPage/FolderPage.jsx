@@ -71,6 +71,9 @@ export default class FolderPage extends Component {
     if (
       prevProps.location.state.body.Id !== this.props.location.state.body.Id
     ) {
+      this.setState({
+        search:"", folders: null, elements: null, breadCrumbs: null
+      })
       await this.GetFolders(this.props.location.state.body.Id);
       await this.GetElements(this.props.location.state.body.Id);
       // window.location.reload();
@@ -79,7 +82,12 @@ export default class FolderPage extends Component {
 
   render() {
     if (!this.state.folders || !this.state.elements) {
-      return <div />;
+      return <div className="waitingpage">
+        <div className="Loading">
+        <img className="logo" src={logo} alt="toolbaritem" />
+        <label className="formlabel">Загрузка...</label>
+        </div>
+      </div>;
     }
     const { folders, elements, breadCrumbs } = this.state; //сначала
     return (

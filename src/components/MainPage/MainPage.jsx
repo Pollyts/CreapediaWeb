@@ -100,7 +100,7 @@ export default class MainPage extends Component {
             >
               {<button className="btn_logout">общая библиотека</button>}
             </Link>
-            <Link to={{ pathname: "/settings" }}>
+            <Link to={{ pathname: "/settings" , state: { breadCrumbs: breadCrumbs }}}>
               {<button className="btn_logout">настройки</button>}
             </Link>
             {

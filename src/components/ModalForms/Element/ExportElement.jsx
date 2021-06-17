@@ -14,7 +14,7 @@ async function ExportToUser(elementid, usermail) {
     }
   );
 }
-async function ExportToLibrary(elementid,name, password) {
+async function ExportToLibrary(elementid, name, password) {
   await fetch(
     process.env.REACT_APP_API_ELEMENTS +
       `/exporttolibrary?elementid=${elementid}&name=${name}&password=${password}`,
@@ -31,24 +31,28 @@ async function ExportToFolder(elementid, newrootid) {
     process.env.REACT_APP_API_ELEMENTS +
       `/exporttofolder?elementid=${elementid}&newrootid=${newrootid}`,
     {
-      method: "GET", // или 'PUT'
+      method: "GET",
       headers: {
         "Content-Type": "application/json",
       },
     }
   );
 }
-
 export default class ExportElement extends Component {
   constructor(props) {
     super(props);
     console.log(this.props);
     this.state = {
       exporttype: null,
-      body: '',
-      path: { Name: this.props.prevpages[this.props.prevpages.length-2].Name, Id: this.props.prevpages[this.props.prevpages.length-2].Id},
+      body: "",
+      path: {
+        Name: this.props.prevpages[this.props.prevpages.length - 2].Name,
+        Id: this.props.prevpages[this.props.prevpages.length - 2].Id,
+      },
       folders: null,
-      breadCrumbs: this.props.prevpages.filter((rel) => rel.body.Id !== this.props.element.Id),
+      breadCrumbs: this.props.prevpages.filter(
+        (rel) => rel.body.Id !== this.props.element.Id
+      ),
       text: "Показать",
     };
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -64,7 +68,11 @@ export default class ExportElement extends Component {
     if (this.state.exporttype === "user") {
       await ExportToUser(this.props.folder.Id, this.state.body);
     } else if (this.state.exporttype === "library") {
-      await ExportToLibrary(this.props.folder.Id, this.props.folder.Name, this.state.body);
+      await ExportToLibrary(
+        this.props.folder.Id,
+        this.props.folder.Name,
+        this.state.body
+      );
     } else if (this.state.exporttype === "folder") {
       await ExportToFolder(this.props.folder.Id, this.state.path.Id);
     }
@@ -106,7 +114,10 @@ export default class ExportElement extends Component {
   };
 
   async showlocation(event) {
-    await fetch(process.env.REACT_APP_API_FOLDERS + `/${this.state.breadCrumbs[this.state.breadCrumbs.length-1].body.Id}`)
+    await fetch(
+      process.env.REACT_APP_API_FOLDERS +
+        `/${this.state.breadCrumbs[this.state.breadCrumbs.length - 1].body.Id}`
+    )
       .then((response) => {
         return response.json();
       })
@@ -122,10 +133,14 @@ export default class ExportElement extends Component {
     if (event.target.value === "folder") {
       this.setState({
         exporttype: event.target.value,
-        path: { Name: this.state.breadCrumbs[this.state.breadCrumbs.length-1].body.Name, Id: this.state.breadCrumbs[this.state.breadCrumbs.length-1].body.Id },
+        path: {
+          Name: this.state.breadCrumbs[this.state.breadCrumbs.length - 1].body
+            .Name,
+          Id: this.state.breadCrumbs[this.state.breadCrumbs.length - 1].body.Id,
+        },
       });
     } else {
-      this.setState({ exporttype: event.target.value, body:'' });
+      this.setState({ exporttype: event.target.value, body: "" });
     }
     console.log("wow");
   }
@@ -140,16 +155,21 @@ export default class ExportElement extends Component {
     if (prevProps.element.Id !== this.props.element.Id) {
       this.setState({
         exporttype: null,
-      body: '',
-      path: { Name: this.props.prevpages[this.props.prevpages.length-1].Name, Id: this.props.prevpages[this.props.prevpages.length-1].Id},
-      folders: null,
-      breadCrumbs: this.props.prevpages.filter((rel) => rel.body.Id !== this.props.element.Id),
-      text: "Показать",
+        body: "",
+        path: {
+          Name: this.props.prevpages[this.props.prevpages.length - 1].Name,
+          Id: this.props.prevpages[this.props.prevpages.length - 1].Id,
+        },
+        folders: null,
+        breadCrumbs: this.props.prevpages.filter(
+          (rel) => rel.body.Id !== this.props.element.Id
+        ),
+        text: "Показать",
       });
     }
   }
 
-  render() {  
+  render() {
     if (!this.props.show) {
       return null;
     }
@@ -186,86 +206,86 @@ export default class ExportElement extends Component {
                 библиотеку
               </div>
             </div>
-          
-          {this.state.exporttype === "user" ? (
-            <div className="exportdiv">
-              <label className="formlabel"> Введите почту получателя:</label>
-              <input
-                className="forminput"
-                type="text"
-                value={this.state.body}
-                onChange={this.onMailChange}
-              />
-            </div>
-          ) : null}
-          {this.state.exporttype === "library" ? (
-            <div className="exportdiv">
-              <label className="formlabel"> Задайте пароль:</label>
-              <input
-                className="forminput"
-                type="text"
-                value={this.state.body}
-                onChange={this.onPasswordChange}
-              />
-            </div>
-          ) : null}
-          {this.state.exporttype === "folder" ? (
-            <div className="exportdiv">
-              <label className="formlabel">Экспорт в папку:</label>
-              <div className="selectedpath">
-                <label>{this.state.path.Name}</label>{" "}
-                <button className="arrow" onClick={this.showlocation}>
-                  {" "}
-                  {this.state.text}{" "}
-                  {this.state.text === "Показать" ? (
-                    <div>&ensp;&darr;</div>
-                  ) : (
-                    <div>&ensp;&uarr;</div>
-                  )}{" "}
-                </button>
-              </div>
 
-              <div className="place">
-                {this.state.text === "Показать" ? null : (
-                  <div className="parentwindowforselectingpath">
-                    <div className="modalbreadcrumbs">
-                      {this.state.breadCrumbs.slice(1).map((bc) => (
-                        <div key={bc.title} className="gt">
-                          <button
-                            className="BreadCrumb withoutframe"
-                            onClick={this.changedirectory({
-                              Id: bc.body.Id,
-                              Name: bc.body.Name,
-                            })}
-                          >
-                            {bc.title}
-                          </button>
-                          &ensp;&rarr;&ensp;
-                        </div>
-                      ))}
-                    </div>
-                    <div className="windowforselectingpath">
-                      <div className="modalfolders">
-                        {this.state.folders.map((folder) => (
-                          <div key={folder.Id}>
+            {this.state.exporttype === "user" ? (
+              <div className="exportdiv">
+                <label className="formlabel"> Введите почту получателя:</label>
+                <input
+                  className="forminput"
+                  type="text"
+                  value={this.state.body}
+                  onChange={this.onMailChange}
+                />
+              </div>
+            ) : null}
+            {this.state.exporttype === "library" ? (
+              <div className="exportdiv">
+                <label className="formlabel"> Задайте пароль:</label>
+                <input
+                  className="forminput"
+                  type="text"
+                  value={this.state.body}
+                  onChange={this.onPasswordChange}
+                />
+              </div>
+            ) : null}
+            {this.state.exporttype === "folder" ? (
+              <div className="exportdiv">
+                <label className="formlabel">Экспорт в папку:</label>
+                <div className="selectedpath">
+                  <label>{this.state.path.Name}</label>{" "}
+                  <button className="arrow" onClick={this.showlocation}>
+                    {" "}
+                    {this.state.text}{" "}
+                    {this.state.text === "Показать" ? (
+                      <div>&ensp;&darr;</div>
+                    ) : (
+                      <div>&ensp;&uarr;</div>
+                    )}{" "}
+                  </button>
+                </div>
+
+                <div className="place">
+                  {this.state.text === "Показать" ? null : (
+                    <div className="parentwindowforselectingpath">
+                      <div className="modalbreadcrumbs">
+                        {this.state.breadCrumbs.slice(1).map((bc) => (
+                          <div key={bc.title} className="gt">
                             <button
-                              className="modalbuttonfolder"
+                              className="BreadCrumb withoutframe"
                               onClick={this.changedirectory({
-                                Id: folder.Id,
-                                Name: folder.Name,
+                                Id: bc.body.Id,
+                                Name: bc.body.Name,
                               })}
                             >
-                              <div>{folder.Name}</div>
+                              {bc.title}
                             </button>
+                            &ensp;&rarr;&ensp;
                           </div>
                         ))}
                       </div>
+                      <div className="windowforselectingpath">
+                        <div className="modalfolders">
+                          {this.state.folders.map((folder) => (
+                            <div key={folder.Id}>
+                              <button
+                                className="modalbuttonfolder"
+                                onClick={this.changedirectory({
+                                  Id: folder.Id,
+                                  Name: folder.Name,
+                                })}
+                              >
+                                <div>{folder.Name}</div>
+                              </button>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                )}
+                  )}
+                </div>
               </div>
-            </div>
-          ) : null}
+            ) : null}
           </div>
           <div className="modal-footer">
             <button className="button SaveButton" onClick={this.handleSubmit}>

@@ -136,14 +136,14 @@ export default class ElementPage extends Component {
             >
               {<button className="btn_logout">общая библиотека</button>}
             </Link>
-            <Link to={{ pathname: "/settings" }}>
+            <Link to={{ pathname: "/settings" , state: { breadCrumbs: breadCrumbs }}}>
               {<button className="btn_logout">настройки</button>}
             </Link>
             {
               <button className="btn_logout" onClick={this.handleClick}>
                 выход
               </button>
-            }            
+            }
             <img className="logo" src={logo} alt="toolbaritem" />
           </div>
         </div>

@@ -85,10 +85,21 @@ export default class TemplatePage extends Component{
                         </div>)}
                         </div> 
                         <div className="settingsinheader">
-              {<button className="btn_logout" onClick={this.handleClick}>настройки</button>}
-              {<button className="btn_logout" onClick={this.handleClick}>выход</button>}
-              <img className="logo" src={logo} alt="toolbaritem"/>
-              </div>
+            <Link
+              to={{ pathname: `/library`, state: { breadCrumbs: breadCrumbs } }}
+            >
+              {<button className="btn_logout">общая библиотека</button>}
+            </Link>
+            <Link to={{ pathname: "/settings" , state: { breadCrumbs: breadCrumbs }}}>
+              {<button className="btn_logout">настройки</button>}
+            </Link>
+            {
+              <button className="btn_logout" onClick={this.handleClick}>
+                выход
+              </button>
+            }
+            <img className="logo" src={logo} alt="toolbaritem" />
+          </div>
                         </div>   
                                                
             <div className="listview">              

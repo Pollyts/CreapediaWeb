@@ -31,7 +31,7 @@ async function ExportToFolder(elementid, newrootid) {
     process.env.REACT_APP_API_TEMPLATEELEMENTS +
       `/exporttofolder?elementid=${elementid}&newrootid=${newrootid}`,
     {
-      method: "GET", // или 'PUT'
+      method: "GET", 
       headers: {
         "Content-Type": "application/json",
       },

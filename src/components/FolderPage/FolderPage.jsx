@@ -23,8 +23,7 @@ export default class FolderPage extends Component {
       .map(function (e) {
         return e.body.Id;
       })
-      .indexOf(this.props.location.state.body.Id);
-    // const index=breadCrumbs.indexOf(elem => elem.path==`/template/${this.props.match.params.id}/${this.props.match.params.name}`);
+      .indexOf(this.props.location.state.body.Id);    
     if (index === -1) {
       breadCrumbs.push({
         title: this.props.location.state.body.Name,
@@ -98,14 +97,20 @@ export default class FolderPage extends Component {
             ))}
           </div>          
           <div className="settingsinheader">
-          <Link to={{pathname:`/library`, state: {breadCrumbs:breadCrumbs}}}>
+            <Link
+              to={{ pathname: `/library`, state: { breadCrumbs: breadCrumbs } }}
+            >
               {<button className="btn_logout">общая библиотека</button>}
-              </Link>          
-          <Link to={{pathname:"/settings"}} >
+            </Link>
+            <Link to={{ pathname: "/settings", state: { breadCrumbs: breadCrumbs } }}>
               {<button className="btn_logout">настройки</button>}
-              </Link>    
-              {<button className="btn_logout" onClick={this.handleClick}>выход</button>}                                        
-              <img className="logo" src={logo} alt="toolbaritem"/>
+            </Link>
+            {
+              <button className="btn_logout" onClick={this.handleClick}>
+                выход
+              </button>
+            }
+            <img className="logo" src={logo} alt="toolbaritem" />
           </div>
         </div>
 

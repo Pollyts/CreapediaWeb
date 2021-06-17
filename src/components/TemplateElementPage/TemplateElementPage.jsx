@@ -12,7 +12,15 @@ export default class TemplateElementPage extends Component {
       breadCrumbs: null,
       characteristics: null
     };
+    this.handleClick = this.handleClick.bind(this)
   }
+
+  handleClick(e) {
+    e.preventDefault();
+    this.props.history.push("/");
+    localStorage.clear();    
+    window.location.reload();      
+  }    
 
   async GetTemplateCharacteristics(parentid) {
     const breadCrumbs = this.props.location.state.breadCrumbs;
@@ -110,14 +118,14 @@ export default class TemplateElementPage extends Component {
             >
               {<button className="btn_logout">общая библиотека</button>}
             </Link>
-            <Link to={{ pathname: "/settings" }}>
+            <Link to={{ pathname: "/settings", state: { breadCrumbs: breadCrumbs } }}>
               {<button className="btn_logout">настройки</button>}
             </Link>
             {
               <button className="btn_logout" onClick={this.handleClick}>
                 выход
               </button>
-            }            
+            }
             <img className="logo" src={logo} alt="toolbaritem" />
           </div>
         </div>

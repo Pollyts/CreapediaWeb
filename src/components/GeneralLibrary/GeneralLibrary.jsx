@@ -113,6 +113,7 @@ export default class Library extends Component {
             ))}
           </div>
           <div className="settingsinheader">
+          <input type="text" placeholder="поиск"></input>            
             <Link
               to={{ pathname: `/library`, state: { breadCrumbs: breadCrumbs } }}
             >

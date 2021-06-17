@@ -7,14 +7,19 @@ import "./FolderPage.css";
 export default class FolderPage extends Component {
   constructor(props) {
     super(props);
-    this.state = { folders: null, elements: null, breadCrumbs: null };
+    this.state = { search:"", folders: null, elements: null, breadCrumbs: null };
     this.handleClick = this.handleClick.bind(this);
+    this.Search = this.Search.bind(this);
   }
   handleClick(e) {
     e.preventDefault();
     this.props.history.push("/");
     localStorage.clear();
     window.location.reload();
+  }
+
+  Search(e) {
+    this.setState({search: e.target.value})
   }
 
   async GetFolders(parentid) {
@@ -41,7 +46,7 @@ export default class FolderPage extends Component {
         return response.json();
       })
       .then((data) => {
-        this.setState({ folders: data, breadCrumbs: breadCrumbs });
+        this.setState({ folders: data, breadCrumbs: breadCrumbs , search:"  "});
       })
       .catch((err) => console.log(err));
     console.log(this.state);
@@ -97,6 +102,7 @@ export default class FolderPage extends Component {
             ))}
           </div>          
           <div className="settingsinheader">
+          <input type="text" className="search" onChange={this.Search} placeholder="поиск" ></input>
             <Link
               to={{ pathname: `/library`, state: { breadCrumbs: breadCrumbs } }}
             >
@@ -113,8 +119,7 @@ export default class FolderPage extends Component {
             <img className="logo" src={logo} alt="toolbaritem" />
           </div>
         </div>
-
-        <div className="listview">
+        {this.state.search==='  '?<div className="listview">
           {folders.map((folder) => (
             <div key={folder.Id}>
               <Link
@@ -147,8 +152,48 @@ export default class FolderPage extends Component {
                 <div className="NameElementOfList">{el.Name}</div>
               </Link>
             </div>
+          ))}          
+        </div>:<div className="listview">
+          {folders.filter(
+          (rel) => rel.Name.includes(this.state.search)
+        ).map((folder) => (
+            <div key={folder.Id}>
+              <Link
+                className="folderinlist"
+                to={{
+                  pathname: `/projects`,
+                  state: { breadCrumbs: breadCrumbs, body: folder },
+                }}
+              >
+                <div className="NameElementOfList">{folder.Name}</div>
+              </Link>
+            </div>
           ))}
-        </div>
+          {elements.filter(
+          (rel) => rel.Name.includes(this.state.search)
+        ).map((el) => (
+            <div key={el.Id}>
+              <Link
+                className="elementinlist"
+                to={{
+                  pathname: `/element`,
+                  state: { breadCrumbs: breadCrumbs, body: el },
+                }}
+              >
+                {el.Image!==null?
+                <img
+                  className="elementimage"
+                  src={`data:image/jpeg;base64,${el.Image}`}
+                  alt="No Image"
+                />
+  :<div className="NoImage">No Image</div>}
+                <div className="NameElementOfList">{el.Name}</div>
+              </Link>
+            </div>
+          ))}          
+        </div>}
+
+        
         <div className="foldercomponents">
           <Toolbar
             previouspages={breadCrumbs}

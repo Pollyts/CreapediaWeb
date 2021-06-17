@@ -29,6 +29,17 @@
     align-self: center;
     margin-top: -30px;
 }
+
+.search{
+    border-radius: 50px;
+    border: 1px solid #427696;
+    background-color: transparent;
+    padding: 0px 10px;
+    line-height: 1.5;
+    outline: none;
+
+    
+}
 .folderinlist{
     position: relative;
     margin: 10px;

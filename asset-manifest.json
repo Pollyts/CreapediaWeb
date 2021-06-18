@@ -1,26 +1,26 @@
 {
   "files": {
-    "main.css": "/CreapediaWeb/static/css/main.2734b5a6.chunk.css",
-    "main.js": "/CreapediaWeb/static/js/main.50637e87.chunk.js",
-    "main.js.map": "/CreapediaWeb/static/js/main.50637e87.chunk.js.map",
-    "runtime-main.js": "/CreapediaWeb/static/js/runtime-main.4f67ef2b.js",
-    "runtime-main.js.map": "/CreapediaWeb/static/js/runtime-main.4f67ef2b.js.map",
+    "main.css": "/CreapediaWeb/static/css/main.f887711e.chunk.css",
+    "main.js": "/CreapediaWeb/static/js/main.c5fe0e7d.chunk.js",
+    "main.js.map": "/CreapediaWeb/static/js/main.c5fe0e7d.chunk.js.map",
+    "runtime-main.js": "/CreapediaWeb/static/js/runtime-main.0f24dfa9.js",
+    "runtime-main.js.map": "/CreapediaWeb/static/js/runtime-main.0f24dfa9.js.map",
     "static/css/2.679831fc.chunk.css": "/CreapediaWeb/static/css/2.679831fc.chunk.css",
-    "static/js/2.4469648f.chunk.js": "/CreapediaWeb/static/js/2.4469648f.chunk.js",
-    "static/js/2.4469648f.chunk.js.map": "/CreapediaWeb/static/js/2.4469648f.chunk.js.map",
-    "static/js/3.4098a097.chunk.js": "/CreapediaWeb/static/js/3.4098a097.chunk.js",
-    "static/js/3.4098a097.chunk.js.map": "/CreapediaWeb/static/js/3.4098a097.chunk.js.map",
+    "static/js/2.2661139c.chunk.js": "/CreapediaWeb/static/js/2.2661139c.chunk.js",
+    "static/js/2.2661139c.chunk.js.map": "/CreapediaWeb/static/js/2.2661139c.chunk.js.map",
+    "static/js/3.0c42a1c5.chunk.js": "/CreapediaWeb/static/js/3.0c42a1c5.chunk.js",
+    "static/js/3.0c42a1c5.chunk.js.map": "/CreapediaWeb/static/js/3.0c42a1c5.chunk.js.map",
     "index.html": "/CreapediaWeb/index.html",
     "static/css/2.679831fc.chunk.css.map": "/CreapediaWeb/static/css/2.679831fc.chunk.css.map",
-    "static/css/main.2734b5a6.chunk.css.map": "/CreapediaWeb/static/css/main.2734b5a6.chunk.css.map",
-    "static/js/2.4469648f.chunk.js.LICENSE.txt": "/CreapediaWeb/static/js/2.4469648f.chunk.js.LICENSE.txt",
+    "static/css/main.f887711e.chunk.css.map": "/CreapediaWeb/static/css/main.f887711e.chunk.css.map",
+    "static/js/2.2661139c.chunk.js.LICENSE.txt": "/CreapediaWeb/static/js/2.2661139c.chunk.js.LICENSE.txt",
     "static/media/logo4x.bffe58ac.png": "/CreapediaWeb/static/media/logo4x.bffe58ac.png"
   },
   "entrypoints": [
-    "static/js/runtime-main.4f67ef2b.js",
+    "static/js/runtime-main.0f24dfa9.js",
     "static/css/2.679831fc.chunk.css",
-    "static/js/2.4469648f.chunk.js",
-    "static/css/main.2734b5a6.chunk.css",
-    "static/js/main.50637e87.chunk.js"
+    "static/js/2.2661139c.chunk.js",
+    "static/css/main.f887711e.chunk.css",
+    "static/js/main.c5fe0e7d.chunk.js"
   ]
 }
